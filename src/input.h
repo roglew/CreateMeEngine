@@ -1,11 +1,18 @@
 #include <vector>
-#include <SFML/system.hpp>
+#include <string>
+#include <SFML/Window.hpp>
 
 struct ButtonStatus
 {
 	bool pressed;
 	bool released;
 	bool down;
+};
+
+struct WindowStatus
+{
+	bool closed, resized, lost_focus, gained_focus, text_entered;
+	string entered_text;
 };
 
 class Input
@@ -16,10 +23,13 @@ class Input
 		std::vector<ButtonStatus> mouse_button_state(sf::Mouse::ButtonCount);
 	
 	public:
-		void update(sf::Event);
+		void update(sf::Window);
 		// MODIFIES: this
 		// EFFECTS:  Updates the input state from the given event. Should only
 		//           be called once per frame
+
+		WindowStatus window_events();
+		// EFFECTS: Returns a WindowStatus struct to handle window events
 
 		ButtonStatus key_state(sf::Keyboard::Key);
 		// EFFECTS: Returns a ButtonState struct that contains if the key is
