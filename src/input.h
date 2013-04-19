@@ -24,6 +24,7 @@ class Input
 		sf::Vector2f mouse_position;
 		std::vector<ButtonStatus> key_states;
 		std::vector<ButtonStatus> mouse_states;
+		WindowStatus window_status;
 	
 	public:
 		Input();

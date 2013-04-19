@@ -6,6 +6,31 @@ Input::Input()
 {
 	key_states.reserve(sf::Keyboard::KeyCount);
 	mouse_states.reserve(sf::Mouse::ButtonCount);
+
+	// Initialize everything to 0/false
+
+	// Window events
+	window_status.closed = false;
+	window_status.resized = false;
+	window_status.lost_focus = false;
+	window_status.gained_focus = false;
+	window_status.text_entered = "";
+
+	// Keyboard events
+	for (int i=0; i < key_states.size(); i++)
+	{
+		key_states[i].pressed  = false;
+		key_states[i].released = false;
+		key_states[i].down     = false;
+	}
+
+	// Mouse events
+	for (int i=0; i < mouse_states.size(); i++)
+	{
+		mouse_states[i].pressed  = false;
+		mouse_states[i].released = false;
+		mouse_states[i].down     = false;
+	}
 }
 
 void Input::update(sf::Window window)
