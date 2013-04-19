@@ -15,6 +15,7 @@ struct ButtonStatus
 struct WindowStatus
 {
 	bool closed, resized, lost_focus, gained_focus, text_entered;
+	bool mouse_is_in_window, has_focus;
 	std::string entered_text;
 };
 

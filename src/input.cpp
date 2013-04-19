@@ -7,14 +7,16 @@ Input::Input()
 	key_states.reserve(sf::Keyboard::KeyCount);
 	mouse_states.reserve(sf::Mouse::ButtonCount);
 
-	// Initialize everything to 0/false
+	// Initialize everything to default values
 
 	// Window events
-	window_status.closed = false;
-	window_status.resized = false;
-	window_status.lost_focus = false;
-	window_status.gained_focus = false;
-	window_status.text_entered = "";
+	window_status.closed             = false;
+	window_status.resized            = false;
+	window_status.lost_focus         = false;
+	window_status.gained_focus       = false;
+	window_status.has_focus          = true;
+	window_status.mouse_is_in_window = true;
+	window_status.text_entered       = "";
 
 	// Keyboard events
 	for (int i=0; i < key_states.size(); i++)
@@ -36,6 +38,31 @@ Input::Input()
 void Input::update(sf::Window window)
 {
 	sf::Event event;
+
+	//// Reset the 1-frame events
+
+	// Keyboard
+	for (int i=0; i < key_states.size(); i++)
+	{
+		key_states[i].pressed  = false;
+		key_states[i].released = false;
+	}
+
+	// Mouse
+	for (int i=0; i < mouse_states.size(); i++)
+	{
+		mouse_states[i].pressed  = false;
+		mouse_states[i].released = false;
+	}
+
+	// Window
+	window_status.closed       = false;
+	window_status.resized      = false;
+	window_status.lost_focus   = false;
+	window_status.gained_focus = false;
+
+	//// Get the new events
+
 	while (window.pollEvent(event))
 	{
 		int mouse_button;
@@ -43,24 +70,36 @@ void Input::update(sf::Window window)
 		switch(event.type)
 		{
 			case sf::Event::Closed:
+				window_status.closed = true;
 			break;
 
 			case sf::Event::Resized:
+				window_status.resized = true;
 			break;
 
 			case sf::Event::LostFocus:
+				window_status.lost_focus = true;
+				window_status.has_focus = false;
 			break;
 
 			case sf::Event::GainedFocus:
+				window_status.gained_focus = true;
+				window_status.has_focus = true;
 			break;
 
 			case sf::Event::TextEntered:
 			break;
 
 			case sf::Event::KeyPressed:
+				keyboard_key = event.key.code;
+				key_states[keyboard_key].pressed = true;
+				key_states[keyboard_key].down = true;
 			break;
 
 			case sf::Event::KeyReleased:
+				keyboard_key = event.key.code;
+				key_states[keyboard_key].released = true;
+				key_states[keyboard_key].down = false;
 			break;
 
 			case sf::Event::MouseWheelMoved:
@@ -84,11 +123,13 @@ void Input::update(sf::Window window)
 			break;
 
 			case sf::Event::MouseEntered:
+				window_status.mouse_is_in_window = true;
 				mouse_position.x = event.mouseMove.x;
 				mouse_position.y = event.mouseMove.y;
 			break;
 
 			case sf::Event::MouseLeft:
+				window_status.mouse_is_in_window = false;
 			break;
 
 			case sf::Event::JoystickButtonPressed:
