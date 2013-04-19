@@ -1,3 +1,6 @@
+#ifndef __INPUT_H__
+#define __INPUT_H__
+
 #include <vector>
 #include <string>
 #include <SFML/Window.hpp>
@@ -12,17 +15,23 @@ struct ButtonStatus
 struct WindowStatus
 {
 	bool closed, resized, lost_focus, gained_focus, text_entered;
-	string entered_text;
+	std::string entered_text;
 };
 
 class Input
 {
 	private:
 		sf::Vector2f mouse_position;
-		std::vector<ButtonStatus> key_state(sf::Keyboard::KeyCount);
-		std::vector<ButtonStatus> mouse_button_state(sf::Mouse::ButtonCount);
+		std::vector<ButtonStatus> key_states;
+		std::vector<ButtonStatus> mouse_states;
 	
 	public:
+		Input();
+		// Constructor
+
+		~Input();
+		// Destructor
+
 		void update(sf::Window);
 		// MODIFIES: this
 		// EFFECTS:  Updates the input state from the given event. Should only
@@ -35,7 +44,7 @@ class Input
 		// EFFECTS: Returns a ButtonState struct that contains if the key is
 		//          held down,has been pressed this frame, or released this frame
 
-		ButtonStatus mouse_button_state(sf::Mouse::Button);
+		ButtonStatus mouse_state(sf::Mouse::Button);
 		// EFFECTS: Returns a ButtonState struct that contains if the button is
 		//          held down, has been pressed this frame, or released this frame
 
@@ -49,3 +58,5 @@ class Input
 		//          relative to the given window's view
 
 };
+
+#endif
