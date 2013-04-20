@@ -58,7 +58,7 @@ class Input
 		// EFFECTS: Returns a vector containing the position of the mouse cursor
 		//          in desktop coordinates
 
-		sf::Vector2f mouse_pos(const sf::Window & relativeTo);
+		sf::Vector2f mouse_pos_rel();
 		// EFFECTS: Returns a vector containing the position of the mouse cursor
 		//          relative to the given window's view
 

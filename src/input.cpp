@@ -176,8 +176,8 @@ sf::Vector2f Input::mouse_pos()
 	return mouse_position;
 }
 
-sf::Vector2f Input::mouse_pos()
+sf::Vector2f Input::mouse_pos_rel()
 {
-	return 
+	return mouse_position_rel;
 }
 
