@@ -13,6 +13,7 @@ Input::Input(sf::Window* reference_window)
 
 	// Initialize everything to default values
 
+	outstream = NULL;
 	// Window events
 	window_status.closed             = false;
 	window_status.resized            = false;
@@ -75,20 +76,24 @@ void Input::update()
 		{
 			case sf::Event::Closed:
 				window_status.closed = true;
+				if (outstream) *outstream << "Window closed\n";
 			break;
 
 			case sf::Event::Resized:
 				window_status.resized = true;
+				if (outstream) *outstream << "Window resized\n";
 			break;
 
 			case sf::Event::LostFocus:
 				window_status.lost_focus = true;
 				window_status.has_focus = false;
+				if (outstream) *outstream << "Window lost focus\n";
 			break;
 
 			case sf::Event::GainedFocus:
 				window_status.gained_focus = true;
 				window_status.has_focus = true;
+				if (outstream) *outstream << "Window gained focus\n";
 			break;
 
 			case sf::Event::TextEntered:
@@ -98,12 +103,16 @@ void Input::update()
 				keyboard_key = event.key.code;
 				key_states[keyboard_key].pressed = true;
 				key_states[keyboard_key].down = true;
+				if (outstream)
+					*outstream << keyboard_key_names[keyboard_key] << " pressed\n";
 			break;
 
 			case sf::Event::KeyReleased:
 				keyboard_key = event.key.code;
 				key_states[keyboard_key].released = true;
 				key_states[keyboard_key].down = false;
+				if (outstream)
+					*outstream << keyboard_key_names[keyboard_key] << " released\n";
 			break;
 
 			case sf::Event::MouseWheelMoved:
@@ -113,12 +122,16 @@ void Input::update()
 				mouse_button = event.mouseButton.button;
 				mouse_states[mouse_button].pressed = true;
 				mouse_states[mouse_button].down = true;
+				if (outstream)
+					*outstream << mouse_button_names[mouse_button] << " pressed\n";
 			break;
 
 			case sf::Event::MouseButtonReleased:
 				mouse_button = event.mouseButton.button;
 				mouse_states[mouse_button].released = true;
 				mouse_states[mouse_button].down = false;
+				if (outstream)
+					*outstream << mouse_button_names[mouse_button] << " released\n";
 			break;
 
 			case sf::Event::MouseMoved:
@@ -134,10 +147,12 @@ void Input::update()
 				mouse_position.y = event.mouseMove.y;
 				mouse_position_rel.x = sf::Mouse::getPosition(*window).x;
 				mouse_position_rel.y = sf::Mouse::getPosition(*window).y;
+				if (outstream) *outstream << "Mouse has entered the window\n";
 			break;
 
 			case sf::Event::MouseLeft:
 				window_status.mouse_is_in_window = false;
+				if (outstream) *outstream << "Mouse has left the window\n";
 			break;
 
 			case sf::Event::JoystickButtonPressed:
@@ -179,5 +194,15 @@ sf::Vector2f Input::mouse_pos()
 sf::Vector2f Input::mouse_pos_rel()
 {
 	return mouse_position_rel;
+}
+
+void Input::start_logging(std::ostream *logstream)
+{
+	outstream = logstream;
+}
+
+void Input::stop_logging()
+{
+	outstream = NULL;
 }
 
