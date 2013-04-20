@@ -1,8 +1,12 @@
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
-clean:
-	rm lib/*;
-	rm *.test;
+clean: cleanlib cleantests
+
+cleanlib:
+	rm lib/*
+
+cleantests:
+	rm *.test
 
 lib/input.o: src/input.cpp
 	g++ $^ -c -o $@ $(SFML_FLAGS)
