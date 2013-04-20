@@ -1,6 +1,36 @@
-#include <input.h>
+#include "input.h"
 #include <vector>
+#include <string>
 #include <SFML/Window.hpp>
+
+const std::string keyboard_key_names[] = {
+"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+
+"Num0", "Num1", "Num2", "Num3", "Num4", "Num5", "Num6",
+"Num7", "Num8", "Num9",
+
+"Escape", "LControl", "LShift", "LAlt", "LSystem",
+"RControl", "RShift", "RAlt", "RSystem", "Menu",
+
+"LBracket", "RBracket", "SemiColon", "Comma", "Period", "Quote",
+"Slash", "BackSlash", "Tilde", "Equal", "Dash", "Space", "Return",
+"Back", "Tab", "PageUp", "PageDown", "End", "Home", "Insert", "Delete",
+"Add", "Subtract", "Multiply", "Divide",
+
+"Left", "Right", "Up", "Down",
+
+"Numpad0", "Numpad1", "Numpad2", "Numpad3", "Numpad4", "Numpad5",
+"Numpad6", "Numpad7", "Numpad8", "Numpad9",
+
+"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9",
+"F10", "F11", "F12", "F13", "F14", "F15", "Pause"
+};
+
+const std::string mouse_button_names[] = {
+  "Left", "Right", "Middle",
+  "XButton1", "XButton2"
+};
 
 Input::Input(sf::Window* reference_window)
 {
@@ -38,6 +68,11 @@ Input::Input(sf::Window* reference_window)
 		mouse_states[i].released = false;
 		mouse_states[i].down     = false;
 	}
+}
+
+Input::~Input()
+{
+	return;
 }
 
 void Input::update()
@@ -174,6 +209,11 @@ void Input::update()
 			break;
 		}
 	}
+}
+
+WindowStatus Input::window_events()
+{
+	return window_status;
 }
 
 ButtonStatus Input::key_state(sf::Keyboard::Key key)
