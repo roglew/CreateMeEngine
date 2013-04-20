@@ -2,10 +2,14 @@
 #include <vector>
 #include <SFML/Window.hpp>
 
-Input::Input()
+Input::Input(sf::Window* reference_window)
 {
+	// Make the vectors the right size
 	key_states.reserve(sf::Keyboard::KeyCount);
 	mouse_states.reserve(sf::Mouse::ButtonCount);
+
+	// Save the reference window
+	window = reference_window;
 
 	// Initialize everything to default values
 
@@ -35,7 +39,7 @@ Input::Input()
 	}
 }
 
-void Input::update(sf::Window window)
+void Input::update()
 {
 	sf::Event event;
 
@@ -63,7 +67,7 @@ void Input::update(sf::Window window)
 
 	//// Get the new events
 
-	while (window.pollEvent(event))
+	while (window->pollEvent(event))
 	{
 		int mouse_button;
 		int keyboard_key;
@@ -120,12 +124,16 @@ void Input::update(sf::Window window)
 			case sf::Event::MouseMoved:
 				mouse_position.x = event.mouseMove.x;
 				mouse_position.y = event.mouseMove.y;
+				mouse_position_rel.x = sf::Mouse::getPosition(*window).x;
+				mouse_position_rel.y = sf::Mouse::getPosition(*window).y;
 			break;
 
 			case sf::Event::MouseEntered:
 				window_status.mouse_is_in_window = true;
 				mouse_position.x = event.mouseMove.x;
 				mouse_position.y = event.mouseMove.y;
+				mouse_position_rel.x = sf::Mouse::getPosition(*window).x;
+				mouse_position_rel.y = sf::Mouse::getPosition(*window).y;
 			break;
 
 			case sf::Event::MouseLeft:
@@ -153,11 +161,23 @@ void Input::update(sf::Window window)
 	}
 }
 
-//ButtonStatus Input::key_state(sf::Keyboard::Key);
-//
-//ButtonStatus Input::mouse_states(sf::Mouse::Button);
-//
-//sf::Vector2f Input::mouse_pos();
-//
-//sf::Vector2f Input::mouse_pos(const sf::Window & relativeTo);
+ButtonStatus Input::key_state(sf::Keyboard::Key key)
+{
+	return key_states[key];
+}
+
+ButtonStatus Input::mouse_state(sf::Mouse::Button button)
+{
+	return mouse_states[button];
+}
+
+sf::Vector2f Input::mouse_pos()
+{
+	return mouse_position;
+}
+
+sf::Vector2f Input::mouse_pos()
+{
+	return 
+}
 

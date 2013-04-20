@@ -22,20 +22,23 @@ struct WindowStatus
 class Input
 {
 	private:
-		sf::Vector2f mouse_position;
+		sf::Window *window;
+		sf::Vector2f mouse_position, mouse_position_rel;
 		std::vector<ButtonStatus> key_states;
 		std::vector<ButtonStatus> mouse_states;
 		WindowStatus window_status;
 	
 	public:
-		Input();
+		Input(sf::Window*);
 		// Constructor
+		// reference_window is the window that will pass events to the input and
+		// be used for getting relative mouse pos.
 
 		~Input();
 		// Destructor
 
-		void update(sf::Window);
-		// MODIFIES: this
+		void update();
+		// MODIFIES: this, reference_window
 		// EFFECTS:  Updates the input state from the given event. Should only
 		//           be called once per frame
 
