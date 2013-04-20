@@ -66,7 +66,7 @@ class Input
 		// EFFECTS: Returns a vector containing the position of the mouse cursor
 		//          relative to the given window's view
 
-		void start_logging(std::ostream*);
+		void start_logging(std::ostream&);
 		// EFFECTS: Begins outputting any input events to the given output stream
 
 		void stop_logging();

@@ -41,6 +41,9 @@ Input::Input(sf::Window* reference_window)
 	// Save the reference window
 	window = reference_window;
 
+	// Prevent the window from repeating key presses
+	window->setKeyRepeatEnabled(false);
+
 	// Initialize everything to default values
 
 	outstream = NULL;
@@ -236,9 +239,9 @@ sf::Vector2f Input::mouse_pos_rel()
 	return mouse_position_rel;
 }
 
-void Input::start_logging(std::ostream *logstream)
+void Input::start_logging(std::ostream &logstream)
 {
-	outstream = logstream;
+	outstream = &logstream;
 }
 
 void Input::stop_logging()
