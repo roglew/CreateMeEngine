@@ -11,6 +11,12 @@ cleantests:
 lib/input.o: src/input.cpp
 	g++ $^ -c -o $@ $(SFML_FLAGS)
 
+lib/render.o: src/render.cpp
+	g++ $^ -c -o $@ $(SFML_FLAGS)
+
 input.test: lib/input.o tests/inputtest.cpp
+	g++ $^ -o $@ $(SFML_FLAGS)
+
+render.test: lib/render.o lib/input.o tests/rendertest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 
