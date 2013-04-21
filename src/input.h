@@ -33,7 +33,7 @@ class Input
 		std::ostream *outstream;
 	
 	public:
-		Input(sf::Window*);
+		Input(sf::Window&);
 		// Constructor
 		// reference_window is the window that will pass events to the input and
 		// be used for getting relative mouse pos.

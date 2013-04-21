@@ -5,7 +5,7 @@
 int main(int argc, const char *argv[])
 {
 	sf::RenderWindow window(sf::VideoMode(640, 480, 32), "Input Debug");
-	Input input(&window);
+	Input input(window);
 	input.start_logging(std::cout);
 	WindowStatus window_status;
 	while (window.isOpen())

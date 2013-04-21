@@ -32,14 +32,14 @@ const std::string mouse_button_names[] = {
   "XButton1", "XButton2"
 };
 
-Input::Input(sf::Window* reference_window)
+Input::Input(sf::Window& reference_window)
 {
 	// Make the vectors the right size
 	key_states.reserve(sf::Keyboard::KeyCount);
 	mouse_states.reserve(sf::Mouse::ButtonCount);
 
 	// Save the reference window
-	window = reference_window;
+	window = &reference_window;
 
 	// Prevent the window from repeating key presses
 	window->setKeyRepeatEnabled(false);
