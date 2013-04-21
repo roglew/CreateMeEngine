@@ -14,9 +14,9 @@ struct DrawEvent
 	sf::Drawable* drawable;
 	sf::Color color;
 
-	bool operator < (const DrawEvent& event)
+	bool operator > (const DrawEvent& event)
 	{
-		return id < event.id;
+		return id > event.id;
 	}
 };
 

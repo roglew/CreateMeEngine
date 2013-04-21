@@ -20,7 +20,10 @@ Render::Render(sf::RenderTarget* target)
 
 void Render::render(sf::RenderWindow)
 {
-	sort(draw_queue.begin(), draw_queue.end());
+	// Sort the queue from highest depth to lowest
+	sort(draw_queue.begin(), draw_queue.end(), std::greater<int>());
+
+	// Iterate through the queue and draw all the objects
 	for (int i=0; i<draw_queue.size(); i++)
 	{
 		switch(draw_queue[i].id)
@@ -29,10 +32,15 @@ void Render::render(sf::RenderWindow)
 				render_target->draw(*draw_queue[i].drawable);
 			break;
 
+			case DRAW_CLEAR:
+				render_target->clear(draw_queue[i].color);
+			break;
+
 			default:
 			break;
 		}
 	}
+
 }
 
 void Render::clear_queue()
