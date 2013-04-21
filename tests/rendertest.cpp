@@ -14,11 +14,11 @@ int main(int argc, const char *argv[])
 	texture.loadFromFile("tests/testimage.png");
 	sf::Sprite sprite, sprite2, sprite3;
 	sprite.setTexture(texture);
-	sprite.setPosition(128, 128);
 	sprite2.setTexture(texture);
-	sprite2.setPosition(160, 160);
 	sprite3.setTexture(texture);
-	sprite3.setPosition(100, 100);
+	sprite.setPosition(130, 130);
+	sprite2.setPosition(180, 150);
+	sprite3.setPosition(170, 170);
 
 	while (window.isOpen())
 	{
@@ -27,9 +27,9 @@ int main(int argc, const char *argv[])
 		if (window_status.closed)
 			window.close();
 	
-		render.draw(sprite3, 1);
-		render.draw(sprite2, -1);
-		render.draw(sprite, -2);
+		render.draw(sprite3, -1);
+		render.draw(sprite2, 2);
+		render.draw(sprite);
 		render.clear();
 		render.render();
 		window.display();
