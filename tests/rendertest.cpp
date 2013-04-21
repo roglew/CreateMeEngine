@@ -12,9 +12,13 @@ int main(int argc, const char *argv[])
 
 	sf::Texture texture;
 	texture.loadFromFile("tests/testimage.png");
-	sf::Sprite sprite;
+	sf::Sprite sprite, sprite2, sprite3;
 	sprite.setTexture(texture);
 	sprite.setPosition(128, 128);
+	sprite2.setTexture(texture);
+	sprite2.setPosition(160, 160);
+	sprite3.setTexture(texture);
+	sprite3.setPosition(100, 100);
 
 	while (window.isOpen())
 	{
@@ -24,7 +28,9 @@ int main(int argc, const char *argv[])
 			window.close();
 	
 		render.clear();
-		render.draw(sprite);
+		render.draw(sprite3, 1);
+		render.draw(sprite2, -1);
+		render.draw(sprite, -2);
 		render.render();
 		window.display();
 
