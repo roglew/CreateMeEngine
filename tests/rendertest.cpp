@@ -27,10 +27,10 @@ int main(int argc, const char *argv[])
 		if (window_status.closed)
 			window.close();
 	
-		render.clear();
 		render.draw(sprite3, 1);
 		render.draw(sprite2, -1);
 		render.draw(sprite, -2);
+		render.clear();
 		render.render();
 		window.display();
 
