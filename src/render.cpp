@@ -1,5 +1,6 @@
 #include "render.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 static bool draw_event_lt(DrawEvent de1, DrawEvent de2)
 {
@@ -12,16 +13,21 @@ void Render::queue_draw_event(DrawEvent event)
 	draw_queue.push_back(event);
 }
 
-// Public functions
-Render::Render(sf::RenderTarget* target)
+void Render::clear_queue()
 {
-	render_target = target;
+	draw_queue.clear();
 }
 
-void Render::render(sf::RenderWindow)
+// Public functions
+Render::Render(sf::RenderTarget& target)
+{
+	render_target = &target;
+}
+
+void Render::render()
 {
 	// Sort the queue from highest depth to lowest
-	sort(draw_queue.begin(), draw_queue.end(), std::greater<int>());
+	sort(draw_queue.rbegin(), draw_queue.rend());
 
 	// Iterate through the queue and draw all the objects
 	for (int i=0; i<draw_queue.size(); i++)
@@ -41,22 +47,27 @@ void Render::render(sf::RenderWindow)
 		}
 	}
 
+	clear_queue();
 }
 
-void Render::clear_queue()
+
+void Render::clear(sf::Color color, int depth)
 {
-	draw_queue.clear();
+	DrawEvent event;
+	event.id = DRAW_CLEAR;
+	event.depth = depth;
+	event.color = color;
+
+	draw_queue.push_back(event);
 }
 
-//void clear(sf::Color = sf::Color::Black, depth = 9999999999);
-
-void Render::draw(sf::Drawable* drawable, int depth)
+void Render::draw(const sf::Drawable& drawable, int depth)
 {
 	DrawEvent event;
 
 	event.id = DRAW_DRAWABLE;
 	event.depth = depth;
-	event.drawable = drawable;
+	event.drawable = &drawable;
 
 	draw_queue.push_back(event);
 }

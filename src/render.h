@@ -11,12 +11,12 @@ struct DrawEvent
 {
 	DrawEventId id;
 	int depth;
-	sf::Drawable* drawable;
+	const sf::Drawable* drawable;
 	sf::Color color;
 
-	bool operator > (const DrawEvent& event)
+	bool operator < (const DrawEvent& event) const
 	{
-		return id > event.id;
+		return depth < event.depth;
 	}
 };
 
@@ -29,22 +29,23 @@ class Render
 		void queue_draw_event(DrawEvent);
 		// Adds a draw event to the queue
 
-	public:
-		Render(sf::RenderTarget*);
-
-		void render(sf::RenderWindow);
-		// MODIFIES: RenderWindow
-		// EFFECTS:  Draws everything in the draw queue to the window
-
 		void clear_queue();
 		// MODIFIES: this
 		// EFFECTS:  Clears the draw queue
 
-		void clear(sf::Color = sf::Color::Black, int depth = 9999999999);
+	public:
+		Render(sf::RenderTarget&);
+
+		void render();
+		// MODIFIES: RenderWindow
+		// EFFECTS:  Draws everything in the draw queue to the window
+
+
+		void clear(sf::Color = sf::Color::Black, int depth = 99999999);
 		// MODIFIES: this
 		// EFFECTS:  clears the screen at the given depth
 
-		void draw(sf::Drawable*, int depth = 0);
+		void draw(const sf::Drawable&, int depth = 0);
 		// MODIFIES: this
 		// EFFECTS:  Draws the sprite at the given depth
 
