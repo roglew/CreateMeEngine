@@ -15,7 +15,8 @@ class GameObject
 		int instance_id;
 		std::vector<ObjectEvent<> > events;
 
-		std::vector< std::vector<Sprite> > animations;
+		std::vector< std::vector<Sprite*> > animations;
+		int current_animation, current_frame;
 		int depth;
 
 		Vector2<double> position;

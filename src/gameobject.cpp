@@ -6,7 +6,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-
 /////////////////////
 // Movement methods
 
@@ -124,55 +123,86 @@ void remove_event(bool*)
 /////////////////////////////
 // Sprite/Animation Methods
 
-void append_frame(int animation, Sprite* sprite)
+void GameObject::append_frame(int animation, Sprite* sprite)
+{
+	animations[animation].push_back(sprite);
+}
+
+
+void GameObject::add_frame(int animation, Sprite* sprite, int n)
 {
 	
 }
 
 
-void add_frame(int animation, Sprite* sprite, int n)
+int GameObject::add_animation()
+{
+	// Shitty way to add something to the vector, but it will work for now
+	std::vector<Sprite*> temp;
+	animations.push_back(temp);
+
+	int size;
+	size = animations.size();
+
+	// Set a default frame/animation if this is the first animation
+	if (size == 1)
+	{
+		current_animation = 0;
+		current_frame = 0;
+	}
+
+	return (size-1);
+}
+
+
+void GameObject::next_frame()
+{
+	// Go to the next frame
+	current_frame++;
+
+	// Loop back to the first frame if we've reached the end of the animation
+	if (current_frame >= animations[current_animation].size())
+		current_frame = 0;
+}
+
+
+void GameObject::set_frame(int n)
+{
+	current_frame = n;
+
+	int anim_length;
+	anim_length = animations[current_animation].size();
+
+	while (current_frame < 0)
+		current_frame += anim_length;
+	while (current_frame >= anim_length)
+		current_frame -= anim_length;
+}
+
+
+void GameObject::set_animation(int animation)
+{
+	current_animation = animation;
+	while (current_animation < 0)
+		current_animation++;
+	while (current_animation >= animations.size())
+		current_animation--;
+}
+
+
+Sprite* GameObject::get_current_frame()
 {
 	
 }
 
 
-int add_animation()
+Sprite* GameObject::get_frame(int n)
 {
 	
 }
 
 
-void next_frame()
-{
-	
-}
-
-
-void set_frame(int n)
-{
-	
-}
-
-
-void set_animation(int animation)
-{
-	
-}
-
-
-Sprite* get_current_frame()
-{
-	
-}
-
-
-Sprite* get_frame(int n)
-{
-	
-}
-
-
-Sprite* get_frame(int animation, int n)
+Sprite* GameObject::get_frame(int animation, int n)
 {
 	
 }
