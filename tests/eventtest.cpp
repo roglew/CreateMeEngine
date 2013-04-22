@@ -14,11 +14,14 @@ void responsenum(int number)
 int main(int argc, const char *argv[])
 {
 	bool trigger = false;
+
 	ObjectEvent<> event(&trigger, response);
 	ObjectEvent<int> eventarg(&trigger, responsenum);
+
 	std::cout << "Processing with trigger=false\n";
 	event.process();
 	eventarg.process(5);
+
 	std::cout << "Processing with trigger=true\n";
 	trigger = true;
 	event.process();
