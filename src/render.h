@@ -1,7 +1,7 @@
 #ifndef __RENDER_H__
 #define __RENDER_H__
 
-#include "gameobjects.hpp"
+#include "gameobject.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -51,10 +51,11 @@ class Render
 		// MODIFIES: this
 		// EFFECTS:  Draws the sprite at the given depth
 
-		void draw(const GameObject&, int depth = 0);
+		void draw(GameObject&, int depth = 0);
 		// REQUIRES: Object exists when render() is called
-		// MODIFIES: this
-		// EFFECTS:  Draws the object at the given depth
+		// MODIFIES: this, object
+		// EFFECTS:  Updates the sprite on the object and draws the
+		//           object at the given depth
 
 };
 
