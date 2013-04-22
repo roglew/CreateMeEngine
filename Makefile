@@ -20,3 +20,6 @@ input.test: lib/input.o tests/inputtest.cpp
 render.test: lib/render.o lib/input.o tests/rendertest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 
+event.test: src/objectevent.hpp tests/eventtest.cpp
+	g++ $^ -o $@ $(SFML_FLAGS)
+

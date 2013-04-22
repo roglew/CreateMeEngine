@@ -3,6 +3,7 @@
 
 #include "ids.h"
 #include "objectevent.hpp"
+#include <SFML/system.hpp>
 #include <vector>
 
 class GameObject
@@ -10,13 +11,14 @@ class GameObject
 	protected:
 		GameObjectId id;
 		vector<ObjectEvent> events;
+		int depth;
 
 		Vector2<double> position;
 		Vector2f velocity;
 		float mass;
 
 	public:
-		
+		void register_event(*bool, void (*response()));
 
 };
 
