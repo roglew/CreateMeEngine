@@ -1,5 +1,5 @@
-#ifndef __GAMEOBJECT_H__
-#define __GAMEOBJECT_H__
+#ifndef __GAMEOBJECT_HPP__
+#define __GAMEOBJECT_HPP__
 
 #include "ids.h"
 #include "objectevent.hpp"

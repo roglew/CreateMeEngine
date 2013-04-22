@@ -1,4 +1,4 @@
-#include "gameobject.h"
+#include "gameobject.hpp"
 #include "ids.h"
 #include "objectevent.hpp"
 #include "sprite.h"
