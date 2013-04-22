@@ -11,46 +11,87 @@
 // Movement methods
 
 template <class T>
-void set_position(Vector2<T>);
-void set_position(double x, double y);
-// MODIFIES: Position
-// EFFECTS:  Sets the position of the object
+void GameObject::set_position(const& Vector2<T> set_to)
+{
+	position = set_to;
+}
+
+void GameObject::set_position(double x, double y)
+{
+	position.x = x;
+	position.y = y;
+}
+
 
 template <class T>
-void move(Vector2<T>);
-void move(double x, double y);
-// MODIFIES: Position
-// EFFECTS:  Moves the object by the given vector
+void GameObject::move(const& Vector2<T> move_vector)
+{
+	position += move_vector;
+}
+
+void GameObject::move(double x, double y)
+{
+	position.x += x;
+	position.y += y;
+}
+
 
 template <class T>
-void set_velocity(Vector2<T>);
-void set_velocity(double x, double y);
-// MODIFIES: Velocity
-// EFFECTS:  Sets the velocity of the object
+void GameObject::set_velocity(Vector2<T> velocity_vector)
+{
+	velocity = velocity_vector;
+}
+
+void GameObject::set_velocity(double x, double y)
+{
+	velocity.x = x;
+	velocity.y = y;
+}
+
 
 template <class T>
-void add_velocity(Vector2<T>);
-void add_velocity(float x, float y);
-// MODIFIES: Velocity
-// EFFECTS:  Adds to the velocity of the object
+void GameObject::add_velocity(Vector2<T> velocity_vector)
+{
+	velocity += velocity_vector;
+}
+
+void GameObject::add_velocity(float x, float y)
+{
+	velocity.x += x;
+	velocity.y += y;
+}
+
 
 template <class T>
-void set_acceleration(Vector2<T>);
-void set_acceleration(float x, float y);
-// MODIFIES: Acceleration
-// EFFECTS:  Sets the acceleration of the object
+void GameObject::set_acceleration(Vector2<T> acceleration_vector)
+{
+	acceleration = acceleration_vector;
+}
+
+void GameObject::set_acceleration(float x, float y)
+{
+	acceleration.x = x;
+	acceleration.y = y;
+}
+
 
 template <class T>
-void add_acceleration(Vector2<T>);
-void add_acceleration(float x, float y);
-// MODIFIES: Acceleration
-// EFFECTS:  Adds to the acceleration of the object
+void GameObject::add_acceleration(Vector2<T> acceleration_vector)
+{
+	acceleration += acceleration_vector;
+}
+
+void GameObject::add_acceleration(float x, float y)
+{
+	acceleration.x += x;
+	acceleration.y += y;
+}
 
 
 //////////////////
 // Event Methods
 
-template <class T=bool>
+template <class T>
 void register_event(bool*, void (*response(T)))
 {
 	
@@ -62,7 +103,7 @@ void register_event(bool*, void (*response()))
 }
 
 
-template <class T=bool>
+template <class T>
 void process_events(T)
 {
 	
