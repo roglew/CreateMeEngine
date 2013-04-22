@@ -1,3 +1,6 @@
+#ifndef __SPRITE_H__
+#define __SPRITE_H__
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -30,4 +33,6 @@ class Sprite{
 
 bool collides(const &Sprite, const &Sprite);
 // EFFECTS: Returns whether the two sprites collide
+
+#endif
 
