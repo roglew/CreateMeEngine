@@ -13,11 +13,11 @@ class Vector2
 	Vector2<T>(const Vector2& copyfrom);
 	// Copy constructor
 
-	Vector2<T> operator = (const Vector2<T>& other);
+	Vector2<T>& operator = (const Vector2<T>& other);
 	Vector2<T> operator + (const Vector2<T>& other);
-	Vector2<T> operator += (const Vector2<T>& other);
+	Vector2<T>& operator += (const Vector2<T>& other);
 	Vector2<T> operator - (const Vector2<T>& other);
-	Vector2<T> operator -= (const Vector2<T>& other);
+	Vector2<T>& operator -= (const Vector2<T>& other);
 };
 
 #include "vector.cpp"

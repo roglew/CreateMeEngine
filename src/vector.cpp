@@ -14,7 +14,7 @@ Vector2<T>::Vector2(const Vector2& copyfrom)
 }
 
 template<class T>
-Vector2<T> Vector2<T>::operator = (const Vector2<T>& other)
+Vector2<T>& Vector2<T>::operator = (const Vector2<T>& other)
 {
 	x = other.x;
 	y = other.y;
@@ -27,7 +27,7 @@ Vector2<T> Vector2<T>::operator + (const Vector2<T>& other)
 }
 
 template<class T>
-Vector2<T> Vector2<T>::operator += (const Vector2<T>& other)
+Vector2<T>& Vector2<T>::operator += (const Vector2<T>& other)
 {
 	x += other.x;
 	y += other.y
@@ -40,7 +40,7 @@ Vector2<T> Vector2<T>::operator - (const Vector2<T>& other)
 }
 
 template<class T>
-Vector2<T> Vector2<T>::operator -= (const Vector2<T>& other)
+Vector2<T>& Vector2<T>::operator -= (const Vector2<T>& other)
 {
 	x -= other.x;
 	y -= other.y;
