@@ -139,5 +139,7 @@ class GameObject
 
 };
 
+#include "gameobject.cpp"
+
 #endif
 

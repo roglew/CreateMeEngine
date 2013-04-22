@@ -1,6 +1,8 @@
 #include "../src/render.h"
 #include "../src/gameobject.hpp"
 #include "../src/sprite.h"
+#include "../src/input.h"
+#include "../src/render.h"
 #include <SFML/Graphics.hpp>
 
 int main(int argc, const char *argv[])
