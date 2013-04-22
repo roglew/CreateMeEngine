@@ -207,4 +207,8 @@ Sprite* GameObject::get_frame(int animation, int n)
 	
 }
 
+void GameObject::update_sprite()
+{
+	get_current_frame()->get_sfml_sprite()->setPosition(position.x, position.y);
+}
 

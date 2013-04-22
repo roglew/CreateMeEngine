@@ -23,6 +23,7 @@ class GameObject
 		Vector2<float> velocity;
 		Vector2<float> acceleration;
 
+
 	public:
 		/////////////////////
 		// Movement methods
@@ -131,6 +132,10 @@ class GameObject
 
 		Sprite* get_frame(int animation, int n);
 		// EFFECTS: Returns the nth frame of the given animation
+
+		void update_sprite();
+		// MODIFIES: Sprite pointed to by sprite
+		// EFFECTS:  Adjusts the sprite to match the object
 
 };
 
