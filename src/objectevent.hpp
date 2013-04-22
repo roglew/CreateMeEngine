@@ -3,11 +3,13 @@
 
 class ObjectEvent
 {
-	private:
+	protected:
 		bool* trigger;
 		void (*response)();
 
 	public:
+		ObjectEvent();
+
 		ObjectEvent(bool*, void (*response)());
 		// Creates an instance of an ObjectEvent that points to the given
 		// bool and associates it with the given response
@@ -32,7 +34,7 @@ class ObjectEvent
 };
 
 template <class T>
-class ObjectEventArg: private ObjectEvent
+class ObjectEventArg: protected ObjectEvent
 {
 	private:
 		void (*arg_response)(T);

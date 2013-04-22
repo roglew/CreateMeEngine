@@ -3,6 +3,11 @@
 #endif
 
 // Normal event
+ObjectEvent::ObjectEvent()
+{
+	
+}
+
 ObjectEvent::ObjectEvent(bool* new_trigger, void (*new_response)())
 {
 	trigger = new_trigger;
