@@ -25,6 +25,10 @@ class Sprite{
 		~Sprite();
 		// Destructor
 
+		sf::Sprite* get_sfml_sprite();
+		// EFFECTS: Returns a pointer to a sfml sprite that corresponds to this
+		//          sprite
+
 		set_collision(const &Collision);
 		// MODIFIES: This
 		// EFFECTS:  Sets the collision struct of the sprite
