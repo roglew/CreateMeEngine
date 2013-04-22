@@ -14,7 +14,7 @@ class GameObject
 		int instance_id;
 		vector<ObjectEvent> events;
 
-		vector<vector<Sprite>> animations;
+		vector< vector<Sprite> > animations;
 		int depth;
 
 		sf::Vector2<double> position;
@@ -22,7 +22,6 @@ class GameObject
 		sf::Vector2f acceleration;
 
 	public:
-
 		/////////////////////
 		// Movement methods
 
@@ -89,10 +88,22 @@ class GameObject
 		// Sprite/Animation Methods
 
 		void append_frame(int animation, Sprite* sprite);
+		// REQUIRES: That the animation exists
 		// MODIFIES: This
 		// EFFECTS:  Adds a frame to the end of the given animation
+
+		void add_frame(int animation, Sprite* sprite, int n);
+		// REQUIRES: That the animation exists
+		// MODIFIES: This
+		// EFFECTS:  Inserts a frame into the given animation at the given
+		//           position
 		
-		void add_frame(
+		int add_animation();
+		// MODIFIES: This
+		// EFFECTS:  Creates an animation and returns the number that is used
+		//           to reference. It starts at 0 and increments by 1 for every
+		//           additional animation. If you add animations in order,
+		//           you can use enums to reference animations
 
 		void next_frame();
 		// MODIFIES: This
