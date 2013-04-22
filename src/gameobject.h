@@ -88,6 +88,12 @@ class GameObject
 		/////////////////////////////
 		// Sprite/Animation Methods
 
+		void append_frame(int animation, Sprite* sprite);
+		// MODIFIES: This
+		// EFFECTS:  Adds a frame to the end of the given animation
+		
+		void add_frame(
+
 		void next_frame();
 		// MODIFIES: This
 		// EFFECTS:  Changes sprite to the next frame in the current animation.
