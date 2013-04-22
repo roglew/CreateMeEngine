@@ -18,7 +18,25 @@ class GameObject
 		float mass;
 
 	public:
-		void register_event(*bool, void (*response()));
+		template <class T=bool>
+		void register_event(bool*, void (*response(T)));
+		void register_event(bool*, void (*response()));
+		// REQUIRES: bool* is not null, response function exists for the duration
+		//           of the object
+		// MODIFIES: This
+		// EFFECTS:  Adds an event that the object will respond to. When
+		//           obj.process_events()/process_events(T) is called,
+		//           if bool* points to true, response()/response(T) is called.
+
+		template <class T=bool>
+		void process_events(T);
+		void process_events();
+		// REQUIRES: Only valid events are registered
+		// EFFECTS:  Any registered events currently pointing to a true bool
+		//           will have their response functions called
+
+		void remove_event(bool*);
+		// EFFECTS: Removes any registered events that point to the given pointer
 
 };
 
