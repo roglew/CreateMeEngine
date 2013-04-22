@@ -4,6 +4,7 @@
 #include "ids.h"
 #include "objectevent.hpp"
 #include "sprite.h"
+#include "vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -12,52 +13,52 @@ class GameObject
 	protected:
 		GameObjectId id;
 		int instance_id;
-		vector<ObjectEvent> events;
+		std::vector<ObjectEvent<> > events;
 
-		vector< vector<Sprite> > animations;
+		std::vector< std::vector<Sprite> > animations;
 		int depth;
 
-		sf::Vector2<double> position;
-		sf::Vector2f velocity;
-		sf::Vector2f acceleration;
+		Vector2<double> position;
+		Vector2<float> velocity;
+		Vector2<float> acceleration;
 
 	public:
 		/////////////////////
 		// Movement methods
 
-		void set_position(sf::Vector2f);
-		void set_position(sf::Vector2i);
-		void set_position(int x, int y);
+		template <class T>
+		void set_position(Vector2<T>);
+		void set_position(double x, double y);
 		// MODIFIES: Position
 		// EFFECTS:  Sets the position of the object
 
-		void move(sf::Vector2f);
-		void move(sf::Vector2i);
-		void move(int x, int y);
+		template <class T>
+		void move(Vector2<T>);
+		void move(double x, double y);
 		// MODIFIES: Position
 		// EFFECTS:  Moves the object by the given vector
 
-		void set_velocity(sf::Vector2f);
-		void set_velocity(sf::Vector2i);
-		void set_velocity(int x, int y);
+		template <class T>
+		void set_velocity(Vector2<T>);
+		void set_velocity(double x, double y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Sets the velocity of the object
 
-		void add_velocity(sf::Vector2f);
-		void add_velocity(sf::Vector2i);
-		void add_velocity(int x, int y);
+		template <class T>
+		void add_velocity(Vector2<T>);
+		void add_velocity(float x, float y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Adds to the velocity of the object
 
-		void set_acceleration(sf::Vector2f);
-		void set_acceleration(sf::Vector2i);
-		void set_acceleration(int x, int y);
+		template <class T>
+		void set_acceleration(Vector2<T>);
+		void set_acceleration(float x, float y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Sets the acceleration of the object
 
-		void add_acceleration(sf::Vector2f);
-		void add_acceleration(sf::Vector2i);
-		void add_acceleration(int x, int y);
+		template <class T>
+		void add_acceleration(Vector2<T>);
+		void add_acceleration(float x, float y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Adds to the acceleration of the object
 
