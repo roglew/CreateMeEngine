@@ -102,15 +102,15 @@ class GameObject
 		// MODIFIES: This
 		// EFFECTS:  Sets the current animation and changes to the first frame
 
-		sf::Sprite* get_current_frame();
-		// EFFECTS: Returns a pointer to a sf::Sprite that represents the current
+		Sprite* get_current_frame();
+		// EFFECTS: Returns a pointer to a Sprite that represents the current
 		//          frame of the current animation
 
-		sf::Sprite* get_frame(int n);
-		// EFFECTS: Returns a pointer to the sf::Sprite that represents the
+		Sprite* get_frame(int n);
+		// EFFECTS: Returns a pointer to the Sprite that represents the
 		//          nth frame of the current animation
 
-		sf::Sprite* get_frame(int animation, int n);
+		Sprite* get_frame(int animation, int n);
 		// EFFECTS: Returns the nth frame of the given animation
 
 };
