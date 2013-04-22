@@ -72,3 +72,14 @@ void Render::draw(const sf::Drawable& drawable, int depth)
 	draw_queue.push_back(event);
 }
 
+void Render::draw(const GameObject& object, int depth)
+{
+	DrawEvent event;
+
+	event.id = DRAW_DRAWABLE;
+	event.depth = depth;
+	event.drawable = object.get_current_frame().get_sfml_sprite();
+
+	draw_queue.push_back(event);
+}
+

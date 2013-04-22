@@ -1,6 +1,7 @@
 #ifndef __RENDER_H__
 #define __RENDER_H__
 
+#include "gameobjects.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -46,8 +47,14 @@ class Render
 		// EFFECTS:  clears the screen at the given depth
 
 		void draw(const sf::Drawable&, int depth = 0);
+		// REQUIRES: Drawable exists when render() is called
 		// MODIFIES: this
 		// EFFECTS:  Draws the sprite at the given depth
+
+		void draw(const GameObject&, int depth = 0);
+		// REQUIRES: Object exists when render() is called
+		// MODIFIES: this
+		// EFFECTS:  Draws the object at the given depth
 
 };
 
