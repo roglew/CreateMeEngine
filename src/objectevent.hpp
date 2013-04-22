@@ -1,7 +1,7 @@
 #ifndef __OBJECTEVENT_HPP__
 #define __OBJECTEVENT_HPP__
 
-template <class T=void>
+template <class T=bool>
 class ObjectEvent
 {
 	private:
