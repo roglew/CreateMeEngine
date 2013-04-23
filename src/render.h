@@ -29,7 +29,7 @@ class Render
 		sf::RenderTarget *render_target;
 		bool owns_render_target;
 
-		void queue_draw_event(DrawEvent);
+		void queue_draw_event(DrawEvent to_queue);
 		// Adds a draw event to the queue
 
 		void clear_queue();
@@ -45,7 +45,7 @@ class Render
 		// Initializes render target as a sf::RenderWindow with the given width,
 		// height, and title
 
-		Render(sf::RenderTarget&);
+		Render(sf::RenderTarget& target);
 		// Render to a different render target
 
 		~Render();
@@ -56,16 +56,16 @@ class Render
 		// EFFECTS:  Draws everything in the draw queue to the window
 
 
-		void clear(sf::Color = sf::Color::Black, int depth = 99999999);
+		void clear(sf::Color clear_to = sf::Color::Black, int depth = 99999999);
 		// MODIFIES: this
 		// EFFECTS:  clears the screen at the given depth
 
-		void draw(const sf::Drawable&, int depth = 0);
+		void draw(const sf::Drawable& to_draw, int depth = 0);
 		// REQUIRES: Drawable exists when render() is called
 		// MODIFIES: this
 		// EFFECTS:  Draws the sprite at the given depth
 
-		void draw(GameObject&, int depth = 0);
+		void draw(GameObject& to_draw, int depth = 0);
 		// REQUIRES: Object exists when render() is called
 		// MODIFIES: this, object
 		// EFFECTS:  Updates the sprite on the object and draws the
