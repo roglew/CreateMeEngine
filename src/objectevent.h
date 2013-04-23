@@ -1,5 +1,5 @@
-#ifndef __OBJECTEVENT_HPP__
-#define __OBJECTEVENT_HPP__
+#ifndef __OBJECTEVENT_H__
+#define __OBJECTEVENT_H__
 
 class ObjectEvent
 {

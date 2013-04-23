@@ -3,7 +3,7 @@
 
 #include "ids.h"
 #include "vector.hpp"
-#include "objectevent.hpp"
+#include "objectevent.h"
 #include "sprite.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -26,7 +26,6 @@ class GameObject
 	public:
 		/////////////////////////////////
 		// Constructors and destructors
-		GameObject();
 		~GameObject();
 
 		/////////////////////

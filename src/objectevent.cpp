@@ -1,4 +1,4 @@
-#include "objectevent.hpp"
+#include "objectevent.h"
 
 ObjectEvent::ObjectEvent(bool* new_trigger, void (*new_response)())
 {

@@ -1,6 +1,6 @@
 #include "gameobject.h"
 #include "ids.h"
-#include "objectevent.hpp"
+#include "objectevent.h"
 #include "sprite.h"
 #include "vector.hpp"
 #include <SFML/Graphics.hpp>
@@ -11,7 +11,7 @@
 GameObject::~GameObject()
 {
 	// Clear the pointers to events
-	std::vector<AbstractObjectEvent*>::iterator it = events.begin();
+	std::vector<ObjectEvent*>::iterator it = events.begin();
 	for (it = events.begin(); it != events.end(); it++)
 	{
 		delete *it;
