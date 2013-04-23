@@ -28,7 +28,7 @@ class GameObject
 		/////////////////////
 		// Movement methods
 
-		void set_position(const Vector2<double>& position_vector);
+		void set_position(const Vector2<double>& set_to);
 		void set_position(double x, double y);
 		// MODIFIES: Position
 		// EFFECTS:  Sets the position of the object
@@ -38,22 +38,22 @@ class GameObject
 		// MODIFIES: Position
 		// EFFECTS:  Moves the object by the given vector
 
-		void set_velocity(const Vector2<double>&);
+		void set_velocity(const Vector2<double>& velocity_vector);
 		void set_velocity(double x, double y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Sets the velocity of the object
 
-		void add_velocity(const Vector2<double>&);
+		void add_velocity(const Vector2<double>& velocity_vector);
 		void add_velocity(float x, float y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Adds to the velocity of the object
 
-		void set_acceleration(const Vector2<double>&);
+		void set_acceleration(const Vector2<double>& acceleration_vector);
 		void set_acceleration(float x, float y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Sets the acceleration of the object
 
-		void add_acceleration(const Vector2<double>&);
+		void add_acceleration(const Vector2<double>& acceleration_vector);
 		void add_acceleration(float x, float y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Adds to the acceleration of the object
