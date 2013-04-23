@@ -1,5 +1,5 @@
 #include "../src/render.h"
-#include "../src/gameobject.hpp"
+#include "../src/gameobject.h"
 #include "../src/sprite.h"
 #include "../src/input.h"
 #include "../src/render.h"

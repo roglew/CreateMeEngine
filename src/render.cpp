@@ -1,5 +1,5 @@
 #include "render.h"
-#include "gameobject.hpp"
+#include "gameobject.h"
 #include "sprite.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>

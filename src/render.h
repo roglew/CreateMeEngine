@@ -1,7 +1,7 @@
 #ifndef __RENDER_H__
 #define __RENDER_H__
 
-#include "gameobject.hpp"
+#include "gameobject.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
