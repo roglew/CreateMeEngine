@@ -17,6 +17,9 @@ lib/render.o: src/render.cpp
 lib/sprite.o: src/sprite.cpp
 	g++ $^ -c -o $@ $(SFML_FLAGS)
 
+lib/gameobject.o: src/gameobject.cpp
+	g++ $^ -c -o $@ $(SFML_FLAGS)
+
 input.test: lib/input.o tests/inputtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 
@@ -26,6 +29,6 @@ render.test: lib/render.o lib/input.o tests/rendertest.cpp
 event.test: src/objectevent.hpp tests/eventtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 
-object_draw.test: src/gameobject.hpp src/objectevent.hpp src/ids.h src/vector.hpp lib/render.o lib/sprite.o lib/input.o
+object_draw.test: lib/gameobject.o src/objectevent.hpp src/ids.h src/vector.hpp lib/render.o lib/sprite.o lib/input.o tests/object_drawtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 

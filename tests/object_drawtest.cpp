@@ -8,9 +8,9 @@
 int main(int argc, const char *argv[])
 {
 	GameObject obj;
-	sf::Sprite* spr = new sf::Sprite;
+	Sprite* spr = new Sprite;
 	sf::Texture tex;
-	tex.load_from_file("resources/sprite.png");
+	tex.loadFromFile("resources/sprite.png");
 	spr->setTexture(tex);
 	int anim;
 	anim = obj.add_animation();
@@ -26,11 +26,11 @@ int main(int argc, const char *argv[])
 	{
 		input.update();
 		window_status = input.window_events();
-		if (window_status.closed())
+		if (window_status.closed)
 			window.close();
-		render.draw(object);
+		render.draw(obj, -1);
 		render.clear();
-		render.display();
+		render.render();
 	}
 
 	delete spr;

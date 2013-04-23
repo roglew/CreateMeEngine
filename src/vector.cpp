@@ -1,3 +1,8 @@
+template<class T>
+Vector2<T>::Vector2()
+{
+	
+}
 
 template<class T>
 Vector2<T>::Vector2(T init_x, T init_y)
@@ -30,7 +35,7 @@ template<class T>
 Vector2<T>& Vector2<T>::operator += (const Vector2<T>& other)
 {
 	x += other.x;
-	y += other.y
+	y += other.y;
 }
 
 template<class T>

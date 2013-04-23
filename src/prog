@@ -1,0 +1,47 @@
+for (x)
+{
+	for(y)
+	{
+		int totalred = 0;
+		int totalgreen = 0;
+		int totalblue = 0;
+		int startx, starty, endx, endy;
+
+		startx = x-numPixels;
+		starty = y-numPixels;
+		endx = x+numPixels;
+		endy = y+numPixels;
+
+		if (startx<0)
+			startx=0;
+		if (starty<0)
+			starty=0;
+
+		if (endx > width-1)
+			endx = width-1;
+		if (endy > height-1)
+			endy = height-1;
+
+		int totalpixels = (endx-startx)*(endy-starty);
+
+		for(int xx = startx; xx <= endx; xx++)
+		{
+			for(int yy = starty; yy <= endy; yy++)
+			{
+				totalred+=red[xx][yy];
+				totalgreen+=green[xx][yy];
+				totalblue+=blue[xx][yy];
+			}
+		}
+
+		int averagered;
+		int averagegreen;
+		int averageblue;
+
+		averagered = totalred/totalpixels;
+		averagegreen = totalgreen/totalpixels;
+		averageblue = totalblue/totalpixels;
+
+		newimage.pixels[x][y].setColor(averagered, averagegreen, averageblue);
+	}
+}

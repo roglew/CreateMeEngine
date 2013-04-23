@@ -7,6 +7,7 @@ class Vector2
 	public:
 	T x, y;
 
+	Vector2<T>();
 	Vector2<T>(T x, T y);
 	// Constructor
 

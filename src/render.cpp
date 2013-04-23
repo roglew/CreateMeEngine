@@ -1,4 +1,6 @@
 #include "render.h"
+#include "gameobject.hpp"
+#include "sprite.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -78,7 +80,7 @@ void Render::draw(GameObject& object, int depth)
 
 	event.id = DRAW_DRAWABLE;
 	event.depth = depth;
-	event.drawable = object.get_current_frame().get_sfml_sprite();
+	event.drawable = object.get_current_frame();
 
 	object.update_sprite();
 

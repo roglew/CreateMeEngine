@@ -1,10 +1,10 @@
-#ifndef __GAMEOBJECT_HPP__
-#define __GAMEOBJECT_HPP__
+#ifndef __GAMEOBJECT_H__
+#define __GAMEOBJECT_H__
 
 #include "ids.h"
+#include "vector.hpp"
 #include "objectevent.hpp"
 #include "sprite.h"
-#include "vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -20,46 +20,40 @@ class GameObject
 		int depth;
 
 		Vector2<double> position;
-		Vector2<float> velocity;
-		Vector2<float> acceleration;
+		Vector2<double> velocity;
+		Vector2<double> acceleration;
 
 
 	public:
 		/////////////////////
 		// Movement methods
 
-		template <class T>
-		void set_position(Vector2<T>);
+		void set_position(const Vector2<double>& position_vector);
 		void set_position(double x, double y);
 		// MODIFIES: Position
 		// EFFECTS:  Sets the position of the object
 
-		template <class T>
-		void move(Vector2<T>);
+		void move(const Vector2<double>& move_vector);
 		void move(double x, double y);
 		// MODIFIES: Position
 		// EFFECTS:  Moves the object by the given vector
 
-		template <class T>
-		void set_velocity(Vector2<T>);
+		void set_velocity(const Vector2<double>&);
 		void set_velocity(double x, double y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Sets the velocity of the object
 
-		template <class T>
-		void add_velocity(Vector2<T>);
+		void add_velocity(const Vector2<double>&);
 		void add_velocity(float x, float y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Adds to the velocity of the object
 
-		template <class T>
-		void set_acceleration(Vector2<T>);
+		void set_acceleration(const Vector2<double>&);
 		void set_acceleration(float x, float y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Sets the acceleration of the object
 
-		template <class T>
-		void add_acceleration(Vector2<T>);
+		void add_acceleration(const Vector2<double>&);
 		void add_acceleration(float x, float y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Adds to the acceleration of the object
@@ -67,9 +61,9 @@ class GameObject
 		//////////////////
 		// Event Methods
 
-		template <class T=bool>
-		void register_event(bool*, void (*response(T)));
-		void register_event(bool*, void (*response()));
+		template <class T>
+		void register_event(bool*, void (*new_response(T)));
+		void register_event(bool*, void (*new_response()));
 		// REQUIRES: bool* is not null, response function exists for the duration
 		//           of the object
 		// MODIFIES: This
@@ -77,7 +71,7 @@ class GameObject
 		//           obj.process_events()/process_events(T) is called,
 		//           if bool* points to true, response()/response(T) is called.
 
-		template <class T=bool>
+		template <class T>
 		void process_events(T);
 		void process_events();
 		// REQUIRES: Only valid events are registered
@@ -138,8 +132,6 @@ class GameObject
 		// EFFECTS:  Adjusts the sprite to match the object
 
 };
-
-#include "gameobject.cpp"
 
 #endif
 

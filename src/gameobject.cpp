@@ -9,8 +9,7 @@
 /////////////////////
 // Movement methods
 
-template <class T>
-void GameObject::set_position(const& Vector2<T> set_to)
+void GameObject::set_position(const Vector2<double>& set_to)
 {
 	position = set_to;
 }
@@ -22,8 +21,7 @@ void GameObject::set_position(double x, double y)
 }
 
 
-template <class T>
-void GameObject::move(const& Vector2<T> move_vector)
+void GameObject::move(const Vector2<double>& move_vector)
 {
 	position += move_vector;
 }
@@ -35,8 +33,7 @@ void GameObject::move(double x, double y)
 }
 
 
-template <class T>
-void GameObject::set_velocity(Vector2<T> velocity_vector)
+void GameObject::set_velocity(const Vector2<double>& velocity_vector)
 {
 	velocity = velocity_vector;
 }
@@ -48,8 +45,7 @@ void GameObject::set_velocity(double x, double y)
 }
 
 
-template <class T>
-void GameObject::add_velocity(Vector2<T> velocity_vector)
+void GameObject::add_velocity(const Vector2<double>& velocity_vector)
 {
 	velocity += velocity_vector;
 }
@@ -61,8 +57,7 @@ void GameObject::add_velocity(float x, float y)
 }
 
 
-template <class T>
-void GameObject::set_acceleration(Vector2<T> acceleration_vector)
+void GameObject::set_acceleration(const Vector2<double>& acceleration_vector)
 {
 	acceleration = acceleration_vector;
 }
@@ -74,8 +69,7 @@ void GameObject::set_acceleration(float x, float y)
 }
 
 
-template <class T>
-void GameObject::add_acceleration(Vector2<T> acceleration_vector)
+void GameObject::add_acceleration(const Vector2<double>& acceleration_vector)
 {
 	acceleration += acceleration_vector;
 }
@@ -192,7 +186,7 @@ void GameObject::set_animation(int animation)
 
 Sprite* GameObject::get_current_frame()
 {
-	
+	return (animations[current_animation][current_frame]);
 }
 
 
@@ -209,6 +203,6 @@ Sprite* GameObject::get_frame(int animation, int n)
 
 void GameObject::update_sprite()
 {
-	get_current_frame()->get_sfml_sprite()->setPosition(position.x, position.y);
+	get_current_frame()->setPosition(position.x, position.y);
 }
 
