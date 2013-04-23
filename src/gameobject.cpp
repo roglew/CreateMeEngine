@@ -111,9 +111,16 @@ void GameObject::process_events()
 }
 
 
-void GameObject::remove_event(bool*)
+void GameObject::remove_event(bool* tocheck)
 {
-	
+	std::vector<ObjectEvent*>::iterator it;
+	//OPTIMIZE
+	// Maybe stop after the event is found?
+	for (it = events.begin(); it != events.end(); it++)
+	{
+		if ((*it)->get_trigger() == tocheck)
+			it = events.erase(it);
+	}
 }
 
 

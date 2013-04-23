@@ -11,6 +11,11 @@ void ObjectEvent::set_trigger(bool* new_trigger)
 	trigger = new_trigger;
 }
 
+bool* ObjectEvent::get_trigger()
+{
+	return trigger;
+}
+
 
 void ObjectEvent::set_response(void (*new_response)())
 {

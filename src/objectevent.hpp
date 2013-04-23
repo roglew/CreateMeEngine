@@ -18,6 +18,9 @@ class ObjectEvent
 		// MODIFIES: this
 		// EFFECTS:  Sets the event trigger to a new bool
 
+		bool* get_trigger();
+		// EFFFECTS: Returns the pointer to the bool that triggers this event
+
 		void set_response(void (*response)());
 		// MODIFIES: this
 		// EFFECTS:  Sets the event response to a new function
