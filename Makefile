@@ -1,6 +1,17 @@
+#####
+# Config
+
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
-clean: cleanlib cleantests
+# Find cpp files and their corresponding.o
+CPP_FILES = $(wildcard src/*.cpp)
+OBJ_FILES = $(addprefix bin/,$(notdir $(CPP_FILES:,.cpp=.o)))
+
+####
+# Builds
+
+# Cleaning
+clean: cleanbin cleantests
 
 cleanbin:
 	rm bin/*
@@ -8,22 +19,12 @@ cleanbin:
 cleantests:
 	rm *.test
 
+# Build .o files from .cpp
+bin/%.o: src/%.cpp
+	g++ $^ -o $@ -c $(SFML_FLAGS)
 
-bin/input.o: src/input.cpp
-	g++ $^ -c -o $@ $(SFML_FLAGS)
-
-bin/render.o: src/render.cpp
-	g++ $^ -c -o $@ $(SFML_FLAGS)
-
-bin/objectevent.o: src/objectevent.cpp
-	g++ $^ -c -o $@ $(SFML_FLAGS)
-
-bin/sprite.o: src/sprite.cpp
-	g++ $^ -c -o $@ $(SFML_FLAGS)
-
-bin/gameobject.o: src/gameobject.cpp
-	g++ $^ -c -o $@ $(SFML_FLAGS)
-
+####
+# Basic tests
 
 input.test: bin/input.o tests/inputtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
