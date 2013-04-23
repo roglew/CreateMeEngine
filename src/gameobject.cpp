@@ -10,6 +10,7 @@
 // Constructors/destructors
 GameObject::~GameObject()
 {
+	// Clear the pointers to events
 	std::vector<AbstractObjectEvent*>::iterator it = events.begin();
 	for (it = events.begin(); it != events.end(); it++)
 	{
@@ -96,32 +97,21 @@ void GameObject::add_acceleration(float x, float y)
 //////////////////
 // Event Methods
 
-template <class T>
-void register_event(bool* trigger, void (*response(T)))
+void GameObject::register_event(bool* trigger, void (*response)() )
 {
-	ObjectEvent<T> event(trigger, response);
-	
+	ObjectEvent* event = new ObjectEvent(trigger, response);
+	events.push_back(event);
 }
 
-void register_event(bool*, void (*response()))
+void GameObject::process_events()
 {
-	
-}
-
-
-template <class T>
-void process_events(T)
-{
-	
-}
-
-void process_events()
-{
-	
+	std::vector<ObjectEvent*>::iterator it;
+	for (it = events.begin(); it != events.end(); it++)
+		(*it)->process();
 }
 
 
-void remove_event(bool*)
+void GameObject::remove_event(bool*)
 {
 	
 }

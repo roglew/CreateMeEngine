@@ -13,7 +13,7 @@ class GameObject
 	protected:
 		GameObjectId id;
 		int instance_id;
-		std::vector< AbstractObjectEvent* > events;
+		std::vector< ObjectEvent* > events;
 
 		std::vector< std::vector<Sprite*> > animations;
 		int current_animation, current_frame;
@@ -66,8 +66,8 @@ class GameObject
 		// Event Methods
 
 		template <class T>
-		void register_event(bool*, void (*new_response(T)));
-		void register_event(bool*, void (*new_response()));
+		void register_event(bool*, void (*new_response)(T) );
+		void register_event(bool*, void (*new_response)() );
 		// REQUIRES: bool* is not null, response function exists for the duration
 		//           of the object
 		// MODIFIES: This
