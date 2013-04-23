@@ -13,7 +13,7 @@ class GameObject
 	protected:
 		GameObjectId id;
 		int instance_id;
-		std::vector<ObjectEvent<> > events;
+		std::vector< AbstractObjectEvent* > events;
 
 		std::vector< std::vector<Sprite*> > animations;
 		int current_animation, current_frame;
@@ -23,8 +23,12 @@ class GameObject
 		Vector2<double> velocity;
 		Vector2<double> acceleration;
 
-
 	public:
+		/////////////////////////////////
+		// Constructors and destructors
+		GameObject();
+		~GameObject();
+
 		/////////////////////
 		// Movement methods
 

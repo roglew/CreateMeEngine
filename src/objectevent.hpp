@@ -1,8 +1,14 @@
 #ifndef __OBJECTEVENT_HPP__
 #define __OBJECTEVENT_HPP__
 
+class AbstractObjectEvent
+{
+	public:
+		virtual ~AbstractObjectEvent() = 0;
+};
+
 template <class T=bool>
-class ObjectEvent
+class ObjectEvent: AbstractObjectEvent
 {
 	private:
 		bool* trigger;

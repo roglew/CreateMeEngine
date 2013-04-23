@@ -6,6 +6,18 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+/////////////////////////////
+// Constructors/destructors
+GameObject::~GameObject()
+{
+	std::vector<AbstractObjectEvent*>::iterator it = events.begin();
+	for (it = events.begin(); it != events.end(); it++)
+	{
+		delete *it;
+		events.erase(it);
+	}
+}
+
 /////////////////////
 // Movement methods
 
@@ -85,8 +97,9 @@ void GameObject::add_acceleration(float x, float y)
 // Event Methods
 
 template <class T>
-void register_event(bool*, void (*response(T)))
+void register_event(bool* trigger, void (*response(T)))
 {
+	ObjectEvent<T> event(trigger, response);
 	
 }
 
