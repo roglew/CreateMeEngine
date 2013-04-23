@@ -4,6 +4,7 @@
 #include "gameobject.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
 
 enum DrawEventId{DRAW_OBJECT, DRAW_DRAWABLE, DRAW_CLEAR,
 	DrawEventIdSize};
@@ -26,6 +27,7 @@ class Render
 	private:
 		std::vector<DrawEvent> draw_queue;
 		sf::RenderTarget *render_target;
+		bool owns_render_target;
 
 		void queue_draw_event(DrawEvent);
 		// Adds a draw event to the queue
@@ -35,7 +37,19 @@ class Render
 		// EFFECTS:  Clears the draw queue
 
 	public:
+		Render();
+		// Normal constructor. Creates a 640x480 window with no title as default
+		// render target
+
+		Render(int width, int height, std::string title);
+		// Initializes render target as a sf::RenderWindow with the given width,
+		// height, and title
+
 		Render(sf::RenderTarget&);
+		// Render to a different render target
+
+		~Render();
+		// Destructor
 
 		void render();
 		// MODIFIES: RenderWindow
@@ -56,6 +70,13 @@ class Render
 		// MODIFIES: this, object
 		// EFFECTS:  Updates the sprite on the object and draws the
 		//           object at the given depth
+
+		sf::RenderTarget* get_render_target();
+		// EFFECTS: Returns a pointer to the Render's target
+
+		sf::RenderWindow* get_created_window();
+		// EFFECTS: If the Render created a window, it returns a
+		//          pointer to it. Otherwise, it returns NULL.
 
 };
 

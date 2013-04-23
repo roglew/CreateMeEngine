@@ -3,6 +3,7 @@
 #include "sprite.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
 static bool draw_event_lt(DrawEvent de1, DrawEvent de2)
 {
@@ -21,9 +22,33 @@ void Render::clear_queue()
 }
 
 // Public functions
+Render::Render()
+{
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(640, 480, 32), "");
+	window->setFramerateLimit(60);
+	owns_render_target = true;
+	render_target = window;
+}
+
+Render::Render(int width, int height, std::string title)
+{
+	sf::RenderWindow* window = new sf::RenderWindow(
+	                           sf::VideoMode(width, height, 32), title.c_str());
+	window->setFramerateLimit(60);
+	owns_render_target = true;
+	render_target = window;
+}
+
 Render::Render(sf::RenderTarget& target)
 {
+	owns_render_target = false;
 	render_target = &target;
+}
+
+Render::~Render()
+{
+	if (owns_render_target)
+		delete render_target;
 }
 
 void Render::render()
@@ -48,6 +73,9 @@ void Render::render()
 			break;
 		}
 	}
+
+	if (owns_render_target)
+		static_cast<sf::RenderWindow*>(render_target)->display();
 
 	clear_queue();
 }
@@ -85,5 +113,18 @@ void Render::draw(GameObject& object, int depth)
 	object.update_sprite();
 
 	draw_queue.push_back(event);
+}
+
+sf::RenderTarget* Render::get_render_target()
+{
+	return render_target;
+}
+
+sf::RenderWindow* Render::get_created_window()
+{
+	if (owns_render_target)
+		return static_cast<sf::RenderWindow*>(render_target);
+	else
+		return NULL;
 }
 
