@@ -131,7 +131,8 @@ void GameObject::add_frame(int animation, Sprite* sprite, int n)
 
 int GameObject::add_animation()
 {
-	// Shitty way to add something to the vector, but it will work for now
+	//OPTIMIZE
+	// create and delete the animation vectors
 	std::vector<Sprite*> temp;
 	animations.push_back(temp);
 
