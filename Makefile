@@ -5,7 +5,8 @@ SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 # Find cpp files and their corresponding.o
 CPP_FILES = $(wildcard src/*.cpp)
-OBJ_FILES = $(addprefix bin/,$(notdir $(CPP_FILES:,.cpp=.o)))
+OBJ_FILES = $(wildcard bin/*.o)
+TEST_FILES = $(wildcard *.test)
 
 ####
 # Builds
@@ -14,10 +15,14 @@ OBJ_FILES = $(addprefix bin/,$(notdir $(CPP_FILES:,.cpp=.o)))
 clean: cleanbin cleantests
 
 cleanbin:
-	rm bin/*
+ifdef ($(OBJ_FILES))
+	rm $(OBJ_FILES)
+endif
 
 cleantests:
-	rm *.test
+ifdef ($(TEST_FILES))
+	rm $(TEST_FILES)
+endif
 
 # Build .o files from .cpp
 bin/%.o: src/%.cpp
