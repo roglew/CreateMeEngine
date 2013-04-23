@@ -33,7 +33,7 @@ class Input
 		std::ostream *outstream;
 	
 	public:
-		Input(sf::Window&);
+		Input(sf::Window& reference_window);
 		// Constructor
 		// reference_window is the window that will pass events to the input and
 		// be used for getting relative mouse pos.
@@ -49,11 +49,11 @@ class Input
 		WindowStatus window_events();
 		// EFFECTS: Returns a WindowStatus struct to handle window events
 
-		ButtonStatus key_state(sf::Keyboard::Key);
+		ButtonStatus key_state(sf::Keyboard::Key key);
 		// EFFECTS: Returns a ButtonState struct that contains if the key is
 		//          held down,has been pressed this frame, or released this frame
 
-		ButtonStatus mouse_state(sf::Mouse::Button);
+		ButtonStatus mouse_state(sf::Mouse::Button button);
 		// EFFECTS: Returns a ButtonState struct that contains if the button is
 		//          held down, has been pressed this frame, or released this frame
 
@@ -66,7 +66,7 @@ class Input
 		// EFFECTS: Returns a vector containing the position of the mouse cursor
 		//          relative to the given window's view
 
-		void start_logging(std::ostream&);
+		void start_logging(std::ostream &logstream);
 		// EFFECTS: Begins outputting any input events to the given output stream
 
 		void stop_logging();
