@@ -10,13 +10,13 @@ class ObjectEvent
 		void (*response_arg)(T);
 
 	public:
-		ObjectEvent(bool*, void (*response)(T));
-		ObjectEvent(bool*, void (*response)());
+		ObjectEvent(bool* trigger, void (*new_response)(T));
+		ObjectEvent(bool* trigger, void (*new_response)());
 		// Creates an instance of an ObjectEvent that points to the given
 		// bool and associates it with the given response
 
 
-		void set_trigger(bool*);
+		void set_trigger(bool* trigger);
 		// MODIFIES: this
 		// EFFECTS:  Sets the event trigger to a new bool
 
@@ -30,7 +30,7 @@ class ObjectEvent
 		// MODIFIES: this
 		// EFFECTS:  Sets both the trigger and the response of the event
 
-		void process(T);
+		void process(T arg);
 		void process();
 		// EFFECTS: Checks if the value pointed to by the trigger is true.
 		//          If it is, it executes response() with the same argument
