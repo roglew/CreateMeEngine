@@ -15,14 +15,10 @@ TEST_FILES = $(wildcard *.test)
 clean: cleanbin cleantests
 
 cleanbin:
-ifdef ($(OBJ_FILES))
 	rm $(OBJ_FILES)
-endif
 
 cleantests:
-ifdef ($(TEST_FILES))
 	rm $(TEST_FILES)
-endif
 
 # Build .o files from .cpp
 bin/%.o: src/%.cpp
@@ -41,5 +37,8 @@ event.test: src/objectevent.hpp tests/eventtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 
 object_draw.test: bin/gameobject.o bin/objectevent.o src/ids.h bin/render.o bin/input.o tests/object_drawtest.cpp
+	g++ $^ -o $@ $(SFML_FLAGS)
+
+object_events.test: bin/gameobject.o bin/objectevent.o src/ids.h bin/render.o bin/input.o tests/object_eventtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 

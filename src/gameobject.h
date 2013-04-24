@@ -61,6 +61,8 @@ class GameObject
 		// MODIFIES: Acceleration
 		// EFFECTS:  Adds to the acceleration of the object
 
+		Vector2<double> get_position();
+
 		//////////////////
 		// Event Methods
 

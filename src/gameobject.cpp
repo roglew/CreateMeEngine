@@ -94,6 +94,12 @@ void GameObject::add_acceleration(float x, float y)
 }
 
 
+Vector2<double> GameObject::get_position()
+{
+	return position;
+}
+
+
 //////////////////
 // Event Methods
 
