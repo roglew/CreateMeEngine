@@ -8,6 +8,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+class ObjectEvent;
+
 class GameObject
 {
 	protected:
@@ -66,9 +68,7 @@ class GameObject
 		//////////////////
 		// Event Methods
 
-		template <class T>
-		void register_event(bool*, void (*new_response)(T) );
-		void register_event(bool*, void (*new_response)() );
+		void register_event(bool*, void (*new_response)(GameObject*) );
 		// REQUIRES: bool* is not null, response function exists for the duration
 		//           of the object
 		// MODIFIES: This
@@ -76,8 +76,6 @@ class GameObject
 		//           obj.process_events()/process_events(T) is called,
 		//           if bool* points to true, response()/response(T) is called.
 
-		template <class T>
-		void process_events(T);
 		void process_events();
 		// REQUIRES: Only valid events are registered
 		// EFFECTS:  Any registered events currently pointing to a true bool

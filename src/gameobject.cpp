@@ -103,7 +103,7 @@ Vector2<double> GameObject::get_position()
 //////////////////
 // Event Methods
 
-void GameObject::register_event(bool* trigger, void (*response)() )
+void GameObject::register_event(bool* trigger, void (*response)(GameObject*) )
 {
 	ObjectEvent* event = new ObjectEvent(trigger, response);
 	events.push_back(event);
@@ -113,7 +113,7 @@ void GameObject::process_events()
 {
 	std::vector<ObjectEvent*>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
-		(*it)->process();
+		(*it)->process(this);
 }
 
 

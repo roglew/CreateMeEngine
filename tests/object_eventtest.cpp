@@ -6,26 +6,24 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-GameObject obj;
-
-void move_up()
+void move_up(GameObject* obj)
 {
-	obj.move(0, -2);
+	obj->move(0, -2);
 }
 
-void move_down()
+void move_down(GameObject* obj)
 {
-	obj.move(0, 2);
+	obj->move(0, 2);
 }
 
-void move_left()
+void move_left(GameObject* obj)
 {
-	obj.move(-2, 0);
+	obj->move(-2, 0);
 }
 
-void move_right()
+void move_right(GameObject* obj)
 {
-	obj.move(2, 0);
+	obj->move(2, 0);
 }
 
 int main(int argc, const char *argv[])
@@ -39,6 +37,7 @@ int main(int argc, const char *argv[])
 	// Create the object
 	sf::Texture tex;
 	Sprite *spr = new Sprite;
+	GameObject obj;
 	tex.loadFromFile("resources/sprite.png");
 	spr->setTexture(tex);
 	obj.add_animation();
