@@ -42,3 +42,6 @@ object_draw.test: bin/gameobject.o bin/objectevent.o src/ids.h bin/render.o bin/
 object_events.test: bin/gameobject.o bin/objectevent.o src/ids.h bin/render.o bin/input.o tests/object_eventtest.cpp
 	g++ $^ -o $@ $(SFML_FLAGS)
 
+memleak.test: tests/memleak.cpp bin/gameobject.o bin/objectevent.o
+	g++ $^ -o $@ $(SFML_FLAGS)
+
