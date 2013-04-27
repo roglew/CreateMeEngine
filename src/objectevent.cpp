@@ -1,6 +1,6 @@
 #include "objectevent.h"
 
-ObjectEvent::ObjectEvent(bool* new_trigger, void (*new_response)(GameObject*))
+ObjectEvent::ObjectEvent(bool* new_trigger, void (*new_response)(ResponseInfo*))
 {
 	trigger = new_trigger;
 	response = new_response;
@@ -17,21 +17,21 @@ bool* ObjectEvent::get_trigger()
 }
 
 
-void ObjectEvent::set_response(void (*new_response)(GameObject*))
+void ObjectEvent::set_response(void (*new_response)(ResponseInfo*))
 {
 	response = new_response;
 }
 
-void ObjectEvent::set(bool* new_trigger, void (*new_response)(GameObject*))
+void ObjectEvent::set(bool* new_trigger, void (*new_response)(ResponseInfo*))
 {
 	trigger = new_trigger;
 	response = new_response;
 }
 
 
-void ObjectEvent::process(GameObject* obj)
+void ObjectEvent::process(ResponseInfo* info)
 {
 	if (*trigger)
-		response(obj);
+		response(info);
 }
 

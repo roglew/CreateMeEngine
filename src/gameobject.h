@@ -8,7 +8,15 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class ObjectEvent;
+class GameObject;
+
+class GameObjectEventInfo: public ResponseInfo
+{
+	public:
+		GameObject* object;
+		GameObjectEventInfo();
+		GameObjectEventInfo(GameObject* obj);
+};
 
 class GameObject
 {
@@ -68,7 +76,7 @@ class GameObject
 		//////////////////
 		// Event Methods
 
-		void register_event(bool*, void (*new_response)(GameObject*) );
+		void register_event(bool*, void (*new_response)(ResponseInfo*) );
 		// REQUIRES: bool* is not null, response function exists for the duration
 		//           of the object
 		// MODIFIES: This

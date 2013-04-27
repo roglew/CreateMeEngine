@@ -6,24 +6,28 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-void move_up(GameObject* obj)
+void move_up(ResponseInfo* info)
 {
-	obj->move(0, -2);
+	GameObjectEventInfo* obj = static_cast<GameObjectEventInfo*>(info);
+	obj->object->move(0, -2);
 }
 
-void move_down(GameObject* obj)
+void move_down(ResponseInfo* info)
 {
-	obj->move(0, 2);
+	GameObjectEventInfo* obj = static_cast<GameObjectEventInfo*>(info);
+	obj->object->move(0, 2);
 }
 
-void move_left(GameObject* obj)
+void move_left(ResponseInfo* info)
 {
-	obj->move(-2, 0);
+	GameObjectEventInfo* obj = static_cast<GameObjectEventInfo*>(info);
+	obj->object->move(-2, 0);
 }
 
-void move_right(GameObject* obj)
+void move_right(ResponseInfo* info)
 {
-	obj->move(2, 0);
+	GameObjectEventInfo* obj = static_cast<GameObjectEventInfo*>(info);
+	obj->object->move(2, 0);
 }
 
 int main(int argc, const char *argv[])

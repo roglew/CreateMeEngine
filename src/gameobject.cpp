@@ -6,6 +6,13 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+/////////////////////
+// Event info class
+GameObjectEventInfo::GameObjectEventInfo(GameObject* obj)
+{
+	object = obj;
+}
+
 /////////////////////////////
 // Constructors/destructors
 GameObject::~GameObject()
@@ -103,7 +110,8 @@ Vector2<double> GameObject::get_position()
 //////////////////
 // Event Methods
 
-void GameObject::register_event(bool* trigger, void (*response)(GameObject*) )
+void GameObject::register_event(bool* trigger,
+                                void (*response)(ResponseInfo*) )
 {
 	ObjectEvent* event = new ObjectEvent(trigger, response);
 	events.push_back(event);
@@ -111,9 +119,10 @@ void GameObject::register_event(bool* trigger, void (*response)(GameObject*) )
 
 void GameObject::process_events()
 {
+	GameObjectEventInfo info(this);
 	std::vector<ObjectEvent*>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
-		(*it)->process(this);
+		(*it)->process(&info);
 }
 
 
