@@ -27,21 +27,6 @@ bin/%.o: src/%.cpp
 ####
 # Basic tests
 
-input.test: bin/input.o tests/inputtest.cpp
-	g++ $^ -o $@ $(SFML_FLAGS)
-
-render.test: bin/render.o bin/input.o tests/rendertest.cpp
-	g++ $^ -o $@ $(SFML_FLAGS)
-
-event.test: src/objectevent.hpp tests/eventtest.cpp
-	g++ $^ -o $@ $(SFML_FLAGS)
-
-object_draw.test: bin/gameobject.o bin/objectevent.o src/ids.h bin/render.o bin/input.o tests/object_drawtest.cpp
-	g++ $^ -o $@ $(SFML_FLAGS)
-
-object_events.test: bin/gameobject.o bin/objectevent.o src/ids.h bin/render.o bin/input.o tests/object_eventtest.cpp
-	g++ $^ -o $@ $(SFML_FLAGS)
-
-memleak.test: tests/memleak.cpp bin/gameobject.o bin/objectevent.o
+newinput.test: tests/newinputtest.cpp bin/gameobject.o bin/render.o bin/input.o bin/sprite.o
 	g++ $^ -o $@ $(SFML_FLAGS)
 
