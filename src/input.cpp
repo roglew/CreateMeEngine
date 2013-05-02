@@ -32,6 +32,13 @@ const std::string mouse_button_names[] = {
   "XButton1", "XButton2"
 };
 
+void update_mouse_position()
+{
+	sf::Vector2i raw_coords;
+	raw_coords = sf::Mouse::getPosition(*reference_window);
+	mouse_position = reference_window->mapPixelToCoords(raw_coords);
+}
+
 Input::Input(sf::RenderWindow& ref_window)
 {
 	// Make the vectors the right size
@@ -120,6 +127,7 @@ void Input::update()
 
 			case sf::Event::Resized:
 				window.resized = true;
+				update_mouse_position();
 				if (outstream) *outstream << "Window resized\n";
 			break;
 
@@ -132,6 +140,7 @@ void Input::update()
 			case sf::Event::GainedFocus:
 				window.gained_focus = true;
 				window.has_focus = true;
+				update_mouse_position();
 				if (outstream) *outstream << "Window gained focus\n";
 			break;
 
@@ -174,24 +183,17 @@ void Input::update()
 			break;
 
 			case sf::Event::MouseMoved:
-				{
-					sf::Vector2i raw_coords;
-					raw_coords = sf::Mouse::getPosition(*reference_window);
-					mouse_position = reference_window->mapPixelToCoords(raw_coords);
-				}
+				update_mouse_position();
 			break;
 
 			case sf::Event::MouseEntered:
-				{
-					sf::Vector2i raw_coords;
-					raw_coords = sf::Mouse::getPosition(*reference_window);
-					mouse_position = reference_window->mapPixelToCoords(raw_coords);
-					window.mouse_is_in_window = true;
-					if (outstream) *outstream << "Mouse has entered the window\n";
-				}
+				update_mouse_position();
+				window.mouse_is_in_window = true;
+				if (outstream) *outstream << "Mouse has entered the window\n";
 			break;
 
 			case sf::Event::MouseLeft:
+				update_mouse_position();
 				window.mouse_is_in_window = false;
 				if (outstream) *outstream << "Mouse has left the window\n";
 			break;

@@ -27,6 +27,9 @@ class Input
 	private:
 		sf::RenderWindow *reference_window;
 		std::ostream *outstream;
+
+		// Private functions
+		void update_mouse_position();
 	
 	public:
 		// Reference variables
