@@ -1,29 +1,14 @@
 #include "gameobject.h"
 #include "ids.h"
-#include "objectevent.h"
 #include "sprite.h"
 #include "vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-/////////////////////
-// Event info class
-GameObjectEventInfo::GameObjectEventInfo(GameObject* obj)
-{
-	object = obj;
-}
-
 /////////////////////////////
 // Constructors/destructors
 GameObject::~GameObject()
 {
-	// Clear the pointers to events
-	std::vector<ObjectEvent*>::iterator it = events.begin();
-	for (it = events.begin(); it != events.end(); it++)
-	{
-		delete *it;
-		events.erase(it);
-	}
 }
 
 /////////////////////

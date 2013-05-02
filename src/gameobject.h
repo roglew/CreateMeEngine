@@ -3,20 +3,9 @@
 
 #include "ids.h"
 #include "vector.hpp"
-#include "objectevent.h"
 #include "sprite.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
-
-class GameObject;
-
-class GameObjectEventInfo: public ResponseInfo
-{
-	public:
-		GameObject* object;
-		GameObjectEventInfo();
-		GameObjectEventInfo(GameObject* obj);
-};
 
 class GameObject
 {
