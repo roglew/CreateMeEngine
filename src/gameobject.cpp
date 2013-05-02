@@ -8,8 +8,6 @@
 /////////////////////////////
 // Constructors/destructors
 GameObject::~GameObject()
-{
-}
 
 /////////////////////
 // Movement methods
