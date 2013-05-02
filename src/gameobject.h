@@ -23,7 +23,6 @@ class GameObject
 	protected:
 		GameObjectId id;
 		int instance_id;
-		std::vector< ObjectEvent* > events;
 
 		std::vector< std::vector<Sprite*> > animations;
 		int current_animation, current_frame;
@@ -76,18 +75,8 @@ class GameObject
 		//////////////////
 		// Event Methods
 
-		void register_event(bool*, void (*new_response)(ResponseInfo*) );
-		// REQUIRES: bool* is not null, response function exists for the duration
-		//           of the object
-		// MODIFIES: This
-		// EFFECTS:  Adds an event that the object will respond to. When
-		//           obj.process_events()/process_events(T) is called,
-		//           if bool* points to true, response()/response(T) is called.
-
-		void process_events();
-		// REQUIRES: Only valid events are registered
-		// EFFECTS:  Any registered events currently pointing to a true bool
-		//           will have their response functions called
+		virtual void process_events();
+		// EFFECTS: Processes the events of the object
 
 		void remove_event(bool*);
 		// EFFECTS: Removes any registered events that point to the given pointer

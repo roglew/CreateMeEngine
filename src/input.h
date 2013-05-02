@@ -25,14 +25,20 @@ struct WindowStatus
 class Input
 {
 	private:
-		sf::Window *window;
-		sf::Vector2f mouse_position, mouse_position_rel;
-		std::vector<ButtonStatus> key_states;
-		std::vector<ButtonStatus> mouse_states;
-		WindowStatus window_status;
+		sf::Window *reference_window;
 		std::ostream *outstream;
 	
 	public:
+		// Reference variables
+		sf::Vector2f mouse_position, mouse_position_rel;
+		std::vector<ButtonStatus> key;
+		std::vector<ButtonStatus> mouse;
+		WindowStatus window;
+
+		// Aliases for reference variables
+		sf::Vector2f& mouse_pos = mouse_position;
+		sf::Vector2f& mouse_pos_rel = mouse_position_rel;
+
 		Input(sf::Window& reference_window);
 		// Constructor
 		// reference_window is the window that will pass events to the input and

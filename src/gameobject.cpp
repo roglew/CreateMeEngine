@@ -110,34 +110,9 @@ Vector2<double> GameObject::get_position()
 //////////////////
 // Event Methods
 
-void GameObject::register_event(bool* trigger,
-                                void (*response)(ResponseInfo*) )
-{
-	ObjectEvent* event = new ObjectEvent(trigger, response);
-	events.push_back(event);
-}
-
 void GameObject::process_events()
 {
-	GameObjectEventInfo info(this);
-	std::vector<ObjectEvent*>::iterator it;
-	for (it = events.begin(); it != events.end(); it++)
-		(*it)->process(&info);
 }
-
-
-void GameObject::remove_event(bool* tocheck)
-{
-	std::vector<ObjectEvent*>::iterator it;
-	//OPTIMIZE
-	// Maybe stop after the event is found?
-	for (it = events.begin(); it != events.end(); it++)
-	{
-		if ((*it)->get_trigger() == tocheck)
-			it = events.erase(it);
-	}
-}
-
 
 /////////////////////////////
 // Sprite/Animation Methods
