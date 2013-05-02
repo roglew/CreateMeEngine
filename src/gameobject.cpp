@@ -7,7 +7,7 @@
 
 /////////////////////////////
 // Constructors/destructors
-GameObject::~GameObject()
+GameObject::~GameObject(){}
 
 /////////////////////
 // Movement methods
