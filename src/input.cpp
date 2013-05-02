@@ -32,7 +32,7 @@ const std::string mouse_button_names[] = {
   "XButton1", "XButton2"
 };
 
-Input::Input(sf::Window& ref_window)
+Input::Input(sf::RenderWindow& ref_window)
 {
 	// Make the vectors the right size
 	key.reserve(sf::Keyboard::KeyCount);
@@ -110,6 +110,7 @@ void Input::update()
 	{
 		int mouse_button;
 		int keyboard_key;
+		sf::Vector2i newcoords;
 		switch(event.type)
 		{
 			case sf::Event::Closed:
@@ -173,19 +174,21 @@ void Input::update()
 			break;
 
 			case sf::Event::MouseMoved:
-				mouse_position.x = event.mouseMove.x;
-				mouse_position.y = event.mouseMove.y;
-				mouse_position_rel.x = sf::Mouse::getPosition(*reference_window).x;
-				mouse_position_rel.y = sf::Mouse::getPosition(*reference_window).y;
+				{
+					sf::Vector2i raw_coords;
+					raw_coords = sf::Mouse::getPosition(*reference_window);
+					mouse_position = reference_window->mapPixelToCoords(raw_coords);
+				}
 			break;
 
 			case sf::Event::MouseEntered:
-				window.mouse_is_in_window = true;
-				mouse_position.x = event.mouseMove.x;
-				mouse_position.y = event.mouseMove.y;
-				mouse_position_rel.x = sf::Mouse::getPosition(*reference_window).x;
-				mouse_position_rel.y = sf::Mouse::getPosition(*reference_window).y;
-				if (outstream) *outstream << "Mouse has entered the window\n";
+				{
+					sf::Vector2i raw_coords;
+					raw_coords = sf::Mouse::getPosition(*reference_window);
+					mouse_position = reference_window->mapPixelToCoords(raw_coords);
+					window.mouse_is_in_window = true;
+					if (outstream) *outstream << "Mouse has entered the window\n";
+				}
 			break;
 
 			case sf::Event::MouseLeft:

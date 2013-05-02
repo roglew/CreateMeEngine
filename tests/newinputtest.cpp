@@ -17,7 +17,7 @@ class CookieMonsterObj: public GameObject
 
 	void process_events()
 	{
-		set_position(input->mouse_position_rel.x, input->mouse_position_rel.y);
+		set_position(input->mouse_position.x, input->mouse_position.y);
 		//if (input->key[sf::Keyboard::Right].down)
 		//{
 		//	move(1, 0);

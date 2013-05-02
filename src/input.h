@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 extern const std::string keyboard_key_names[sf::Keyboard::KeyCount];
 extern const std::string mouse_button_names[sf::Keyboard::KeyCount];
@@ -25,17 +25,17 @@ struct WindowStatus
 class Input
 {
 	private:
-		sf::Window *reference_window;
+		sf::RenderWindow *reference_window;
 		std::ostream *outstream;
 	
 	public:
 		// Reference variables
-		sf::Vector2f mouse_position, mouse_position_rel;
+		sf::Vector2f mouse_position;
 		std::vector<ButtonStatus> key;
 		std::vector<ButtonStatus> mouse;
 		WindowStatus window;
 
-		Input(sf::Window& reference_window);
+		Input(sf::RenderWindow& reference_window);
 		// Constructor
 		// reference_window is the window that will pass events to the input and
 		// be used for getting relative mouse pos.
