@@ -18,10 +18,10 @@ class Sprite: public sf::Sprite
 		// MODIFIES: This
 		// EFFECTS:  Sets the collision struct of the sprite
 
+		bool collides(Sprite& other_sprite);
+		// EFFECTS: Returns whether the two sprites collide
 };
 
-//bool collides(const &Sprite, const &Sprite);
-// EFFECTS: Returns whether the two sprites collide
 
 #endif
 
