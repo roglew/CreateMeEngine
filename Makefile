@@ -11,6 +11,9 @@ TEST_FILES = $(wildcard *.test)
 ####
 # Builds
 
+build: newinput.test
+	./newinput.test
+
 # Cleaning
 clean: cleanbin cleantests
 
