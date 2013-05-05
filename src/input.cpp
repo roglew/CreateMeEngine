@@ -32,7 +32,7 @@ const std::string mouse_button_names[] = {
   "XButton1", "XButton2"
 };
 
-void update_mouse_position()
+void Input::update_mouse_position()
 {
 	sf::Vector2i raw_coords;
 	raw_coords = sf::Mouse::getPosition(*reference_window);
