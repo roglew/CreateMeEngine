@@ -29,3 +29,19 @@ bool collides(const BoundingBox& box1, const BoundingBox& box2)
 		return 1;
 }
 
+bool collides(std::vector<BoundingBox>& boxes1,
+              std::vector<BoundingBox>& boxes2)
+{
+	std::vector<BoundingBox>::iterator it1;
+	std::vector<BoundingBox>::iterator it2;
+	for (it1 = boxes1.begin(); it1 != boxes1.end(); it1++)
+	{
+		for (it2 = boxes2.begin(); it2 != boxes2.end(); it2++)
+		{
+			if ( collides(*it1, *it2) )
+				return true;
+		}
+	}
+
+	return false;
+}
