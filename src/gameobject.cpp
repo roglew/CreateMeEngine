@@ -12,79 +12,79 @@ GameObject::~GameObject(){}
 /////////////////////
 // Movement methods
 
-void GameObject::set_position(const Vector2<double>& set_to)
+void GameObject::set_position(const Vector2<int>& set_to)
 {
 	position = set_to;
 }
 
-void GameObject::set_position(double x, double y)
+void GameObject::set_position(int x, int y)
 {
 	position.x = x;
 	position.y = y;
 }
 
 
-void GameObject::move(const Vector2<double>& move_vector)
+void GameObject::move(const Vector2<int>& move_vector)
 {
 	position += move_vector;
 }
 
-void GameObject::move(double x, double y)
+void GameObject::move(int x, int y)
 {
 	position.x += x;
 	position.y += y;
 }
 
 
-void GameObject::set_velocity(const Vector2<double>& velocity_vector)
+void GameObject::set_velocity(const Vector2<int>& velocity_vector)
 {
 	velocity = velocity_vector;
 }
 
-void GameObject::set_velocity(double x, double y)
+void GameObject::set_velocity(int x, int y)
 {
 	velocity.x = x;
 	velocity.y = y;
 }
 
 
-void GameObject::add_velocity(const Vector2<double>& velocity_vector)
+void GameObject::add_velocity(const Vector2<int>& velocity_vector)
 {
 	velocity += velocity_vector;
 }
 
-void GameObject::add_velocity(float x, float y)
+void GameObject::add_velocity(int x, int y)
 {
 	velocity.x += x;
 	velocity.y += y;
 }
 
 
-void GameObject::set_acceleration(const Vector2<double>& acceleration_vector)
+void GameObject::set_acceleration(const Vector2<int>& acceleration_vector)
 {
 	acceleration = acceleration_vector;
 }
 
-void GameObject::set_acceleration(float x, float y)
+void GameObject::set_acceleration(int x, int y)
 {
 	acceleration.x = x;
 	acceleration.y = y;
 }
 
 
-void GameObject::add_acceleration(const Vector2<double>& acceleration_vector)
+void GameObject::add_acceleration(const Vector2<int>& acceleration_vector)
 {
 	acceleration += acceleration_vector;
 }
 
-void GameObject::add_acceleration(float x, float y)
+void GameObject::add_acceleration(int x, int y)
 {
 	acceleration.x += x;
 	acceleration.y += y;
 }
 
 
-Vector2<double> GameObject::get_position()
+Vector2<int> GameObject::get_position()
 {
 	return position;
 }

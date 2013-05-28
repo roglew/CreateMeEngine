@@ -17,9 +17,9 @@ class GameObject
 		int current_animation, current_frame;
 		int depth;
 
-		Vector2<double> position;
-		Vector2<double> velocity;
-		Vector2<double> acceleration;
+		Vector2<int> position;
+		Vector2<int> velocity;
+		Vector2<int> acceleration;
 
 	public:
 		/////////////////////////////////
@@ -29,37 +29,37 @@ class GameObject
 		/////////////////////
 		// Movement methods
 
-		void set_position(const Vector2<double>& set_to);
-		void set_position(double x, double y);
+		void set_position(const Vector2<int>& set_to);
+		void set_position(int x, int y);
 		// MODIFIES: Position
 		// EFFECTS:  Sets the position of the object
 
-		void move(const Vector2<double>& move_vector);
-		void move(double x, double y);
+		void move(const Vector2<int>& move_vector);
+		void move(int x, int y);
 		// MODIFIES: Position
 		// EFFECTS:  Moves the object by the given vector
 
-		void set_velocity(const Vector2<double>& velocity_vector);
-		void set_velocity(double x, double y);
+		void set_velocity(const Vector2<int>& velocity_vector);
+		void set_velocity(int x, int y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Sets the velocity of the object
 
-		void add_velocity(const Vector2<double>& velocity_vector);
-		void add_velocity(float x, float y);
+		void add_velocity(const Vector2<int>& velocity_vector);
+		void add_velocity(int x, int y);
 		// MODIFIES: Velocity
 		// EFFECTS:  Adds to the velocity of the object
 
-		void set_acceleration(const Vector2<double>& acceleration_vector);
-		void set_acceleration(float x, float y);
+		void set_acceleration(const Vector2<int>& acceleration_vector);
+		void set_acceleration(int x, int y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Sets the acceleration of the object
 
-		void add_acceleration(const Vector2<double>& acceleration_vector);
-		void add_acceleration(float x, float y);
+		void add_acceleration(const Vector2<int>& acceleration_vector);
+		void add_acceleration(int x, int y);
 		// MODIFIES: Acceleration
 		// EFFECTS:  Adds to the acceleration of the object
 
-		Vector2<double> get_position();
+		Vector2<int> get_position();
 
 		//////////////////
 		// Event Methods
