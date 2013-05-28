@@ -33,3 +33,6 @@ bin/%.o: src/%.cpp
 newinput.test: tests/newinputtest.cpp bin/gameobject.o bin/render.o bin/input.o bin/sprite.o
 	g++ $^ -o $@ $(SFML_FLAGS)
 
+collisions.test: tests/newinputtest.cpp bin/gameobject.o bin/render.o bin/input.o bin/sprite.o bin/collision.o
+	g++ $^ -o $@ $(SFML_FLAGS)
+
