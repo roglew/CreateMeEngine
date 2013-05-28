@@ -1,12 +1,9 @@
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 
+#include "collision.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
-
-struct Collision{
-	std::vector< sf::Rect<int> > bounding_box;
-};
 
 class Sprite: public sf::Sprite
 {

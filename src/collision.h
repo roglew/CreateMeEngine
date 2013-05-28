@@ -1,11 +1,24 @@
 #ifndef __COLLISION_H__
 #define __COLLISION_H__
 
-#include <SFML/System.hpp>
+#include <vector>
+#include <string>
 
-struct bounding_box;
+enum COLLISION_TYPE {
+	COLLISION_BOUNDING_BOX,
 
-bool collides(bounding_box& box1, bounding_box& box2);
+	COLLISION_COUNT
+};
+
+struct BoundingBox;
+struct Collision;
+
+class CollisionException{};
+
+bool collides(const Collision& col1, const Collision& col2);
+bool collides(const BoundingBox& box1, const BoundingBox& box2);
+bool collides(const std::vector<BoundingBox>& boxes1,
+              const std::vector<BoundingBox>& boxes2);
 
 #endif
 
