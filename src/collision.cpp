@@ -1,14 +1,6 @@
 #include "collision.h"
 #include <vector>
 
-// Struct defenitions
-struct BoundingBox
-{
-	// A basic box with a position and a size
-	int x, y;
-	int w, h;
-};
-
 // A generic collision object
 struct Collision{
 	COLLISION_TYPE type;
@@ -22,10 +14,10 @@ bool collides(const BoundingBox& box1, const BoundingBox& box2)
 		int box2_right  = box2.x + box2.w;
 		int box2_bottom = box2.y + box2.h;
 
-		if (box1_bottom < box2.y) return(0);
-		if (box1.y > box2_bottom) return(0);
-		if (box1_right < box2.x) return(0);
-		if (box1.x > box2_right) return (0);
+		if (box1_bottom <= box2.y) return(0);
+		if (box1.y >= box2_bottom) return(0);
+		if (box1_right <= box2.x) return(0);
+		if (box1.x >= box2_right) return (0);
 		return 1;
 }
 

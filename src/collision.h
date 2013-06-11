@@ -11,7 +11,14 @@ enum COLLISION_TYPE
 	COLLISION_COUNT
 };
 
-struct BoundingBox;
+// Struct defenitions
+
+struct BoundingBox
+{
+	// A basic box with a position and a size
+	int x, y;
+	int w, h;
+};
 // A box that contains an int x, y, w, h that can be used to detect collisions
 
 struct Collision;
