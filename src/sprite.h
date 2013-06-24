@@ -8,7 +8,7 @@
 class Sprite: public sf::Sprite
 {
 	private:
-		Collision collision;
+		std::vector<Collision> collisions;
 	
 	public:
 		// set_collision(const &Collision);
