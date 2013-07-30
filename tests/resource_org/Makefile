@@ -14,19 +14,19 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Resource IDs
-src/resourceids.h: $(IMAGES)
+src/resourceids.h: $(IMAGES) resources/update.py
 	python resources/update.py
 
 # Build .o files from .cpp
-bin/%.o: src/%.cpp
+bin/%.o: src/%.cpp src/resourceids.h
 	g++ $^ -o $@ -c $(SFML_FLAGS)
 
 # Engine .o files
-bin/engine/%.o: src/engine/%.cpp
+bin/engine/%.o: src/engine/%.cpp src/resourceids.h
 	g++ $^ -o $@ -c $(SFML_FLAGS)
 
 # Cleaning
-clean: cleanbin cleantests
+clean: cleanbin cleantests cleangen
 
 cleanbin:
 	rm -r bin
@@ -35,6 +35,10 @@ cleanbin:
 cleantests:
 	rm $(TEST_FILES)
 
+cleangen:
+	rm src/resourceids.h
+
 # Main build
-resourceorg.test: bin/engine/resourcemanager.o src/resourceids.h
+resourceorg.test: src/main.cpp bin/engine/resourcemanager.o
 	g++ $^ -o $@ -c $(SFML_FLAGS)
+	chmod +x resourceorg.test

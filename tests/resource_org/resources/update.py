@@ -118,7 +118,10 @@ include_file.write(header)
 
 # includes
 include_file.write(
-"""#include <string>
+"""#ifndef __RESOURCE_IDS__
+#define __RESOURCE_IDS__
+
+#include <string>
 
 """
 )
@@ -129,3 +132,4 @@ sound_write = get_definition_string(images, 'SND', 'Sounds',
                                     SOUND_ENUM, SOUND_PATHVAR)
 include_file.write(image_write)
 include_file.write(sound_write)
+include_file.write('\n#endif')
