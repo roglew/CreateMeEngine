@@ -40,6 +40,6 @@ cleangen:
 	rm src/resourceids.h
 
 # Main build
-resourceorg.test: src/main.cpp engbin/input.o
+resourceorg.test: src/main.cpp engbin/input.o engbin/render.o engbin/gameobject.o
 	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x resourceorg.test
