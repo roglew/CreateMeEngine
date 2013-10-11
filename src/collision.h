@@ -6,18 +6,18 @@
 
 enum COLLISION_TYPE
 {
-	COLLISION_BOUNDING_BOX,
+  COLLISION_BOUNDING_BOX,
 
-	COLLISION_COUNT
+  COLLISION_COUNT
 };
 
 // Struct defenitions
 
 struct BoundingBox
 {
-	// A basic box with a position and a size
-	int x, y;
-	int w, h;
+  // A basic box with a position and a size
+  int x, y;
+  int w, h;
 };
 // A box that contains an int x, y, w, h that can be used to detect collisions
 

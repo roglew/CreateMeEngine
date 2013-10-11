@@ -7,16 +7,16 @@
 
 class Sprite: public sf::Sprite
 {
-	protected:
-		std::vector<Collision> collisions;
-	
-	public:
-		// set_collision(const &Collision);
-		// MODIFIES: This
-		// EFFECTS:  Sets the collision struct of the sprite
+  protected:
+    std::vector<Collision> collisions;
+  
+  public:
+    // set_collision(const &Collision);
+    // MODIFIES: This
+    // EFFECTS:  Sets the collision struct of the sprite
 
-		bool collides(Sprite& other_sprite);
-		// EFFECTS: Returns whether the two sprites collide
+    bool collides(Sprite& other_sprite);
+    // EFFECTS: Returns whether the two sprites collide
 };
 
 
