@@ -7,7 +7,7 @@
 int main()
 {
   Render render;
-  sf::RenderWindow *window = render_get_created_window();
+  sf::RenderWindow *window = render.get_created_window();
   Input input(*window);
 
   while(window->isOpen()) {
