@@ -3,17 +3,23 @@
 
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
-# Find cpp files and their corresponding.o
-CPP_FILES = $(wildcard src/*.cpp)
-OBJ_FILES = $(wildcard bin/*.o)
-TEST_FILES = $(wildcard *.test)
-ENGINE_DIR = ../../src/
+CPP_FILES = $(wildcard src/*.cpp)  # All of the c++ files
+OBJ_FILES = $(wildcard bin/*.o)    # Existing .o files
+TEST_FILES = $(wildcard *.test)    # Built test files
+ENGINE_DIR = ../../src/            # Where the engine files are stored
 
 # Find image files
 IMAGES := $(shell find resources/images)
 
 ####
 # Builds
+
+# Main build
+resourceorg.test: src/main.cpp engbin/input.o engbin/render.o engbin/gameobject.o
+	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
+	chmod +x resourceorg.test
+
+### Dependencies
 
 # Resource IDs
 src/resourceids.h: $(IMAGES) resources/update.py
@@ -23,10 +29,11 @@ src/resourceids.h: $(IMAGES) resources/update.py
 bin/%.o: src/%.cpp src/resourceids.h
 	g++ $^ -o $@ -c $(SFML_FLAGS)
 
+# Copy compiled engine .o files to our folder
 engbin/%.o: ../../bin/%.o
 	cp ../../bin/* engbin/
 
-# Cleaning
+### Cleaning
 clean: cleanbin cleangen cleantests
 
 cleanbin:
@@ -39,7 +46,3 @@ cleantests:
 cleangen:
 	rm src/resourceids.h
 
-# Main build
-resourceorg.test: src/main.cpp engbin/input.o engbin/render.o engbin/gameobject.o
-	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
-	chmod +x resourceorg.test
