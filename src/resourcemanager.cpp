@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <map>
+#include "../resourceids.h"
 #include "resourcemanager.h"
 
 ResourceManager::~ResourceManager()
@@ -24,6 +25,11 @@ void ResourceManager::load_texture(std::string filename)
 	}
 }
 
+void ResourceManager::load_texture(ResourceImage rimage)
+{
+	load_texture(image_paths[rimage]);
+}
+
 bool ResourceManager::texture_loaded(std::string filename)
 {
 	if (loaded_textures.find(filename) == loaded_textures.end())
@@ -32,7 +38,17 @@ bool ResourceManager::texture_loaded(std::string filename)
 		return true;
 }
 
+bool ResourceManager::texture_loaded(ResourceImage rimage)
+{
+	return texture_loaded(image_paths[rimage]);
+}
+
 sf::Texture* ResourceManager::get_texture(std::string filename)
 {
 	return loaded_textures[filename];
+}
+
+sf::Texture* ResourceManager::get_texture(ResourceImage rimage)
+{
+	return get_texture(image_paths[rimage]);
 }

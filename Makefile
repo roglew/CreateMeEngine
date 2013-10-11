@@ -36,3 +36,5 @@ newinput.test: tests/newinputtest.cpp bin/gameobject.o bin/render.o bin/input.o 
 collisions.test: tests/collisiontest.cpp bin/collision.o
 	g++ $^ -o $@ $(SFML_FLAGS)
 
+resourceorg.test: tests/resource_org/Makefile bin/resourcemanager.o
+	g++ $^ -o $@ $(SFML_FLAGS) -symbolic

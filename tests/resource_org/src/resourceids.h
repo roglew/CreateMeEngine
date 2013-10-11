@@ -5,6 +5,9 @@ images/path/to/file.jpg -> SPR_PATH_TO_FILE
 */
 
 
+#ifndef __RESOURCE_IDS__
+#define __RESOURCE_IDS__
+
 #include <string>
 
 ////////// Images //////////
@@ -33,3 +36,5 @@ std::string sound_paths[] = {
 	"images/testimage.png",
 	"images/subdir1/subdir2/subdirimage.png"
 };
+
+#endif

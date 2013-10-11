@@ -7,6 +7,7 @@ SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 CPP_FILES = $(wildcard src/*.cpp)
 OBJ_FILES = $(wildcard bin/*.o)
 TEST_FILES = $(wildcard *.test)
+ENGINE_DIR = ../../src/
 
 IMAGES := $(shell find resources/images)
 
@@ -26,7 +27,7 @@ bin/engine/%.o: src/engine/%.cpp src/resourceids.h
 	g++ $^ -o $@ -c $(SFML_FLAGS)
 
 # Cleaning
-clean: cleanbin cleantests cleangen
+clean: cleanbin cleangen cleantests
 
 cleanbin:
 	rm -r bin
@@ -39,6 +40,6 @@ cleangen:
 	rm src/resourceids.h
 
 # Main build
-resourceorg.test: src/main.cpp bin/engine/resourcemanager.o
-	g++ $^ -o $@ -c $(SFML_FLAGS)
+resourceorg.test: src/main.cpp
+	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x resourceorg.test

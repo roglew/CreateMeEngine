@@ -1,5 +1,5 @@
 #include <iostream>
-#include "engine/resourcemanager.h"
+#include "resourcemanager.h"
 
 int main()
 {

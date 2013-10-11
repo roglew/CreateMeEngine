@@ -4,7 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
-#include "../resourceids.h"
+
+enum ResourceImage {};
+enum ResourceSound {};
 
 class ResourceManager
 {
