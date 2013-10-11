@@ -1,7 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "render.h"
-#include "input.h"
+#include <render.h>
+#include <input.h>
+#include "resourceids.h"
 
 
 int main()
