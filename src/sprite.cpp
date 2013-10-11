@@ -1,9 +1,11 @@
 #include "sprite.h"
+#include "collision.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
 bool Sprite::collides(Sprite& other_sprite)
 {
+  /*
 	// Just bounding boxes for now
 	const std::vector< sf::Rect<int> > *bboxes = &collision.bounding_box;
 
@@ -30,5 +32,6 @@ bool Sprite::collides(Sprite& other_sprite)
 
 		}
 	}
+  */
 }
 

@@ -7,12 +7,15 @@ SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 CPP_FILES = $(wildcard src/*.cpp)
 OBJ_FILES = $(wildcard bin/*.o)
 TEST_FILES = $(wildcard *.test)
+ALL_OBJ_FILES = $(addprefix bin/, $(addsuffix .o, $(basename $(notdir $(wildcard src/*.h)))))
 
 ####
 # Builds
 
 build: newinput.test
 	./newinput.test
+
+obj: $(ALL_OBJ_FILES)
 
 # Cleaning
 clean: cleanbin cleantests

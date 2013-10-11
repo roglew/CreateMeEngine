@@ -1,7 +1,6 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-#include "ids.h"
 #include "vector.hpp"
 #include "sprite.h"
 #include <SFML/Graphics.hpp>
@@ -10,7 +9,7 @@
 class GameObject
 {
 	protected:
-		GameObjectId id;
+  //GameObjectId id;
 		int instance_id;
 
 		std::vector< std::vector<Sprite*> > animations;

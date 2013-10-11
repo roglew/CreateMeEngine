@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <map>
-#include "../resourceids.h"
 #include "resourcemanager.h"
 
 ResourceManager::~ResourceManager()

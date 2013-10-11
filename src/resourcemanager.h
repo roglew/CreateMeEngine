@@ -8,6 +8,9 @@
 enum ResourceImage {};
 enum ResourceSound {};
 
+std::string *image_paths;
+std::string *sound_paths;
+
 class ResourceManager
 {
 	private:

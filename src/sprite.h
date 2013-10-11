@@ -7,7 +7,7 @@
 
 class Sprite: public sf::Sprite
 {
-	private:
+	protected:
 		std::vector<Collision> collisions;
 	
 	public:
