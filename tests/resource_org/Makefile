@@ -9,6 +9,7 @@ OBJ_FILES = $(wildcard bin/*.o)
 TEST_FILES = $(wildcard *.test)
 ENGINE_DIR = ../../src/
 
+# Find image files
 IMAGES := $(shell find resources/images)
 
 ####
@@ -22,9 +23,8 @@ src/resourceids.h: $(IMAGES) resources/update.py
 bin/%.o: src/%.cpp src/resourceids.h
 	g++ $^ -o $@ -c $(SFML_FLAGS)
 
-# Engine .o files
-bin/engine/%.o: src/engine/%.cpp src/resourceids.h
-	g++ $^ -o $@ -c $(SFML_FLAGS)
+engbin/%.o: ../../bin/%.o
+	cp ../../bin/* engbin/
 
 # Cleaning
 clean: cleanbin cleangen cleantests
@@ -40,6 +40,6 @@ cleangen:
 	rm src/resourceids.h
 
 # Main build
-resourceorg.test: src/main.cpp
+resourceorg.test: src/main.cpp engbin/input.o
 	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x resourceorg.test
