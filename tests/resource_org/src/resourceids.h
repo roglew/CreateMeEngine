@@ -11,7 +11,7 @@ images/path/to/file.jpg -> IMG_PATH_TO_FILE
 #include <string>
 
 ////////// Images //////////
-enum ResourceImage
+enum ResourceImage: unsigned int
 {
  IMG_COOKIEMONSTER,
  IMG_SUBDIR1_SUBDIR2_SUBDIRIMAGE,
@@ -19,18 +19,18 @@ enum ResourceImage
  IMG_COUNT
 };
 
-std::string image_paths[] = {
- "images/cookiemonster.png",
- "images/subdir1/subdir2/subdirimage.png"
+std::string image_paths[] = { 
+ "resources/images/cookiemonster.png",
+ "resources/images/subdir1/subdir2/subdirimage.png"
 };
 ////////// Sounds //////////
-enum ResourceSound
+enum ResourceSound: unsigned int
 {
 
  SND_COUNT
 };
 
-std::string sound_paths[] = 
+std::string sound_paths[] = {
 };
 
 #endif

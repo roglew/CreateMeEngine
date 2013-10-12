@@ -15,8 +15,9 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-resourceorg.test: src/main.cpp engobj
-	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
+resourceorg.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+	cp ../../bin/* engbin/
+	g++ $< $(wildcard engbin/*) -g -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x resourceorg.test
 
 ### Dependencies
@@ -31,9 +32,6 @@ bin/%.o: src/%.cpp src/resourceids.h
 
 # Copy compiled engine .o files to our folder
 engbin/%.o: ../../bin/%.o
-	cp ../../bin/* engbin/
-
-engobj: ../../bin/%.o
 	cp ../../bin/* engbin/
 
 ### Cleaning

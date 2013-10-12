@@ -38,7 +38,7 @@ def walk_directory(dir_name, exts=[]):
 
         # Only append if it's in the set
         if file_ext in exts:
-          file_list.append('%s/%s' % (cur_dir, file))
+          file_list.append('resources/%s/%s' % (cur_dir, file))
           print '-> %s' % file
   else:
     # No extensions are given
@@ -57,7 +57,7 @@ def get_resource_name(prefix, path):
   name = '%s_' % prefix.upper()
   parts = path.split('/')  # split the path
   # Add each part of the path to the name except the last one
-  for part in parts[1:-1]:
+  for part in parts[2:-1]:
     name += '%s_' % part.upper()
 
   # Add the file name part to the name
@@ -74,14 +74,14 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
     pairs[res_name] = resource
 
   # Define the enum
-  def_string += 'enum %s\n{\n' % enum_name
+  def_string += 'enum %s: unsigned int\n{\n' % enum_name
   for res_name in pairs:
     def_string += ' %s,\n' % res_name
   def_string += '\n %s_COUNT\n' % prefix
   def_string += '};\n\n'
 
   # Map each enum to a string
-  def_string += 'std::string %s[] = {\n' % list_name
+  def_string += 'std::string %s[] = { \n' % list_name
   for res_name in pairs:
     def_string += ' "%s",\n' % pairs[res_name]
   # remove the last comma
@@ -132,4 +132,4 @@ sound_write = get_definition_string(sounds, 'SND', 'Sounds',
                                     SOUND_ENUM, SOUND_PATHVAR)
 include_file.write(image_write)
 include_file.write(sound_write)
-include_file.write('\n#endif')
+include_file.write('\n#endif\n')

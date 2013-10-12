@@ -5,11 +5,10 @@
 #include <map>
 #include <string>
 
-enum ResourceImage {};
-enum ResourceSound {};
-
-std::string *image_paths;
-std::string *sound_paths;
+#ifndef __RESOURCE_IDS__
+enum ResourceImage: unsigned int;
+enum ResourceSound: unsigned int;
+#endif
 
 class ResourceManager
 {

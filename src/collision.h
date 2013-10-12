@@ -21,7 +21,10 @@ struct BoundingBox
 };
 // A box that contains an int x, y, w, h that can be used to detect collisions
 
-struct Collision;
+struct Collision{
+  COLLISION_TYPE type;
+  std::vector< BoundingBox > bounding_boxes;
+};
 // A collision object that can be many types of collision
 
 class CollisionException{};
