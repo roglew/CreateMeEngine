@@ -15,7 +15,7 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-resourceorg.test: src/main.cpp engbin/input.o engbin/render.o engbin/gameobject.o
+resourceorg.test: src/main.cpp engobj
 	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x resourceorg.test
 
@@ -31,6 +31,9 @@ bin/%.o: src/%.cpp src/resourceids.h
 
 # Copy compiled engine .o files to our folder
 engbin/%.o: ../../bin/%.o
+	cp ../../bin/* engbin/
+
+engobj: ../../bin/%.o
 	cp ../../bin/* engbin/
 
 ### Cleaning
