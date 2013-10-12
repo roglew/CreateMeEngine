@@ -39,6 +39,7 @@ def walk_directory(dir_name, exts=[]):
 				# Only append if it's in the set
 				if file_ext in exts:
 					file_list.append('%s/%s' % (cur_dir, file))
+					print '-> %s' % file
 	else:
 		# No extensions are given
 		for root, sub_folders, files in os.walk(walk_dir):
@@ -95,10 +96,13 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
 #### Script
 
 # Walk the image and sound directory
+print 'Searching images...'
 images = walk_directory(IMAGE_SUBDIR, IMAGE_EXTS)
+
+print 'Searching sounds...'
 sounds = walk_directory(SOUND_SUBDIR, SOUND_EXTS)
 
-include_file = open('%s/resources.h' % WORKING_DIR, 'w')
+include_file = open('%s/../src/resourceids.h' % WORKING_DIR, 'w')
 
 header =\
 """/*
@@ -114,16 +118,18 @@ include_file.write(header)
 
 # includes
 include_file.write(
-"""#include <string>
+"""#ifndef __RESOURCE_IDS__
+#define __RESOURCE_IDS__
+
+#include <string>
 
 """
 )
 
-
 image_write = get_definition_string(images, 'IMG', 'Images',
                                     IMAGE_ENUM, IMAGE_PATHVAR)
-
 sound_write = get_definition_string(images, 'SND', 'Sounds',
                                     SOUND_ENUM, SOUND_PATHVAR)
 include_file.write(image_write)
 include_file.write(sound_write)
+include_file.write('\n#endif')

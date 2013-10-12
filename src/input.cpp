@@ -34,198 +34,198 @@ const std::string mouse_button_names[] = {
 
 void Input::update_mouse_position()
 {
-	sf::Vector2i raw_coords;
-	raw_coords = sf::Mouse::getPosition(*reference_window);
-	mouse_position = reference_window->mapPixelToCoords(raw_coords);
+  sf::Vector2i raw_coords;
+  raw_coords = sf::Mouse::getPosition(*reference_window);
+  mouse_position = reference_window->mapPixelToCoords(raw_coords);
 }
 
 Input::Input(sf::RenderWindow& ref_window)
 {
-	// Make the vectors the right size
-	key.reserve(sf::Keyboard::KeyCount);
-	mouse.reserve(sf::Mouse::ButtonCount);
+  // Make the vectors the right size
+  key.reserve(sf::Keyboard::KeyCount);
+  mouse.reserve(sf::Mouse::ButtonCount);
 
-	// Save the reference window
-	reference_window = &ref_window;
+  // Save the reference window
+  reference_window = &ref_window;
 
-	// Prevent the window from repeating key presses
-	ref_window.setKeyRepeatEnabled(false);
+  // Prevent the window from repeating key presses
+  ref_window.setKeyRepeatEnabled(false);
 
-	// Initialize everything to default values
+  // Initialize everything to default values
 
-	outstream = NULL;
-	// Window events
-	window.closed             = false;
-	window.resized            = false;
-	window.lost_focus         = false;
-	window.gained_focus       = false;
-	window.has_focus          = true;
-	window.mouse_is_in_window = true;
-	window.text_entered       = "";
+  outstream = NULL;
+  // Window events
+  window.closed             = false;
+  window.resized            = false;
+  window.lost_focus         = false;
+  window.gained_focus       = false;
+  window.has_focus          = true;
+  window.mouse_is_in_window = true;
+  window.text_entered       = "";
 
-	// Keyboard events
-	for (int i=0; i < key.size(); i++)
-	{
-		key[i].pressed  = false;
-		key[i].released = false;
-		key[i].down     = false;
-	}
+  // Keyboard events
+  for (int i=0; i < key.size(); i++)
+  {
+    key[i].pressed  = false;
+    key[i].released = false;
+    key[i].down     = false;
+  }
 
-	// Mouse events
-	for (int i=0; i < mouse.size(); i++)
-	{
-		mouse[i].pressed  = false;
-		mouse[i].released = false;
-		mouse[i].down     = false;
-	}
+  // Mouse events
+  for (int i=0; i < mouse.size(); i++)
+  {
+    mouse[i].pressed  = false;
+    mouse[i].released = false;
+    mouse[i].down     = false;
+  }
 }
 
 Input::~Input()
 {
-	return;
+  return;
 }
 
 void Input::update()
 {
-	sf::Event event;
+  sf::Event event;
 
-	//// Reset the 1-frame events
+  //// Reset the 1-frame events
 
-	// Keyboard
-	for (int i=0; i < key.size(); i++)
-	{
-		key[i].pressed  = false;
-		key[i].released = false;
-	}
+  // Keyboard
+  for (int i=0; i < key.size(); i++)
+  {
+    key[i].pressed  = false;
+    key[i].released = false;
+  }
 
-	// Mouse
-	for (int i=0; i < mouse.size(); i++)
-	{
-		mouse[i].pressed  = false;
-		mouse[i].released = false;
-	}
+  // Mouse
+  for (int i=0; i < mouse.size(); i++)
+  {
+    mouse[i].pressed  = false;
+    mouse[i].released = false;
+  }
 
-	// Window
-	window.closed       = false;
-	window.resized      = false;
-	window.lost_focus   = false;
-	window.gained_focus = false;
+  // Window
+  window.closed       = false;
+  window.resized      = false;
+  window.lost_focus   = false;
+  window.gained_focus = false;
 
-	//// Get the new events
+  //// Get the new events
 
-	while (reference_window->pollEvent(event))
-	{
-		int mouse_button;
-		int keyboard_key;
-		sf::Vector2i newcoords;
-		switch(event.type)
-		{
-			case sf::Event::Closed:
-				window.closed = true;
-				if (outstream) *outstream << "Window closed\n";
-			break;
+  while (reference_window->pollEvent(event))
+  {
+    int mouse_button;
+    int keyboard_key;
+    sf::Vector2i newcoords;
+    switch(event.type)
+    {
+      case sf::Event::Closed:
+        window.closed = true;
+        if (outstream) *outstream << "Window closed\n";
+      break;
 
-			case sf::Event::Resized:
-				window.resized = true;
-				update_mouse_position();
-				if (outstream) *outstream << "Window resized\n";
-			break;
+      case sf::Event::Resized:
+        window.resized = true;
+        update_mouse_position();
+        if (outstream) *outstream << "Window resized\n";
+      break;
 
-			case sf::Event::LostFocus:
-				window.lost_focus = true;
-				window.has_focus = false;
-				if (outstream) *outstream << "Window lost focus\n";
-			break;
+      case sf::Event::LostFocus:
+        window.lost_focus = true;
+        window.has_focus = false;
+        if (outstream) *outstream << "Window lost focus\n";
+      break;
 
-			case sf::Event::GainedFocus:
-				window.gained_focus = true;
-				window.has_focus = true;
-				update_mouse_position();
-				if (outstream) *outstream << "Window gained focus\n";
-			break;
+      case sf::Event::GainedFocus:
+        window.gained_focus = true;
+        window.has_focus = true;
+        update_mouse_position();
+        if (outstream) *outstream << "Window gained focus\n";
+      break;
 
-			case sf::Event::TextEntered:
-			break;
+      case sf::Event::TextEntered:
+      break;
 
-			case sf::Event::KeyPressed:
-				keyboard_key = event.key.code;
-				key[keyboard_key].pressed = true;
-				key[keyboard_key].down = true;
-				if (outstream)
-					*outstream << keyboard_key_names[keyboard_key] << " pressed\n";
-			break;
+      case sf::Event::KeyPressed:
+        keyboard_key = event.key.code;
+        key[keyboard_key].pressed = true;
+        key[keyboard_key].down = true;
+        if (outstream)
+          *outstream << keyboard_key_names[keyboard_key] << " pressed\n";
+      break;
 
-			case sf::Event::KeyReleased:
-				keyboard_key = event.key.code;
-				key[keyboard_key].released = true;
-				key[keyboard_key].down = false;
-				if (outstream)
-					*outstream << keyboard_key_names[keyboard_key] << " released\n";
-			break;
+      case sf::Event::KeyReleased:
+        keyboard_key = event.key.code;
+        key[keyboard_key].released = true;
+        key[keyboard_key].down = false;
+        if (outstream)
+          *outstream << keyboard_key_names[keyboard_key] << " released\n";
+      break;
 
-			case sf::Event::MouseWheelMoved:
-			break;
+      case sf::Event::MouseWheelMoved:
+      break;
 
-			case sf::Event::MouseButtonPressed:
-				mouse_button = event.mouseButton.button;
-				mouse[mouse_button].pressed = true;
-				mouse[mouse_button].down = true;
-				if (outstream)
-					*outstream << mouse_button_names[mouse_button] << " pressed\n";
-			break;
+      case sf::Event::MouseButtonPressed:
+        mouse_button = event.mouseButton.button;
+        mouse[mouse_button].pressed = true;
+        mouse[mouse_button].down = true;
+        if (outstream)
+          *outstream << mouse_button_names[mouse_button] << " pressed\n";
+      break;
 
-			case sf::Event::MouseButtonReleased:
-				mouse_button = event.mouseButton.button;
-				mouse[mouse_button].released = true;
-				mouse[mouse_button].down = false;
-				if (outstream)
-					*outstream << mouse_button_names[mouse_button] << " released\n";
-			break;
+      case sf::Event::MouseButtonReleased:
+        mouse_button = event.mouseButton.button;
+        mouse[mouse_button].released = true;
+        mouse[mouse_button].down = false;
+        if (outstream)
+          *outstream << mouse_button_names[mouse_button] << " released\n";
+      break;
 
-			case sf::Event::MouseMoved:
-				update_mouse_position();
-			break;
+      case sf::Event::MouseMoved:
+        update_mouse_position();
+      break;
 
-			case sf::Event::MouseEntered:
-				update_mouse_position();
-				window.mouse_is_in_window = true;
-				if (outstream) *outstream << "Mouse has entered the window\n";
-			break;
+      case sf::Event::MouseEntered:
+        update_mouse_position();
+        window.mouse_is_in_window = true;
+        if (outstream) *outstream << "Mouse has entered the window\n";
+      break;
 
-			case sf::Event::MouseLeft:
-				update_mouse_position();
-				window.mouse_is_in_window = false;
-				if (outstream) *outstream << "Mouse has left the window\n";
-			break;
+      case sf::Event::MouseLeft:
+        update_mouse_position();
+        window.mouse_is_in_window = false;
+        if (outstream) *outstream << "Mouse has left the window\n";
+      break;
 
-			case sf::Event::JoystickButtonPressed:
-			break;
+      case sf::Event::JoystickButtonPressed:
+      break;
 
-			case sf::Event::JoystickButtonReleased:
-			break;
+      case sf::Event::JoystickButtonReleased:
+      break;
 
-			case sf::Event::JoystickMoved:
-			break;
+      case sf::Event::JoystickMoved:
+      break;
 
-			case sf::Event::JoystickConnected:
-			break;
+      case sf::Event::JoystickConnected:
+      break;
 
-			case sf::Event::JoystickDisconnected:
-			break;
+      case sf::Event::JoystickDisconnected:
+      break;
 
-			default:
-			break;
-		}
-	}
+      default:
+      break;
+    }
+  }
 }
 
 void Input::start_logging(std::ostream &logstream)
 {
-	outstream = &logstream;
+  outstream = &logstream;
 }
 
 void Input::stop_logging()
 {
-	outstream = NULL;
+  outstream = NULL;
 }
 
