@@ -15,8 +15,9 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-resourceorg.test: src/main.cpp engbin/input.o engbin/render.o engbin/gameobject.o
-	g++ $^ -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
+resourceorg.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+	cp ../../bin/* engbin/
+	g++ $< $(wildcard engbin/*) -g -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x resourceorg.test
 
 ### Dependencies

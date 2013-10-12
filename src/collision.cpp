@@ -1,12 +1,6 @@
 #include "collision.h"
 #include <vector>
 
-// A generic collision object
-struct Collision{
-  COLLISION_TYPE type;
-  std::vector< BoundingBox > bounding_boxes;
-};
-
 bool collides(const BoundingBox& box1, const BoundingBox& box2)
 {
   int box1_right  = box1.x + box1.w;

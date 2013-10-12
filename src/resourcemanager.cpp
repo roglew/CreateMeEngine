@@ -1,6 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include <map>
+#include <string>
+#include <iostream>
 #include "resourcemanager.h"
+
+extern std::string image_paths[];
+extern std::string sound_paths[];
+
+ResourceManager::ResourceManager()
+{
+  // Do nothing
+}
 
 ResourceManager::~ResourceManager()
 {
@@ -21,6 +31,7 @@ void ResourceManager::load_texture(std::string filename)
     // If the texture is not in the map, load it
     sf::Texture* new_tex = new sf::Texture;
     new_tex->loadFromFile(filename);
+    loaded_textures[filename] = new_tex;
   }
 }
 
