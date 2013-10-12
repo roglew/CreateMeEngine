@@ -1,9 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <render.h>
-#include <input.h>
-#include "resourceids.h"
-
+#include <engine.h>
 
 int main()
 {
