@@ -6,7 +6,20 @@
 
 /////////////////////////////
 // Constructors/destructors
+GameObject::GameObject(unsigned int id)
+{
+  instance_id = id;
+}
+
 GameObject::~GameObject(){}
+
+/////////////////////
+// Instance methods
+unsigned int get_id()
+{
+  return instance_id;
+}
+
 
 /////////////////////
 // Movement methods

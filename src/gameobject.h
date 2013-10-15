@@ -11,7 +11,7 @@ class GameObject
 {
   protected:
     //GameObjectId id;
-    int instance_id;
+    unsigned int instance_id;
 
     std::vector< std::vector<Sprite*> > animations;
     int current_animation, current_frame;
@@ -24,7 +24,13 @@ class GameObject
   public:
     /////////////////////////////////
     // Constructors and destructors
+    GameObject(id);
     ~GameObject();
+
+    /////////////////////
+    // Instance methods
+    unsigned int get_id();
+    // EFFECTS: Returns this object's instance id
 
     /////////////////////
     // Movement methods
