@@ -5,3 +5,4 @@
 #include "resourcemanager.h"
 #include "sprite.h"
 #include "vector.hpp"
+#include "objectmanager.h"

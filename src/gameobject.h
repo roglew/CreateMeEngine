@@ -1,16 +1,21 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
+#include "engine_classes.h"
+#include "game.h"
 #include "vector.hpp"
 #include "sprite.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+// Since Game and GameObject depend on each other
+class Game;
+
 class GameObject
 {
   protected:
-    //GameObjectId id;
-    int instance_id;
+    Game *game;
+    unsigned int instance_id;
 
     std::vector< std::vector<Sprite*> > animations;
     int current_animation, current_frame;
@@ -23,7 +28,13 @@ class GameObject
   public:
     /////////////////////////////////
     // Constructors and destructors
+    GameObject(Game* game);
     ~GameObject();
+
+    /////////////////////
+    // Instance methods
+    unsigned int get_id();
+    // EFFECTS: Returns this object's instance id
 
     /////////////////////
     // Movement methods
