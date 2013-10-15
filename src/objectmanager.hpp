@@ -16,8 +16,7 @@ class ObjectManager
     
     ~ObjectManager();
 
-    template <class T>
-    unsigned int create_object(int x, int y);
+    unsigned int add_object(GameObject* object);
     // REQUIRES: T is a child of GameObject
     // MODIFIES: This
     // EFFECTS:  Stores the given object into the manager

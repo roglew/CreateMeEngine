@@ -16,19 +16,21 @@ ObjectManager::~ObjectManager()
   }
 }
 
-template <class T>
-unsigned int ObjectManager::add_object(int x, int y)
+unsigned int ObjectManager::add_object(GameObject *object)
 {
-  GameObject *new_object = new T(current_obj_id);
-  object_list[current_obj_id] = new_object;
-  current_obj_id++;
-  new_object->set_position(x, y);
+  object_list[current_obj_id] = object;
+  current_obj_id++; // We can probably just do return id++
   return (current_obj_id-1);
 }
 
 void ObjectManager::destroy_object(unsigned int id)
 {
-  delete object_list[id];
+  // Delete the object and remove the entry from the list
+  if (object_list.find(id) != object_list.end())
+  {
+    delete object_list[id];
+    object_list.erase(id);
+  }
 }
 
 void ObjectManager::process_events()

@@ -1,8 +1,9 @@
 #include "game.h"
 
-Game::Game()
+Game::Game(GameSettings *settings)
 {
-  // pass
+  this->settings = settings;
+  is_running = false;
 }
 
 Game::~Game()
@@ -15,29 +16,86 @@ Game::~Game()
 
 Game::init()
 {
-  render    = new Render;
-  input     = new Input(this);
-  resources = new ResourceManager;
-  objects   = new ObjectManager(this);
+  is_running = true;
+  render     = new Render;
+  input      = new Input(this);
+  resources  = new ResourceManager;
+  objects    = new ObjectManager(this);
+}
+
+void Game::update()
+{
+  // Update the game
+  update_input();
+  update_objects();
+
+  // See if we died by clicking the X
+  if (settings->end_on_window_close)
+  {
+    if (input->window->closed)
+    {
+      is_running = false;
+    }
+  }
+  
+  // See if we died by hitting escape
+  if (settings->end_on_escape)
+  {
+    if (input->key[sf::Keyboard::Escape].pressed)
+    {
+      is_running = false;
+    }
+  }
+
+  // If we died, kill the window
+  if (!is_running)
+  {
+    render->window->close();
+  }
+  
+  // Last thing we do is draw
+  update_draw();
+}
+
+bool Game::is_running()
+{
+  return is_running;
+}
+
+void Game::update_begin()
+{
+  input->update();
+}
+
+void Game::update_objects()
+{
+  objects->process_events();
+}
+
+void Game::update_draw()
+{
+  render->clear();
+  objects->draw_objects();
+  render->render();
 }
 
 
-Render* get_render()
+Render* Game::get_render()
 {
   return render;
 }
 
-Input* get_input()
+Input* Game::get_input()
 {
   return input;
 }
 
-ResourceManager* get_resource_manager()
+ResourceManager* Game::get_resource_manager()
 {
   return resources;
 }
 
-ObjectManager* get_object_manager()
+ObjectManager* Game::get_object_manager()
 {
   return objects;
 }

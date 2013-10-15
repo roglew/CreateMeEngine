@@ -6,12 +6,17 @@
 
 /////////////////////////////
 // Constructors/destructors
-GameObject::GameObject(unsigned int id)
+GameObject::GameObject(Game* game)
 {
-  instance_id = id;
+  this->game  = game;
+  instance_id = game->objects->add_object(this);
 }
 
-GameObject::~GameObject(){}
+GameObject::~GameObject()
+{
+  // When the object dies, remove it from the list
+  this->game->objects->destroy_object(this->instance_id);
+}
 
 /////////////////////
 // Instance methods
@@ -107,6 +112,7 @@ Vector2<int> GameObject::get_position()
 
 void GameObject::process_events()
 {
+  // so it doesn't shit itself if we don't define events
 }
 
 /////////////////////////////

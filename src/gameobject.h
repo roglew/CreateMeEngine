@@ -10,7 +10,7 @@
 class GameObject
 {
   protected:
-    //GameObjectId id;
+    Game *game;
     unsigned int instance_id;
 
     std::vector< std::vector<Sprite*> > animations;
@@ -24,7 +24,7 @@ class GameObject
   public:
     /////////////////////////////////
     // Constructors and destructors
-    GameObject(id);
+    GameObject(Game* game);
     ~GameObject();
 
     /////////////////////
@@ -70,7 +70,7 @@ class GameObject
     //////////////////
     // Event Methods
 
-    virtual void process_events(Game *game);
+    virtual void process_events();
     // EFFECTS: Processes the events of the object
 
     void remove_event(bool*);
