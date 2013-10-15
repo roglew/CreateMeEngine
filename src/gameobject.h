@@ -1,11 +1,15 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
+#include "engine_classes.h"
+#include "game.h"
 #include "vector.hpp"
 #include "sprite.h"
-#include "game.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+
+// Since Game and GameObject depend on each other
+class Game;
 
 class GameObject
 {

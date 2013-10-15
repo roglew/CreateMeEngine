@@ -1,6 +1,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include "engine_classes.h"
 #include "input.h"
 #include "render.h"
 #include "objectmanager.h"
@@ -11,14 +12,14 @@ struct GameSettings
   char         end_on_escape       = true;
   char         end_on_window_close = true;
   unsigned int fps                 = 60;
-  char         limit_fps           = true
+  char         limit_fps           = true;
 };
 
 class Game
 {
   private:
     GameSettings *settings;
-    char is_running;
+    char game_is_running;
 
     Render *render;
     Input *input;

@@ -9,20 +9,20 @@
 GameObject::GameObject(Game* game)
 {
   this->game  = game;
-  instance_id = game->objects->add_object(this);
+  instance_id = game->get_object_manager()->add_object(this);
 }
 
 GameObject::~GameObject()
 {
   // When the object dies, remove it from the list
-  this->game->objects->destroy_object(this->instance_id);
+  this->game->get_object_manager()->destroy_object(this->instance_id);
 }
 
 /////////////////////
 // Instance methods
-unsigned int get_id()
+unsigned int GameObject::get_id()
 {
-  return instance_id;
+  return this->instance_id;
 }
 
 

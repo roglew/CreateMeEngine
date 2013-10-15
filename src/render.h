@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+class GameObject;
+
 enum DrawEventId{DRAW_OBJECT, DRAW_DRAWABLE, DRAW_CLEAR,
   DrawEventIdSize};
 

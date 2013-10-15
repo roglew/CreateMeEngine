@@ -1,6 +1,7 @@
 #ifndef __OBJECTMANAGER_H__
 #define __OBJECTMANAGER_H__
 
+#include "engine_classes.h"
 #include <map>
 #include "game.h"
 #include "gameobject.h"
@@ -10,7 +11,7 @@ class ObjectManager
 {
   private:
     int current_obj_id;
-    map<unsigned int, *GameObject> object_list;
+    std::map<unsigned int, GameObject*> object_list;
     Game *game;
   
   public:

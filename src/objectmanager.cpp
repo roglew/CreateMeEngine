@@ -9,7 +9,7 @@ ObjectManager::ObjectManager(Game* game)
 
 ObjectManager::~ObjectManager()
 {
-  std::map<int, *GameObject>::iterator it;
+  std::map<unsigned int, GameObject*>::iterator it;
   
   for (it = object_list.begin(); it != object_list.end(); it++)
   {
@@ -36,24 +36,24 @@ void ObjectManager::destroy_object(unsigned int id)
 
 void ObjectManager::process_events()
 {
-  std::map<int, *GameObject>::iterator it;
+  std::map<unsigned int, GameObject*>::iterator it;
   
   for (it = object_list.begin(); it != object_list.end(); it++)
   {
     // For each object in our list, execute process_events with respect
     // to our current game object
-    (*it).second->process_events(this->game);
+    (*it).second->process_events();
   }
 }
 
 void ObjectManager::draw_objects()
 {
-  std::map<int, *GameObject>::iterator it;
+  std::map<unsigned int, GameObject*>::iterator it;
   
   for (it = object_list.begin(); it != object_list.end(); it++)
   {
     // Have the render draw each object
-    game->render->draw(*(*it).second);
+    game->get_render()->draw(*(*it).second);
   }
 
 }

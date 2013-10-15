@@ -3,7 +3,7 @@
 Game::Game(GameSettings *settings)
 {
   this->settings = settings;
-  is_running = false;
+  game_is_running = false;
 }
 
 Game::~Game()
@@ -14,11 +14,11 @@ Game::~Game()
   delete objects;
 }
 
-Game::init()
+void Game::init()
 {
-  is_running = true;
+  game_is_running = true;
   render     = new Render;
-  input      = new Input(this);
+  input      = new Input(*(this->render->get_created_window()));
   resources  = new ResourceManager;
   objects    = new ObjectManager(this);
 }
@@ -32,9 +32,9 @@ void Game::update()
   // See if we died by clicking the X
   if (settings->end_on_window_close)
   {
-    if (input->window->closed)
+    if (input->window.closed)
     {
-      is_running = false;
+      game_is_running = false;
     }
   }
   
@@ -43,14 +43,14 @@ void Game::update()
   {
     if (input->key[sf::Keyboard::Escape].pressed)
     {
-      is_running = false;
+      game_is_running = false;
     }
   }
 
   // If we died, kill the window
-  if (!is_running)
+  if (!game_is_running)
   {
-    render->window->close();
+    render->get_created_window()->close();
   }
   
   // Last thing we do is draw
@@ -59,12 +59,7 @@ void Game::update()
 
 bool Game::is_running()
 {
-  return is_running;
-}
-
-void Game::update_begin()
-{
-  input->update();
+  return game_is_running;
 }
 
 void Game::update_objects()
