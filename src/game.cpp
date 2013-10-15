@@ -62,6 +62,11 @@ bool Game::is_running()
   return game_is_running;
 }
 
+void Game::update_input()
+{
+  input->update();
+}
+
 void Game::update_objects()
 {
   objects->process_events();

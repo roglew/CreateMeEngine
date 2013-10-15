@@ -15,10 +15,10 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-resourceorg.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+objmanager.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
 	cp ../../bin/* engbin/
 	g++ $< $(wildcard engbin/*) -g -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
-	chmod +x resourceorg.test
+	chmod +x $@
 
 ### Dependencies
 

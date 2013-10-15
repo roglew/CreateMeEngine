@@ -15,13 +15,15 @@ enum ResourceImage: unsigned int
 {
  IMG_COOKIEMONSTER,
  IMG_SUBDIR1_SUBDIR2_SUBDIRIMAGE,
+ IMG_TESTIMAGE,
 
  IMG_COUNT
 };
 
 std::string image_paths[] = { 
  "resources/images/cookiemonster.png",
- "resources/images/subdir1/subdir2/subdirimage.png"
+ "resources/images/subdir1/subdir2/subdirimage.png",
+ "resources/images/testimage.png"
 };
 ////////// Sounds //////////
 enum ResourceSound: unsigned int
