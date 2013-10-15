@@ -1,3 +1,6 @@
+#ifndef __OBJECTMANAGER_H__
+#define __OBJECTMANAGER_H__
+
 #include <map>
 #include "game.h"
 #include "gameobject.h"
@@ -35,4 +38,4 @@ class ObjectManager
     // EFFECTS:  Draws the objects stored in manager to the render
 };
 
-#include "objectmanager.cpp"
+#endif

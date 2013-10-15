@@ -1,3 +1,4 @@
+#include "objectmanager.h"
 #include <map>
 
 ObjectManager::ObjectManager(Game* game)
