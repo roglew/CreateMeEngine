@@ -3,6 +3,7 @@
 
 #include "vector.hpp"
 #include "sprite.h"
+#include "game.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -63,7 +64,7 @@ class GameObject
     //////////////////
     // Event Methods
 
-    virtual void process_events();
+    virtual void process_events(Game *game);
     // EFFECTS: Processes the events of the object
 
     void remove_event(bool*);

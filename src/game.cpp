@@ -16,9 +16,9 @@ Game::~Game()
 Game::init()
 {
   render    = new Render;
-  input     = new Input;
+  input     = new Input(this);
   resources = new ResourceManager;
-  objects   = new ObjectManager;
+  objects   = new ObjectManager(this);
 }
 
 
