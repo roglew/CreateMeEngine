@@ -3,59 +3,59 @@
 
 #include <vector>
 #include <string>
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+
+extern const std::string keyboard_key_names[sf::Keyboard::KeyCount];
+extern const std::string mouse_button_names[sf::Keyboard::KeyCount];
 
 struct ButtonStatus
 {
-	bool pressed;
-	bool released;
-	bool down;
+  bool pressed;
+  bool released;
+  bool down;
 };
 
 struct WindowStatus
 {
-	bool closed, resized, lost_focus, gained_focus, text_entered;
-	std::string entered_text;
+  bool closed, resized, lost_focus, gained_focus, text_entered;
+  bool mouse_is_in_window, has_focus;
+  std::string entered_text;
 };
 
 class Input
 {
-	private:
-		sf::Vector2f mouse_position;
-		std::vector<ButtonStatus> key_states;
-		std::vector<ButtonStatus> mouse_states;
-	
-	public:
-		Input();
-		// Constructor
+  private:
+    sf::RenderWindow *reference_window;
+    std::ostream *outstream;
 
-		~Input();
-		// Destructor
+    // Private functions
+    void update_mouse_position();
+  
+  public:
+    // Reference variables
+    sf::Vector2f mouse_position;
+    std::vector<ButtonStatus> key;
+    std::vector<ButtonStatus> mouse;
+    WindowStatus window;
 
-		void update(sf::Window);
-		// MODIFIES: this
-		// EFFECTS:  Updates the input state from the given event. Should only
-		//           be called once per frame
+    Input(sf::RenderWindow& reference_window);
+    // Constructor
+    // reference_window is the window that will pass events to the input and
+    // be used for getting relative mouse pos.
 
-		WindowStatus window_events();
-		// EFFECTS: Returns a WindowStatus struct to handle window events
+    ~Input();
+    // Destructor
 
-		ButtonStatus key_state(sf::Keyboard::Key);
-		// EFFECTS: Returns a ButtonState struct that contains if the key is
-		//          held down,has been pressed this frame, or released this frame
+    void update();
+    // MODIFIES: this, reference_window
+    // EFFECTS:  Updates the input state from the given event. Should only
+    //           be called once per frame
 
-		ButtonStatus mouse_state(sf::Mouse::Button);
-		// EFFECTS: Returns a ButtonState struct that contains if the button is
-		//          held down, has been pressed this frame, or released this frame
+    void start_logging(std::ostream &logstream);
+    // EFFECTS: Begins outputting any input events to the given output stream
 
-
-		sf::Vector2f mouse_pos();
-		// EFFECTS: Returns a vector containing the position of the mouse cursor
-		//          in desktop coordinates
-
-		sf::Vector2f mouse_pos(const sf::Window & relativeTo);
-		// EFFECTS: Returns a vector containing the position of the mouse cursor
-		//          relative to the given window's view
+    void stop_logging();
+    // EFFECTS: Stops outputting input events
 
 };
 
