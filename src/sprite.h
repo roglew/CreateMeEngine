@@ -20,7 +20,7 @@ class Sprite: public sf::Sprite
     std::vector<Collision> collisions;
     ResourceImage image;
     Square image_pos;
-    bool loaded, is_part, image_defined;
+    bool is_part, image_defined;
   
   public:
     Sprite(ResourceManager *resource_manager);
