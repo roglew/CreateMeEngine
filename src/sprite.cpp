@@ -1,7 +1,15 @@
 #include "sprite.h"
 #include "collision.h"
+#include "square.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+
+Sprite::Sprite(ResourceManager *resource_manager)
+{
+  this->resources = resource_manager;
+  this->loaded = false;
+  this->image_defined = false;
+}
 
 bool Sprite::collides(Sprite& other_sprite)
 {
@@ -33,5 +41,36 @@ bool Sprite::collides(Sprite& other_sprite)
     }
   }
   */
+}
+
+void Sprite::set_image(ResourceImage image)
+{
+  this->image         = image;
+  this->image_defined = true;
+  this->is_part       = false;
+}
+
+void Sprite::set_image(ResourceImage image, Square &position)
+{
+  this->set_image(image, position.x, position.y, position.w, position.h);
+}
+
+void Sprite::set_image(ResourceImage image, int x, int y, int w, int h)
+{
+  this->image         = image;
+  this->image_pos.x   = x;
+  this->image_pos.y   = y;
+  this->image_pos.w   = w;
+  this->image_pos.h   = h;
+  this->is_part       = true;
+  this->image_defined = true;
+}
+
+void Sprite::update_texture()
+{
+  // Load the texture if we have to
+  this->resources->load_texture(this->image);
+  sf::Texture *tex = this->resources->get_texture(this->image);
+  this->setTexture(*tex);
 }
 

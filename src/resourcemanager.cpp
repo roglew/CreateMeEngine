@@ -55,6 +55,7 @@ bool ResourceManager::texture_loaded(ResourceImage rimage)
 
 sf::Texture* ResourceManager::get_texture(std::string filename)
 {
+  load_texture(filename);
   return loaded_textures[filename];
 }
 

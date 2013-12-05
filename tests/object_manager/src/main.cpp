@@ -12,11 +12,9 @@ class CookieMonsterObj: public GameObject
   CookieMonsterObj(Game *game) : GameObject(game)
   {
     // Make my sprite cookie monster
-    game->get_resource_manager()->load_texture(IMG_COOKIEMONSTER);
-    Sprite *mysprite = new Sprite;
-    sf::Texture *tex = game->get_resource_manager()->get_texture(IMG_COOKIEMONSTER);
-    std::cout << tex << "\n";
-    mysprite->setTexture(*tex);
+    Sprite *mysprite = new Sprite(game->get_resource_manager());
+    mysprite->set_image(IMG_COOKIEMONSTER);
+    mysprite->update_texture();
     this->add_animation();
     this->append_frame(0, mysprite);
     this->set_position(0,128);
