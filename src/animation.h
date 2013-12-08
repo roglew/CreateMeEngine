@@ -1,3 +1,6 @@
+#ifndef __ANIMATION_H__
+#define __ANIMATION_H__
+
 #include "sprite.h"
 #include "ids.h"
 #include <vector>
@@ -45,8 +48,11 @@ Class Animation
 
     void generate_from_strip(ResourceImage image, AnimationStripConfig settings);
     // MODIFIES: This
-    // EFFECTS:  Makes the animation from an animation strip
+    // EFFECTS:  Generates sprites and creates an animation using the given animation
+    //           strip settings
 
     Sprite* get_frame(int n);
     // EFFECTS: Returns a pointer to the nth frame
 }
+
+#endif
