@@ -1,12 +1,13 @@
 #include "animation.h"
+#include "resourcemanager.h"
 #include "sprite.h"
 #include "ids.h"
 #include <vector>
 #include <iostream>
 
-Animation::Animation()
+Animation::Animation(ResourceManager *resourece_manager)
 {
-  // Do nothing
+  this->resource_manager = resource_manager;
 }
 
 Animation::~Animation()
@@ -26,7 +27,7 @@ void Animation::append_frame(Sprite *sprite)
 void Animation::insert_frame(int animation, Sprite* sprite, int n)
 {
   if (n < 0)
-    this->frames.push_front(sprite);
+    this->frames.insert(this->frames.begin(), sprite);
   else if (n >= this->frames.size())
     this->frames.push_back(sprite);
   else
@@ -57,17 +58,18 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
     {
       if (frames_added < frame_count)
       {
-        Sprite* new_sprite = new Sprite;
+        Sprite* new_sprite = new Sprite(this->resource_manager);
         Square section;
 
         // Calculate the section
-        section.x = start_x + col * (settings->w + settings->hsep);
-        section.y = start_y + row * (settings->h + settings->vsep);
+        section.x = settings->start_x + col * (settings->w + settings->hsep);
+        section.y = settings->start_y + row * (settings->h + settings->vsep);
         section.w = settings->w;
         section.h = settings->h;
 
         // Set the sprite's info
-        new_sprite->set_image(image, &section);
+        new_sprite->set_image(image, section);
+        new_sprite->update_texture();
 
         // Add the frame
         this->append_frame(new_sprite);
@@ -76,7 +78,12 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
   }
 }
 
-SpriteAnimation::Sprite* get_frame(int n)
+int Animation::size()
+{
+  return this->frames.size();
+}
+
+Sprite* Animation::get_frame(int n)
 {
   return this->frames[n];
 }

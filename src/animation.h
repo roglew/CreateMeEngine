@@ -26,18 +26,19 @@ struct AnimationStripConfig
     h              = 32;
     hsep           = 0;
     vsep           = 0;
-    frames_per_row = -1;
+    frames_per_row = 1;
     count          = 1;
   }
 };
 
-Class Animation
+class Animation
 {
   protected:
-    std::vector<*Sprite> frames;
+    std::vector<Sprite*> frames;
+    ResourceManager *resource_manager;
 
   public:
-    Animation();
+    Animation(ResourceManager *resource_manager);
     ~Animation();
     // Constructor/destructors
     
@@ -56,8 +57,11 @@ Class Animation
     //           strip settings. If frames_per_row <= 0 or count <= 0, then the entire
     //           image will be split into a grid and all the frames will be used
 
+    int size();
+    // EFFECTS: Returns the number of frames in the animation
+
     Sprite* get_frame(int n);
     // EFFECTS: Returns a pointer to the nth frame
-}
+};
 
 #endif

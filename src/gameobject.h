@@ -102,6 +102,9 @@ class GameObject
     // EFFECTS: Returns a pointer to a Sprite that represents the current
     //          frame of the current animation
 
+    Animation* get_animation();
+    // EFFECTS: Returns a pointer to the current animation
+    
     Sprite* get_frame(int n);
     // EFFECTS: Returns a pointer to the Sprite that represents the
     //          nth frame of the current animation

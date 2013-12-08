@@ -12,14 +12,19 @@ class CookieMonsterObj: public GameObject
   CookieMonsterObj(Game *game) : GameObject(game)
   {
     // Make my sprite cookie monster
-    Sprite *mysprite = new Sprite(game->get_resource_manager());
-    mysprite->set_image(IMG_COOKIEMONSTER);
-    mysprite->update_texture();
-    this->add_animation();
-    this->append_frame(0, mysprite);
+    AnimationStripConfig strip_config;
+    strip_config->w = 250;
+    strip_config->h = 224;
+    Animation *my_animation = new Animation(strip_config);
+    this->set_animation(my_animation);
     this->set_position(0,128);
   }
 
+  ~CookieMonsterObj() : ~GameObject()
+  {
+    delete this->get_animation();
+  }
+  
   void process_events()
   {
     move(1, 1);

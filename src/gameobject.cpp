@@ -146,6 +146,10 @@ Sprite* GameObject::get_current_frame()
   return this->animation->get_frame(this->current_frame);
 }
 
+Animation* GameObject::get_animation()
+{
+  return this->animation;
+}
 
 Sprite* GameObject::get_frame(int n)
 {
