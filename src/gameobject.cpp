@@ -118,89 +118,38 @@ void GameObject::process_events()
 /////////////////////////////
 // Sprite/Animation Methods
 
-void GameObject::append_frame(int animation, Sprite* sprite)
-{
-  animations[animation].push_back(sprite);
-}
-
-
-void GameObject::add_frame(int animation, Sprite* sprite, int n)
-{
-  
-}
-
-
-int GameObject::add_animation()
-{
-  //OPTIMIZE
-  // create and delete the animation vectors
-  std::vector<Sprite*> temp;
-  animations.push_back(temp);
-
-  int size;
-  size = animations.size();
-
-  // Set a default frame/animation if this is the first animation
-  if (size == 1)
-  {
-    current_animation = 0;
-    current_frame = 0;
-  }
-
-  return (size-1);
-}
-
-
 void GameObject::next_frame()
 {
   // Go to the next frame
-  current_frame++;
+  this->current_frame++;
 
   // Loop back to the first frame if we've reached the end of the animation
-  if (current_frame >= animations[current_animation].size())
-    current_frame = 0;
+  if (this->current_frame >= this->animation->size())
+    this->current_frame = 0;
 }
 
 
 void GameObject::set_frame(int n)
 {
-  current_frame = n;
-
-  int anim_length;
-  anim_length = animations[current_animation].size();
-
-  while (current_frame < 0)
-    current_frame += anim_length;
-  while (current_frame >= anim_length)
-    current_frame -= anim_length;
+  this->current_frame = n;
 }
 
 
-void GameObject::set_animation(int animation)
+void GameObject::set_animation(Animation* animation)
 {
-  current_animation = animation;
-  while (current_animation < 0)
-    current_animation++;
-  while (current_animation >= animations.size())
-    current_animation--;
+  this->animation = animation;
 }
 
 
 Sprite* GameObject::get_current_frame()
 {
-  return (animations[current_animation][current_frame]);
+  return this->animation->get_frame(this->current_frame);
 }
 
 
 Sprite* GameObject::get_frame(int n)
 {
-  
-}
-
-
-Sprite* GameObject::get_frame(int animation, int n)
-{
-  
+  return this->animation->get_frame(n);
 }
 
 void GameObject::update_sprite()

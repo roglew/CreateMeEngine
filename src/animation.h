@@ -50,7 +50,7 @@ Class Animation
     // EFFECTS:  Inserts a frame into the given animation at the given
     //           position (First frame is 0)
 
-    void generate_from_strip(ResourceImage image, AnimationStripConfig settings);
+    void generate_from_strip(ResourceImage image, AnimationStripConfig *settings);
     // MODIFIES: This
     // EFFECTS:  Generates sprites and creates an animation using the given animation
     //           strip settings. If frames_per_row <= 0 or count <= 0, then the entire
