@@ -12,15 +12,28 @@ class CookieMonsterObj: public GameObject
   CookieMonsterObj(Game *game) : GameObject(game)
   {
     // Make my sprite cookie monster
+    std::cout << "1\n";
     AnimationStripConfig strip_config;
-    strip_config->w = 250;
-    strip_config->h = 224;
-    Animation *my_animation = new Animation(strip_config);
+    std::cout << "2\n";
+    strip_config.w              = 250;
+    strip_config.h              = 224;
+    strip_config.start_x        = 0;
+    strip_config.start_y        = 0;
+    strip_config.hsep           = 0;
+    strip_config.vsep           = 0;
+    strip_config.frames_per_row = 1;
+    strip_config.count          = 1;
+    Animation *my_animation = new Animation(this->game->get_resource_manager());
+    std::cout << "3n\n";
+    my_animation->generate_from_strip(IMG_COOKIEMONSTER, &strip_config);
+    std::cout << "4\n";
     this->set_animation(my_animation);
+    std::cout << "5\n";
     this->set_position(0,128);
+    std::cout << "6\n";
   }
 
-  ~CookieMonsterObj() : ~GameObject()
+  ~CookieMonsterObj()
   {
     delete this->get_animation();
   }

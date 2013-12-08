@@ -1,9 +1,13 @@
 #include "animation.h"
 #include "resourcemanager.h"
 #include "sprite.h"
-#include "ids.h"
 #include <vector>
 #include <iostream>
+
+#ifndef __RESOURCE_IDS__
+enum ResourceImage: unsigned int;
+enum ResourceSound: unsigned int;
+#endif
 
 Animation::Animation(ResourceManager *resourece_manager)
 {
@@ -36,6 +40,7 @@ void Animation::insert_frame(int animation, Sprite* sprite, int n)
 
 void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *settings)
 {
+  std::cout << "1";
   int frame_count, frames_per_row;
   if (settings->count <= 0 || settings->frames_per_row <= 0)
   {
@@ -50,6 +55,7 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
 
   int rowcount, frames_added;
   rowcount = ( frame_count/frames_per_row ) + 1;
+  std::cout << "2";
   frames_added = 0;
 
   for (int row = 0; row <= rowcount; row++)
@@ -58,7 +64,9 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
     {
       if (frames_added < frame_count)
       {
+        std::cout << "1";
         Sprite* new_sprite = new Sprite(this->resource_manager);
+        std::cout << "2";
         Square section;
 
         // Calculate the section
@@ -68,11 +76,15 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
         section.h = settings->h;
 
         // Set the sprite's info
+        std::cout << "3";
         new_sprite->set_image(image, section);
+        std::cout << "4";
         new_sprite->update_texture();
+        std::cout << "5";
 
         // Add the frame
         this->append_frame(new_sprite);
+        std::cout << "6";
       }
     }
   }

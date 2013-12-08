@@ -5,7 +5,11 @@
 #include <map>
 #include <string>
 #include "engine_classes.h"
-#include "ids.h"
+
+#ifndef __RESOURCE_IDS__
+enum ResourceImage: unsigned int;
+enum ResourceSound: unsigned int;
+#endif
 
 class ResourceManager
 {
