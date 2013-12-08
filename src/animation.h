@@ -1,10 +1,7 @@
 #include "sprite.h"
+#include "ids.h"
 #include <vector>
 
-#ifndef __RESOURCE_IDS__
-enum ResourceImage: unsigned int;
-enum ResourceSound: unsigned int;
-#endif
 
 struct AnimationStripConfig
 {

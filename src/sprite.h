@@ -4,14 +4,10 @@
 #include "collision.h"
 #include "resourcemanager.h"
 #include "square.h"
+#include "ids.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-
-#ifndef __RESOURCE_IDS__
-enum ResourceImage: unsigned int;
-enum ResourceSound: unsigned int;
-#endif
 
 class Sprite: public sf::Sprite
 {
