@@ -37,6 +37,10 @@ Class Animation
     std::vector<*Sprite> frames;
 
   public:
+    Animation();
+    ~Animation();
+    // Constructor/destructors
+    
     void append_frame(Sprite *sprite);
     // MODIFIES: This
     // EFFECTS:  Appends the given sprite to the end of the animation
@@ -49,7 +53,8 @@ Class Animation
     void generate_from_strip(ResourceImage image, AnimationStripConfig settings);
     // MODIFIES: This
     // EFFECTS:  Generates sprites and creates an animation using the given animation
-    //           strip settings
+    //           strip settings. If frames_per_row <= 0 or count <= 0, then the entire
+    //           image will be split into a grid and all the frames will be used
 
     Sprite* get_frame(int n);
     // EFFECTS: Returns a pointer to the nth frame
