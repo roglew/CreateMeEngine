@@ -17,7 +17,7 @@ IMAGES := $(shell find resources/images)
 # Main build
 objmanager.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
 	cp ../../bin/* engbin/
-	g++ $< $(wildcard engbin/*) -g -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
+	g++ $< $(wildcard engbin/*) -g -Wall -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x $@
 
 ### Dependencies
@@ -28,7 +28,7 @@ src/resourceids.h: $(IMAGES) resources/update.py
 
 # Build .o files from .cpp
 bin/%.o: src/%.cpp src/resourceids.h
-	g++ $^ -o $@ -c $(SFML_FLAGS)
+	g++ $^ -Wall -o $@ -c $(SFML_FLAGS)
 
 # Copy compiled engine .o files to our folder
 engbin/%.o: ../../bin/%.o
