@@ -109,6 +109,13 @@ class GameObject
     // EFFECTS: Returns a pointer to the Sprite that represents the
     //          nth frame of the current animation
 
+    int get_depth();
+    // EFFECTS: Returns the depth of the object
+
+    void set_depth(int depth);
+    // MODIFIES: This
+    // EFFECTS: Sets the depth of the object
+
     void update_sprite();
     // MODIFIES: Sprite pointed to by sprite
     // EFFECTS:  Adjusts the sprite to match the object

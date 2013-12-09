@@ -1,9 +1,18 @@
 #include "game.h"
 
-Game::Game(GameSettings *settings)
+void print_game_settings(GameSettings *settings)
 {
-  this->settings = settings;
-  game_is_running = false;
+  printf("Printing settings at %p:\n", settings);
+  printf("end_on_escape: %d\n", settings->end_on_escape);
+  printf("end_on_window_close: %d\n", settings->end_on_window_close);
+  printf("fps: %d\n", settings->fps);
+  printf("limit_fps: %d\n", settings->limit_fps);
+}
+
+Game::Game(GameSettings *config)
+{
+  this->settings = config;
+  this->game_is_running = false;
 }
 
 Game::~Game()
@@ -26,35 +35,35 @@ void Game::init()
 void Game::update()
 {
   // Update the game
-  update_input();
-  update_objects();
+  this->update_input();
+  this->update_objects();
 
   // See if we died by clicking the X
-  if (settings->end_on_window_close)
+  if (this->settings->end_on_window_close)
   {
-    if (input->window.closed)
+    if (this->input->window.closed)
     {
-      game_is_running = false;
+      this->game_is_running = false;
     }
   }
   
   // See if we died by hitting escape
-  if (settings->end_on_escape)
+  if (this->settings->end_on_escape)
   {
-    if (input->key[sf::Keyboard::Escape].pressed)
+    if (this->input->key[sf::Keyboard::Escape].pressed)
     {
-      game_is_running = false;
+      this->game_is_running = false;
     }
   }
 
   // If we died, kill the window
-  if (!game_is_running)
+  if (!this->game_is_running)
   {
-    render->get_created_window()->close();
+    this->render->get_created_window()->close();
   }
   
   // Last thing we do is draw
-  update_draw();
+  this->update_draw();
 }
 
 bool Game::is_running()

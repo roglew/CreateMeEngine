@@ -6,7 +6,7 @@
 
 Sprite::Sprite(ResourceManager *resource_manager)
 {
-  this->resources = resource_manager;
+  this->resource_manager = resource_manager;
   this->loaded = false;
   this->image_defined = false;
 }
@@ -70,8 +70,8 @@ void Sprite::set_image(ResourceImage image, int x, int y, int w, int h)
 void Sprite::update_texture()
 {
   // Load the texture if we have to
-  this->resources->load_texture(this->image);
-  sf::Texture *tex = this->resources->get_texture(this->image);
+  this->resource_manager->load_texture(this->image);
+  sf::Texture *tex = this->resource_manager->get_texture(this->image);
   this->setTexture(*tex);
 }
 

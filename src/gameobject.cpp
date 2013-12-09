@@ -8,8 +8,11 @@
 // Constructors/destructors
 GameObject::GameObject(Game* game)
 {
-  this->game  = game;
-  instance_id = game->get_object_manager()->add_object(this);
+  this->game          = game;
+  instance_id         = game->get_object_manager()->add_object(this);
+  this->depth         = 0;
+  this->current_frame = 0;
+  this->animation     = NULL;
 }
 
 GameObject::~GameObject()
@@ -31,79 +34,79 @@ unsigned int GameObject::get_id()
 
 void GameObject::set_position(const Vector2<int>& set_to)
 {
-  position = set_to;
+  this->position = set_to;
 }
 
 void GameObject::set_position(int x, int y)
 {
-  position.x = x;
-  position.y = y;
+  this->position.x = x;
+  this->position.y = y;
 }
 
 
 void GameObject::move(const Vector2<int>& move_vector)
 {
-  position += move_vector;
+  this->position += move_vector;
 }
 
 void GameObject::move(int x, int y)
 {
-  position.x += x;
-  position.y += y;
+  this->position.x += x;
+  this->position.y += y;
 }
 
 
 void GameObject::set_velocity(const Vector2<int>& velocity_vector)
 {
-  velocity = velocity_vector;
+  this->velocity = velocity_vector;
 }
 
 void GameObject::set_velocity(int x, int y)
 {
-  velocity.x = x;
-  velocity.y = y;
+  this->velocity.x = x;
+  this->velocity.y = y;
 }
 
 
 void GameObject::add_velocity(const Vector2<int>& velocity_vector)
 {
-  velocity += velocity_vector;
+  this->velocity += velocity_vector;
 }
 
 void GameObject::add_velocity(int x, int y)
 {
-  velocity.x += x;
-  velocity.y += y;
+  this->velocity.x += x;
+  this->velocity.y += y;
 }
 
 
 void GameObject::set_acceleration(const Vector2<int>& acceleration_vector)
 {
-  acceleration = acceleration_vector;
+  this->acceleration = acceleration_vector;
 }
 
 void GameObject::set_acceleration(int x, int y)
 {
-  acceleration.x = x;
-  acceleration.y = y;
+  this->acceleration.x = x;
+  this->acceleration.y = y;
 }
 
 
 void GameObject::add_acceleration(const Vector2<int>& acceleration_vector)
 {
-  acceleration += acceleration_vector;
+  this->acceleration += acceleration_vector;
 }
 
 void GameObject::add_acceleration(int x, int y)
 {
-  acceleration.x += x;
-  acceleration.y += y;
+  this->acceleration.x += x;
+  this->acceleration.y += y;
 }
 
 
 Vector2<int> GameObject::get_position()
 {
-  return position;
+  return this->position;
 }
 
 
@@ -156,8 +159,18 @@ Sprite* GameObject::get_frame(int n)
   return this->animation->get_frame(n);
 }
 
+int GameObject::get_depth()
+{
+  return this->depth;
+}
+
+void GameObject::set_depth(int dep)
+{
+  this->depth = dep;
+}
+
 void GameObject::update_sprite()
 {
-  get_current_frame()->setPosition(position.x, position.y);
+  this->get_current_frame()->setPosition(position.x, position.y);
 }
 

@@ -1,8 +1,22 @@
 #include <iostream>
+#include <stdio.h>
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "resourceids.h"
 #include <engine.h>
+
+void print_strip_config(AnimationStripConfig *config)
+{
+  std::cout << "Strip config at " << config << ":\n";
+  printf("start_x: %d\n", config->start_x);
+  printf("start_y: %d\n", config->start_y);
+  printf("w: %d\n", config->w);
+  printf("h: %d\n", config->h);
+  printf("hsep: %d\n", config->hsep);
+  printf("vsep: %d\n", config->vsep);
+  printf("frames_per_row: %d\n", config->frames_per_row);
+  printf("count: %d\n", config->count);
+}
 
 // Our object that follows the mouse
 class CookieMonsterObj: public GameObject
@@ -12,25 +26,14 @@ class CookieMonsterObj: public GameObject
   CookieMonsterObj(Game *game) : GameObject(game)
   {
     // Make my sprite cookie monster
-    std::cout << "1\n";
     AnimationStripConfig strip_config;
-    std::cout << "2\n";
-    strip_config.w              = 250;
-    strip_config.h              = 224;
-    strip_config.start_x        = 0;
-    strip_config.start_y        = 0;
-    strip_config.hsep           = 0;
-    strip_config.vsep           = 0;
-    strip_config.frames_per_row = 1;
-    strip_config.count          = 1;
-    Animation *my_animation = new Animation(this->game->get_resource_manager());
-    std::cout << "3n\n";
+    strip_config.w = 250;
+    strip_config.h = 224;
+    ResourceManager *resources = this->game->get_resource_manager();
+    Animation *my_animation = new Animation(resources);
     my_animation->generate_from_strip(IMG_COOKIEMONSTER, &strip_config);
-    std::cout << "4\n";
     this->set_animation(my_animation);
-    std::cout << "5\n";
-    this->set_position(0,128);
-    std::cout << "6\n";
+    this->set_position(0, 128);
   }
 
   ~CookieMonsterObj()

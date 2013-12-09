@@ -2,6 +2,7 @@
 #define __ANIMATION_H__
 
 #include "sprite.h"
+#include "resourcemanager.h"
 #include <vector>
 
 #ifndef __RESOURCE_IDS__

@@ -53,7 +53,11 @@ void ObjectManager::draw_objects()
   for (it = object_list.begin(); it != object_list.end(); it++)
   {
     // Have the render draw each object
-    game->get_render()->draw(*(*it).second);
+    GameObject *obj;
+    obj = it->second;
+    Render *render;
+    render = game->get_render();
+    render->draw(*obj, obj->get_depth());
   }
 
 }

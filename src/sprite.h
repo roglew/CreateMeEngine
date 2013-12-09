@@ -12,7 +12,7 @@
 class Sprite: public sf::Sprite
 {
   protected:
-    ResourceManager *resources;
+    ResourceManager *resource_manager;
     std::vector<Collision> collisions;
     ResourceImage image;
     Square image_pos;

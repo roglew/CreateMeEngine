@@ -99,15 +99,18 @@ void Render::draw(const sf::Drawable& drawable, int depth)
 
 void Render::draw(GameObject& object, int depth)
 {
-  DrawEvent event;
+  if (object.get_animation())
+  {
+    DrawEvent event;
 
-  event.id = DRAW_DRAWABLE;
-  event.depth = depth;
-  event.drawable = object.get_current_frame();
+    event.id = DRAW_DRAWABLE;
+    event.depth = depth;
+    event.drawable = object.get_current_frame();
 
-  object.update_sprite();
+    object.update_sprite();
 
-  draw_queue.push_back(event);
+    draw_queue.push_back(event);
+  }
 }
 
 sf::RenderTarget* Render::get_render_target()
