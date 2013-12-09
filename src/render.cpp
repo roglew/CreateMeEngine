@@ -5,11 +5,6 @@
 #include <iostream>
 #include <string>
 
-static bool draw_event_lt(DrawEvent de1, DrawEvent de2)
-{
-  return (de1.depth < de2.depth);
-}
-
 // Private functions
 void Render::queue_draw_event(DrawEvent event)
 {
@@ -57,7 +52,7 @@ void Render::render()
   sort(draw_queue.rbegin(), draw_queue.rend());
 
   // Iterate through the queue and draw all the objects
-  for (int i=0; i<draw_queue.size(); i++)
+  for (unsigned int i=0; i<draw_queue.size(); i++)
   {
     switch(draw_queue[i].id)
     {

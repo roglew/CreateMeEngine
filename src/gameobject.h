@@ -30,7 +30,7 @@ class GameObject
     /////////////////////////////////
     // Constructors and destructors
     GameObject(Game* game);
-    ~GameObject();
+    virtual ~GameObject();
 
     /////////////////////
     // Instance methods

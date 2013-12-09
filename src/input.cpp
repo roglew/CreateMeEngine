@@ -64,7 +64,7 @@ Input::Input(sf::RenderWindow& ref_window)
   window.text_entered       = "";
 
   // Keyboard events
-  for (int i=0; i < key.size(); i++)
+  for (unsigned int i=0; i < key.size(); i++)
   {
     key[i].pressed  = false;
     key[i].released = false;
@@ -72,7 +72,7 @@ Input::Input(sf::RenderWindow& ref_window)
   }
 
   // Mouse events
-  for (int i=0; i < mouse.size(); i++)
+  for (unsigned int i=0; i < mouse.size(); i++)
   {
     mouse[i].pressed  = false;
     mouse[i].released = false;
@@ -92,14 +92,14 @@ void Input::update()
   //// Reset the 1-frame events
 
   // Keyboard
-  for (int i=0; i < key.size(); i++)
+  for (unsigned int i=0; i < key.size(); i++)
   {
     key[i].pressed  = false;
     key[i].released = false;
   }
 
   // Mouse
-  for (int i=0; i < mouse.size(); i++)
+  for (unsigned int i=0; i < mouse.size(); i++)
   {
     mouse[i].pressed  = false;
     mouse[i].released = false;

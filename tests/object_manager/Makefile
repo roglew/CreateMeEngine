@@ -38,12 +38,12 @@ engbin/%.o: ../../bin/%.o
 clean: cleanbin cleangen cleantests
 
 cleanbin:
-	rm -r bin
+	rm -rf bin
 	mkdir -p bin/engine
 
 cleantests:
-	rm $(TEST_FILES)
+	rm -f $(TEST_FILES)
 
 cleangen:
-	rm src/resourceids.h
+	rm -f src/resourceids.h
 

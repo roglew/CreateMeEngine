@@ -32,7 +32,7 @@ void Animation::insert_frame(int animation, Sprite* sprite, int n)
 {
   if (n < 0)
     this->frames.insert(this->frames.begin(), sprite);
-  else if (n >= this->frames.size())
+  else if (n >= int(this->frames.size()))
     this->frames.push_back(sprite);
   else
     this->frames.insert(this->frames.begin() + n, sprite);

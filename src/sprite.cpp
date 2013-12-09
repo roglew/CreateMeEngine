@@ -41,6 +41,7 @@ bool Sprite::collides(Sprite& other_sprite)
     }
   }
   */
+  return false;
 }
 
 void Sprite::set_image(ResourceImage image)
