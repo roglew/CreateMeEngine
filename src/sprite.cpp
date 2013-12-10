@@ -78,5 +78,11 @@ void Sprite::update_texture()
   this->resource_manager->load_texture(this->image);
   sf::Texture *tex = this->resource_manager->get_texture(this->image);
   this->setTexture(*tex);
+
+  // Crop it to a rectangle if we have to
+  if (is_part)
+  {
+    this->setTextureRect(sf::IntRect(image_pos.x, image_pos.y, image_pos.w, image_pos.h));
+  }
 }
 
