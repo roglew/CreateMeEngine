@@ -27,10 +27,10 @@ unsigned int ObjectManager::add_object(GameObject *object)
 void ObjectManager::destroy_object(unsigned int id)
 {
   // Delete the object and remove the entry from the list
-  if (object_list.find(id) != object_list.end())
+  if (object_list.count(id))
   {
-    delete object_list[id];
     object_list.erase(id);
+    delete object_list[id];
   }
 }
 
@@ -53,7 +53,11 @@ void ObjectManager::draw_objects()
   for (it = object_list.begin(); it != object_list.end(); it++)
   {
     // Have the render draw each object
-    game->get_render()->draw(*(*it).second);
+    GameObject *obj;
+    obj = it->second;
+    Render *render;
+    render = game->get_render();
+    render->draw(*obj, obj->get_depth());
   }
 
 }

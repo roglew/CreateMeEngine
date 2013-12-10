@@ -18,7 +18,7 @@ class ObjectManager
     ObjectManager(Game* game);
     // Constructor, needs a game to get info from
     
-    ~ObjectManager();
+    virtual ~ObjectManager();
 
     unsigned int add_object(GameObject* object);
     // REQUIRES: T is a child of GameObject

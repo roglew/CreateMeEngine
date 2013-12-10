@@ -4,29 +4,28 @@
 #include "collision.h"
 #include "resourcemanager.h"
 #include "square.h"
+#include "ids.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 
-#ifndef __RESOURCE_IDS__
-enum ResourceImage: unsigned int;
-enum ResourceSound: unsigned int;
-#endif
-
 class Sprite: public sf::Sprite
 {
   protected:
-    ResourceManager *resources;
+    ResourceManager *resource_manager;
     std::vector<Collision> collisions;
     ResourceImage image;
     Square image_pos;
-    bool is_part, image_defined;
+    bool is_part, image_defined, loaded;
   
   public:
     Sprite(ResourceManager *resource_manager);
     // set_collision(const &Collision);
     // MODIFIES: This
     // EFFECTS:  Sets the collision struct of the sprite
+
+    ~Sprite();
+    // Destructor
 
     bool collides(Sprite& other_sprite);
     // EFFECTS: Returns whether the two sprites collide

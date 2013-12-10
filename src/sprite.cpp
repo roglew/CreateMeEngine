@@ -6,9 +6,14 @@
 
 Sprite::Sprite(ResourceManager *resource_manager)
 {
-  this->resources = resource_manager;
+  this->resource_manager = resource_manager;
   this->loaded = false;
   this->image_defined = false;
+}
+
+Sprite::~Sprite()
+{
+  // do nothing
 }
 
 bool Sprite::collides(Sprite& other_sprite)
@@ -41,6 +46,7 @@ bool Sprite::collides(Sprite& other_sprite)
     }
   }
   */
+  return false;
 }
 
 void Sprite::set_image(ResourceImage image)
@@ -69,8 +75,14 @@ void Sprite::set_image(ResourceImage image, int x, int y, int w, int h)
 void Sprite::update_texture()
 {
   // Load the texture if we have to
-  this->resources->load_texture(this->image);
-  sf::Texture *tex = this->resources->get_texture(this->image);
+  this->resource_manager->load_texture(this->image);
+  sf::Texture *tex = this->resource_manager->get_texture(this->image);
   this->setTexture(*tex);
+
+  // Crop it to a rectangle if we have to
+  if (is_part)
+  {
+    this->setTextureRect(sf::IntRect(image_pos.x, image_pos.y, image_pos.w, image_pos.h));
+  }
 }
 

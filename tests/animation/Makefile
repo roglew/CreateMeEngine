@@ -15,7 +15,8 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-objmanager.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+animation.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+	cd ../..; make obj
 	cp ../../bin/* engbin/
 	g++ $< $(wildcard engbin/*) -g -Wall -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
 	chmod +x $@
@@ -32,10 +33,14 @@ bin/%.o: src/%.cpp src/resourceids.h
 
 # Copy compiled engine .o files to our folder
 engbin/%.o: ../../bin/%.o
+	cd ../..; make obj; cp ../../bin/* engbin/
+
+engobj:
+	cd ../..; make obj;
 	cp ../../bin/* engbin/
 
 ### Cleaning
-clean: cleanbin cleangen cleantests
+clean: cleanbin cleangen cleantests engclean
 
 cleanbin:
 	rm -rf bin
@@ -47,3 +52,5 @@ cleantests:
 cleangen:
 	rm -f src/resourceids.h
 
+engclean:
+	cd ../..; make clean

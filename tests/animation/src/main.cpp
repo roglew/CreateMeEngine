@@ -19,24 +19,26 @@ void print_strip_config(AnimationStripConfig *config)
 }
 
 // Our object that follows the mouse
-class CookieMonsterObj: public GameObject
+class CrossObj: public GameObject
 {
   public:
   
-  CookieMonsterObj(Game *game) : GameObject(game)
+  CrossObj(Game *game) : GameObject(game)
   {
     // Make my sprite cookie monster
     AnimationStripConfig strip_config;
-    strip_config.w = 250;
-    strip_config.h = 224;
+    strip_config.w              = 32;
+    strip_config.h              = 32;
+    strip_config.count          = 4;
+    strip_config.frames_per_row = 4;
     ResourceManager *resources = this->game->get_resource_manager();
     Animation *my_animation = new Animation(resources);
-    my_animation->generate_from_strip(IMG_COOKIEMONSTER, &strip_config);
+    my_animation->generate_from_strip(IMG_CROSS, &strip_config);
     this->set_animation(my_animation);
     this->set_position(0, 128);
   }
 
-  ~CookieMonsterObj()
+  ~CrossObj()
   {
     delete this->get_animation();
   }
@@ -44,6 +46,7 @@ class CookieMonsterObj: public GameObject
   void process_events()
   {
     move(1, 1);
+    next_frame();
   }
 };
 
@@ -54,8 +57,8 @@ int main()
   game.init();
   
   // Instantiate the objects
-  CookieMonsterObj *object1 = new CookieMonsterObj(&game);
-  CookieMonsterObj *object2 = new CookieMonsterObj(&game);
+  CrossObj *object1 = new CrossObj(&game);
+  CrossObj *object2 = new CrossObj(&game);
   object1->set_position(0,128);
   object2->set_position(128,0);
 
