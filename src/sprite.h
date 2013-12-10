@@ -24,6 +24,9 @@ class Sprite: public sf::Sprite
     // MODIFIES: This
     // EFFECTS:  Sets the collision struct of the sprite
 
+    ~Sprite();
+    // Destructor
+
     bool collides(Sprite& other_sprite);
     // EFFECTS: Returns whether the two sprites collide
     

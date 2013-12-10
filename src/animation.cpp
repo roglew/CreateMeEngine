@@ -20,7 +20,9 @@ Animation::~Animation()
   // Clean up sprites contained in the animation
   for (unsigned int i = 0; i < frames.size(); i++)
   {
-    delete this->frames[i];
+    Sprite *frame;
+    frame = this->frames[i];
+    delete frame;
   }
 }
 

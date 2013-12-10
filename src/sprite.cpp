@@ -11,6 +11,11 @@ Sprite::Sprite(ResourceManager *resource_manager)
   this->image_defined = false;
 }
 
+Sprite::~Sprite()
+{
+  // do nothing
+}
+
 bool Sprite::collides(Sprite& other_sprite)
 {
   /*

@@ -38,7 +38,9 @@ class CookieMonsterObj: public GameObject
 
   ~CookieMonsterObj()
   {
+    printf("Deleting cookie animation...\n");
     delete this->get_animation();
+    printf("Cookie animation gone...\n");
   }
   
   void process_events()
@@ -54,10 +56,10 @@ int main()
   game.init();
   
   // Instantiate the objects
-  CookieMonsterObj object1(&game);
-  CookieMonsterObj object2(&game);
-  object1.set_position(0,128);
-  object2.set_position(128,0);
+  CookieMonsterObj *object1 = new CookieMonsterObj(&game);
+  CookieMonsterObj *object2 = new CookieMonsterObj(&game);
+  object1->set_position(0,128);
+  object2->set_position(128,0);
 
   // Run the game
   while (game.is_running())

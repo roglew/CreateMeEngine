@@ -17,10 +17,10 @@ Game::Game(GameSettings *config)
 
 Game::~Game()
 {
+  delete objects;
+  delete resources;
   delete render;
   delete input;
-  delete resources;
-  delete objects;
 }
 
 void Game::init()
