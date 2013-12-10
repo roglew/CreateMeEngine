@@ -38,9 +38,7 @@ class CookieMonsterObj: public GameObject
 
   ~CookieMonsterObj()
   {
-    printf("Deleting cookie animation...\n");
     delete this->get_animation();
-    printf("Cookie animation gone...\n");
   }
   
   void process_events()
