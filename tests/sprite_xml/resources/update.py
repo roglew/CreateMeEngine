@@ -6,15 +6,20 @@ import os
 
 # EXTS variables can be [] to include all extensions
 
+IMAGE_PREFIX = 'IMG'
 IMAGE_SUBDIR = 'images'
 IMAGE_EXTS = ['png', 'bmp', 'jpg', 'tiff']
 IMAGE_ENUM = 'ResourceImage'
 IMAGE_PATHVAR = 'image_paths'
 
+SOUND_PREFIX = 'SND'
 SOUND_SUBDIR = 'sounds'
 SOUND_EXTS = ['wav', 'mp3']
 SOUND_ENUM = 'ResourceSound'
 SOUND_PATHVAR = 'sound_paths'
+
+ANIM_PREFIX = 'ANIM'
+
 ### END SETTINGS ###
 
 # Global vars
@@ -24,6 +29,9 @@ WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 def walk_directory(dir_name, exts=[]):
+  # Searches the given directory and returns a list of files that have one of the
+  # given extensions (no leading .)
+
   walk_dir = '%s/%s' % (WORKING_DIR, dir_name)
   file_list = []
   if exts:
@@ -67,7 +75,16 @@ def get_resource_name(prefix, path):
 
 
 def get_definition_string(resources, prefix, name, enum_name, list_name):
+  # Returns the c++ code that defines an enum and a corresponding array of file
+  # paths
+  # resources - list of resource paths
+  # prefix - prefix for the enum (ie IMG)
+  # name - The name to use to describe the definition in the header file
+  # enum_name - name to give the enum
+  # list_name - name to give the list of resource paths
   def_string = "////////// %s //////////\n" % name
+
+  # Create a dict that pairs resource ids with paths
   pairs = {}
   for resource in resources:
     res_name = get_resource_name(prefix, resource)
@@ -92,12 +109,33 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
   # return the string
   return def_string
 
+def get_animation_definition_string(animations, prefix, enum_name, list_name):
+  # Returns the c++ code that defines an enum and a corresponding array of
+  # animations
+  # anumations - list of the paths to the animation xml files
+  # prefix - prefix for the enum (ie ANIM)
+  # name - The name to use to describe the definition in the header file
+  # enum_name - name to give the enum
+  # list_name - name to give the list of animation classes
+  def_string = "////////// ANIMATIONS //////////\n"
+
+  # Create a dict that pairs animation ids to the xml filepath
+  pairs = {}
+  for animation in animations:
+    anim_name = get_resource_name(prefix, animation)
+    pairs[anim_name] = animation
+
+  # Define the classes
+
 
 #### Script
 
 # Walk the image and sound directory
 print 'Searching images...'
 images = walk_directory(IMAGE_SUBDIR, IMAGE_EXTS)
+
+print 'Searching animations...'
+animations = walk_directory(IMAGE_SUBDIR, ["xml"])
 
 print 'Searching sounds...'
 sounds = walk_directory(SOUND_SUBDIR, SOUND_EXTS)
@@ -126,9 +164,9 @@ include_file.write(
 """
 )
 
-image_write = get_definition_string(images, 'IMG', 'Images',
+image_write = get_definition_string(images, IMAGE_PREFIX, 'Images',
                                     IMAGE_ENUM, IMAGE_PATHVAR)
-sound_write = get_definition_string(sounds, 'SND', 'Sounds',
+sound_write = get_definition_string(sounds, SOUND_PREFIX, 'Sounds',
                                     SOUND_ENUM, SOUND_PATHVAR)
 include_file.write(image_write)
 include_file.write(sound_write)
