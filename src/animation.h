@@ -2,13 +2,9 @@
 #define __ANIMATION_H__
 
 #include "sprite.h"
+#include "ids.h"
 #include "resourcemanager.h"
 #include <vector>
-
-#ifndef __RESOURCE_IDS__
-enum ResourceImage: unsigned int;
-enum ResourceSound: unsigned int;
-#endif
 
 struct AnimationStripConfig
 {
@@ -54,6 +50,10 @@ class Animation
     // MODIFIES: This
     // EFFECTS:  Inserts a frame into the given animation at the given
     //           position (First frame is 0)
+
+    void generate_from_id(ResourceAnimation animation_id);
+    // MODIFIES: This
+    // EFFECTS:  Generates an animation from a given animation id
 
     void generate_from_strip(ResourceImage image, AnimationStripConfig *settings);
     // MODIFIES: This

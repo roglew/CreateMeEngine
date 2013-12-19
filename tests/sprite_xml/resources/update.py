@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import xml.etree.ElementTree as ET
 
 ### SETTINGS ###
 
@@ -19,6 +20,8 @@ SOUND_ENUM = 'ResourceSound'
 SOUND_PATHVAR = 'sound_paths'
 
 ANIM_PREFIX = 'ANIM'
+ANIM_ENUM = 'ResourceAnimation'
+ANIM_STRUCTVAR = 'predefined_animations'
 
 ### END SETTINGS ###
 
@@ -125,8 +128,27 @@ def get_animation_definition_string(animations, prefix, enum_name, list_name):
     anim_name = get_resource_name(prefix, animation)
     pairs[anim_name] = animation
 
-  # Define the classes
+  # Create the enum
+  def_string += "enum %s: unsigned int\n{\n" % enum_name
+  for anim_name in pairs:
+    def_string += ' %s,\n' % anim_name
+  def_string += '\n %s_COUNT' % prefix
+  def_string += '};\n\n'
 
+  # Create an array with the correct size. Animations get loaded on-demand
+  def_string += 'AnimationConfig %s[] = {\n' % list_name
+  for anim_name in pairs:
+    # WORK HERE
+    def_string += '  {%d, %d, %d, %d, %d, %d, %d, %d},\n' % (start_x, start_y,
+                                                             w, h, hsep, vsep,
+                                                             frames_per_row,
+                                                             frame_count)
+    # done
+
+  # remove the last comma
+  def_string = def_string[:-2]
+
+  def_string += '\n};\n'
 
 #### Script
 
@@ -160,14 +182,20 @@ include_file.write(
 #define __RESOURCE_IDS__
 
 #include <string>
+#include <engine>
 
 """
 )
 
 image_write = get_definition_string(images, IMAGE_PREFIX, 'Images',
                                     IMAGE_ENUM, IMAGE_PATHVAR)
+
+animation_write = get_animation_definition_string(animations, ANIM_PREFIX,
+                                                  ANIM_ENUM, ANIM_STRUCTVAR)
+
 sound_write = get_definition_string(sounds, SOUND_PREFIX, 'Sounds',
                                     SOUND_ENUM, SOUND_PATHVAR)
 include_file.write(image_write)
+include_file.write(animation_write)
 include_file.write(sound_write)
 include_file.write('\n#endif\n')
