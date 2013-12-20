@@ -8,6 +8,7 @@
 
 struct AnimationStripConfig
 {
+  ResourceImage image;
   int start_x;
   int start_y;
   int w;
@@ -55,7 +56,7 @@ class Animation
     // MODIFIES: This
     // EFFECTS:  Generates an animation from a given animation id
 
-    void generate_from_strip(ResourceImage image, AnimationStripConfig *settings);
+    void generate_from_strip(AnimationStripConfig *settings);
     // MODIFIES: This
     // EFFECTS:  Generates sprites and creates an animation using the given animation
     //           strip settings. If frames_per_row <= 0 or count <= 0, then the entire

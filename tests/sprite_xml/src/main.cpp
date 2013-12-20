@@ -27,13 +27,14 @@ class CrossObj: public GameObject
   {
     // Make my sprite cookie monster
     AnimationStripConfig strip_config;
+    strip_config.image          = IMG_CROSS;
     strip_config.w              = 32;
     strip_config.h              = 32;
     strip_config.count          = 4;
     strip_config.frames_per_row = 4;
     ResourceManager *resources = this->game->get_resource_manager();
     Animation *my_animation = new Animation(resources);
-    my_animation->generate_from_strip(IMG_CROSS, &strip_config);
+    my_animation->generate_from_strip(&strip_config);
     this->set_animation(my_animation);
     this->set_position(0, 128);
   }
