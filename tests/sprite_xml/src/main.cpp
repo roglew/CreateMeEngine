@@ -30,7 +30,7 @@ class CrossObj: public GameObject
     strip_config.image          = IMG_CROSS;
     strip_config.w              = 32;
     strip_config.h              = 32;
-    strip_config.count          = 4;
+    strip_config.frame_count    = 4;
     strip_config.frames_per_row = 4;
     ResourceManager *resources = this->game->get_resource_manager();
     Animation *my_animation = new Animation(resources);

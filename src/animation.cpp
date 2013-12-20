@@ -52,7 +52,7 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
   }
   else
   {
-    frame_count    = settings->count;
+    frame_count    = settings->frame_count;
     frames_per_row = settings->frames_per_row;
   }
 

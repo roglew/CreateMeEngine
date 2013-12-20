@@ -28,7 +28,7 @@ struct AnimationStripConfig
     hsep           = 0;
     vsep           = 0;
     frames_per_row = 1;
-    count          = 1;
+    frame_count    = 1;
   }
 };
 
