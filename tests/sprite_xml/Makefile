@@ -15,7 +15,7 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-animation.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+sprite_xml.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
 	cd ../..; make obj
 	cp ../../bin/* engbin/
 	g++ $< $(wildcard engbin/*) -g -Wall -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)
