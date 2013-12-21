@@ -5,18 +5,12 @@
 #include <SFML/Graphics.hpp>
 #include <engine.h>
 
-void print_strip_config(AnimationStripConfig *config)
+enum ObjectType: unsigned int
 {
-  std::cout << "Strip config at " << config << ":\n";
-  printf("start_x: %d\n", config->start_x);
-  printf("start_y: %d\n", config->start_y);
-  printf("w: %d\n", config->w);
-  printf("h: %d\n", config->h);
-  printf("hsep: %d\n", config->hsep);
-  printf("vsep: %d\n", config->vsep);
-  printf("frames_per_row: %d\n", config->frames_per_row);
-  printf("count: %d\n", config->frame_count);
-}
+  OBJ_CROSS,
+
+  OBJ_COUNT
+};
 
 // Our object that follows the mouse
 class CrossObj: public GameObject
@@ -25,6 +19,8 @@ class CrossObj: public GameObject
   
   CrossObj(Game *game) : GameObject(game)
   {
+    type = OBJ_CROSS;
+    
     // Make the spinning crosses
     Animation *my_animation = new Animation(game->get_resource_manager());
     my_animation->generate_from_id(ANIM_CROSS_SPIN);

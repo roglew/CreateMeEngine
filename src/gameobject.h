@@ -6,6 +6,7 @@
 #include "vector.hpp"
 #include "sprite.h"
 #include "animation.h"
+#include "ids.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -17,6 +18,7 @@ class GameObject
   protected:
     Game *game;
     unsigned int instance_id;
+    ObjectType type;
 
     Animation* animation;
     int current_frame;
@@ -120,6 +122,7 @@ class GameObject
     // MODIFIES: Sprite pointed to by sprite
     // EFFECTS:  Adjusts the sprite to match the object
 
+    friend class ObjectManager;
 };
 
 #endif

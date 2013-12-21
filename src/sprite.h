@@ -13,12 +13,13 @@ class Sprite: public sf::Sprite
 {
   protected:
     ResourceManager *resource_manager;
-    Collision collision;
     ResourceImage image;
     Square image_pos;
     bool is_part, image_defined, loaded;
   
   public:
+    Collision collision;
+
     Sprite(ResourceManager *resource_manager);
     // set_collision(const &Collision);
     // MODIFIES: This
@@ -46,7 +47,6 @@ class Sprite: public sf::Sprite
     
     void load();
     // REQUIRES: Image must have been set
-
 };
 
 
