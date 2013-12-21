@@ -6,10 +6,11 @@ images/path/to/file.jpg -> IMG_PATH_TO_FILE
 
 
 #ifndef __RESOURCE_IDS__
-#define __RESOURCE_IDS__
 
 #include <string>
-#include <engine>
+#include <engine.h>
+
+#define __RESOURCE_IDS__
 
 ////////// Images //////////
 enum ResourceImage: unsigned int
@@ -28,6 +29,20 @@ std::string image_paths[] = {
  "resources/images/testimage.png",
  "resources/images/cookiemonster.png"
 };
+
+////////// ANIMATIONS //////////
+enum ResourceAnimation: unsigned int
+{
+ ANIM_CROSS_SPIN,
+ ANIM_CROSS_TATER,
+
+ ANIM_COUNT};
+
+AnimationStripConfig predefined_animations[] = {
+  {IMG_CROSS, 0, 0, 32, 32, 0, 0, 4, 4},
+  {IMG_CROSS, 0, 0, 32, 32, 0, 0, 2, 2}
+};
+
 ////////// Sounds //////////
 enum ResourceSound: unsigned int
 {
@@ -37,5 +52,6 @@ enum ResourceSound: unsigned int
 
 std::string sound_paths[] = {
 };
+
 
 #endif

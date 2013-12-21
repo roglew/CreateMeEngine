@@ -1,15 +1,22 @@
 #include "animation.h"
 #include "resourcemanager.h"
 #include "sprite.h"
+#include "ids.h"
 #include <vector>
 #include <iostream>
 #include <stdio.h>
 
-#ifndef __RESOURCE_IDS__
-enum ResourceImage: unsigned int;
-enum ResourceSound: unsigned int;
-enum ResourceAnimation: unsigned int;
-#endif
+void default_animation_strip_config(AnimationStripConfig *config)
+{
+  config->start_x        = 0;
+  config->start_y        = 0;
+  config->w              = 32;
+  config->h              = 32;
+  config->hsep           = 0;
+  config->vsep           = 0;
+  config->frames_per_row = 1;
+  config->frame_count    = 1;
+}
 
 Animation::Animation(ResourceManager *res)
 {
@@ -42,10 +49,10 @@ void Animation::insert_frame(int animation, Sprite* sprite, int n)
     this->frames.insert(this->frames.begin() + n, sprite);
 }
 
-void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *settings)
+void Animation::generate_from_strip(AnimationStripConfig *settings)
 {
   int frame_count, frames_per_row;
-  if (settings->count <= 0 || settings->frames_per_row <= 0)
+  if (settings->frame_count <= 0 || settings->frames_per_row <= 0)
   {
     // DOES NOTHING
     std::cerr << "Calculating frames for entire strip not yet implemented\n";
@@ -76,7 +83,7 @@ void Animation::generate_from_strip(ResourceImage image, AnimationStripConfig *s
         section.h = settings->h;
 
         // Set the sprite's info
-        new_sprite->set_image(image, section);
+        new_sprite->set_image(settings->image, section);
         new_sprite->update_texture();
 
         // Add the frame

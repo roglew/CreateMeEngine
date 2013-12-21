@@ -1,8 +1,8 @@
+#include "resourceids.h"
 #include <iostream>
 #include <stdio.h>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "resourceids.h"
 #include <engine.h>
 
 void print_strip_config(AnimationStripConfig *config)
@@ -15,7 +15,7 @@ void print_strip_config(AnimationStripConfig *config)
   printf("hsep: %d\n", config->hsep);
   printf("vsep: %d\n", config->vsep);
   printf("frames_per_row: %d\n", config->frames_per_row);
-  printf("count: %d\n", config->count);
+  printf("count: %d\n", config->frame_count);
 }
 
 // Our object that follows the mouse
@@ -27,6 +27,7 @@ class CrossObj: public GameObject
   {
     // Make my sprite cookie monster
     AnimationStripConfig strip_config;
+    default_animation_strip_config(&strip_config);
     strip_config.image          = IMG_CROSS;
     strip_config.w              = 32;
     strip_config.h              = 32;

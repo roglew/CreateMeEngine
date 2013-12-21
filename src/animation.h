@@ -16,21 +16,21 @@ struct AnimationStripConfig
   int hsep;
   int vsep;
   int frames_per_row;
-  int count;
-
-  // Default Values
-  AnimationStripConfig()
-  {
-    start_x        = 0;
-    start_y        = 0;
-    w              = 32;
-    h              = 32;
-    hsep           = 0;
-    vsep           = 0;
-    frames_per_row = 1;
-    frame_count    = 1;
-  }
+  int frame_count;
 };
+
+void default_animation_strip_config(AnimationStripConfig *config);
+// EFFECTS: Sets the given config to the following values:
+            /*
+            start_x        = 0;
+            start_y        = 0;
+            w              = 32;
+            h              = 32;
+            hsep           = 0;
+            vsep           = 0;
+            frames_per_row = 1;
+            frame_count    = 1;
+            */
 
 class Animation
 {

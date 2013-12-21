@@ -107,7 +107,7 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
   # remove the last comma
   def_string = def_string[:-2]
 
-  def_string += '\n};\n'
+  def_string += '\n};\n\n'
 
   # return the string
   return def_string
@@ -123,24 +123,31 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   # list_name - name to give the list of animation classes
   def_string = "////////// ANIMATIONS //////////\n" # Header
 
-  # Create dictionary pairing image file NAMES to animation files
+  # Create dictionary pairing image file NAMES to animation files and
+  # animation names
   image_pairs = {}
+  anim_name_bases = {}
   for anim_file in animation_files:
     # Since animation files have to have the same name as the image, we can use
     # the normal naming scheme, but use the xml file with the image prefix
     image_name = get_resource_name(img_prefix, anim_file)
+    anim_name_bases[image_name] = get_resource_name(anim_prefix, anim_file)
     image_pairs[image_name] = anim_file
 
 
   # Create a dictionaries to pair animations to images and one to store
   # animation info
   anim_pairs = {}
-  anim_info = {}
+  anim_list = []
   # Loop through the animations by name
   for image_name in image_pairs:
     # Get list of animations from xml file
-    # Remove the resources/ from the filename
-    xml_file = "/".join(image_pairs[image_name].split("/")[1:])
+
+    # Remember, this gets called from the parent directory. This string has the
+    # resources/images/etc part in it, which we want. This script can't be called
+    # from the directory that the script is in
+    xml_file = image_pairs[image_name]
+    print "Parsing %s" % xml_file
     xml_tree = ET.parse(xml_file)
     xml_root = xml_tree.getroot()
 
@@ -148,7 +155,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
     for child in xml_root.findall("animation"):
       # Set default values for animation info
       name           = "untitled"
-      res_image      = "NULL"
+      res_image      = image_name
       start_x        = 0
       start_y        = 0
       w              = 32
@@ -159,58 +166,73 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
       frame_count    = 1
 
       # Get info from the xml file
+      # Only save it if it has a name
       if (child.find("name") is not None):
-        print child.find("name").text
+        name = child.find("name").text
+        print "Animation: %s" % name
 
-      if (child.find("xstart") is not None):
-        print child.find("xstart").text
+        if (child.find("xstart") is not None):
+          xstart = int(child.find("xstart").text)
 
-      if (child.find("ystart") is not None):
-        print child.find("ystart").text
+        if (child.find("ystart") is not None):
+          start_y = int(child.find("ystart").text)
 
-      if (child.find("width") is not None):
-        print child.find("width").text
+        if (child.find("width") is not None):
+          w = int(child.find("width").text)
 
-      if (child.find("height") is not None):
-        print child.find("height").text
+        if (child.find("height") is not None):
+          h = int(child.find("height").text)
 
-      if (child.find("xsep") is not None):
-        print child.find("xsep").text
+        if (child.find("xsep") is not None):
+          hsep = int(child.find("xsep").text)
 
-      if (child.find("ysep") is not None):
-        print child.find("ysep").text
+        if (child.find("ysep") is not None):
+          vsep = int(child.find("ysep").text)
 
-      if (child.find("framesperrow") is not None):
-        print child.find("framesperrow").text
+        if (child.find("framesperrow") is not None):
+          frames_per_row = int(child.find("framesperrow").text)
 
-      if (child.find("framecount") is not None):
-        print child.find("framecount").text
+        if (child.find("framecount") is not None):
+          frame_count = int(child.find("framecount").text)
 
-      # Store the info in the animation list
+        # Store the info in the animation list
+        new_anim = {}
+        new_anim["name"]           = name
+        new_anim["res_image"]      = res_image
+        new_anim["start_x"]        = start_x
+        new_anim["start_y"]        = start_y
+        new_anim["w"]              = w
+        new_anim["h"]              = h
+        new_anim["hsep"]           = hsep
+        new_anim["vsep"]           = vsep
+        new_anim["frames_per_row"] = frames_per_row
+        new_anim["frame_count"]    = frame_count
+        anim_list.append(new_anim)
+
   # Create the enum
+  def_string += "enum %s: unsigned int\n{\n" % enum_name
+  for animation in anim_list:
+    print "Naming %s" % animation["name"]
+    def_string += ' %s_%s,\n' % (anim_name_bases[animation["res_image"]],
+                                 animation["name"].upper())
+  def_string += '\n %s_COUNT' % anim_prefix
+  def_string += '};\n\n'
   # Create the array linking animation IDs to animation structs
 
-  """
-  # Store the animation names into an enum
-  def_string += "enum %s: unsigned int\n{\n" % enum_name
-  for anim_name in pairs:
-    def_string += ' %s,\n' % anim_name
-  def_string += '\n %s_COUNT' % prefix
-  def_string += '};\n\n'
-
   # Create an array with the correct size. Animations get loaded on-demand
-  def_string += 'AnimationConfig %s[] = {\n' % list_name
-  for anim_name in pairs:
+  def_string += 'AnimationStripConfig %s[] = {\n' % list_name
+  for animation in anim_list:
     def_string += '  {%s, %d, %d, %d, %d, %d, %d, %d, %d},\n' % \
-    (res_image, start_x, start_y, w, h, hsep, vsep, frames_per_row, frame_count)
-    # done
+        ( animation["res_image"], animation["start_x"], animation["start_y"],
+          animation["w"], animation["h"], animation["hsep"], animation["vsep"],
+          animation["frames_per_row"], animation["frame_count"], )
 
   # remove the last comma
   def_string = def_string[:-2]
 
-  def_string += '\n};\n'
-  """
-  return ""
+  def_string += '\n};\n\n'
+
+  return def_string
 
 #### Script
 
@@ -241,10 +263,11 @@ include_file.write(header)
 # includes
 include_file.write(
 """#ifndef __RESOURCE_IDS__
-#define __RESOURCE_IDS__
 
 #include <string>
-#include <engine>
+#include <engine.h>
+
+#define __RESOURCE_IDS__
 
 """
 )
