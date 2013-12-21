@@ -216,7 +216,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
     def_string += ' %s_%s,\n' % (anim_name_bases[animation["res_image"]],
                                  animation["name"].upper())
   def_string += '\n %s_COUNT' % anim_prefix
-  def_string += '};\n\n'
+  def_string += '\n};\n\n'
   # Create the array linking animation IDs to animation structs
 
   # Create an array with the correct size. Animations get loaded on-demand
