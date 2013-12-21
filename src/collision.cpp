@@ -1,6 +1,15 @@
 #include "collision.h"
 #include <vector>
 
+bool collides(const Collision& col1, const Collision& col2)
+{
+  if (col1.type == COLLISION_BOUNDING_BOX &&
+      col2.type == COLLISION_BOUNDING_BOX)
+  {
+    return collides(col1.boxes, col2.boxes);
+  }
+}
+
 bool collides(const BoundingBox& box1, const BoundingBox& box2)
 {
   int box1_right  = box1.x + box1.w;
