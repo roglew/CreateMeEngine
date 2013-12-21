@@ -9,6 +9,7 @@ images/path/to/file.jpg -> IMG_PATH_TO_FILE
 #define __RESOURCE_IDS__
 
 #include <string>
+#include <engine>
 
 ////////// Images //////////
 enum ResourceImage: unsigned int

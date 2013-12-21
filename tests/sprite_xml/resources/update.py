@@ -112,23 +112,86 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
   # return the string
   return def_string
 
-def get_animation_definition_string(animations, prefix, enum_name, list_name):
+def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
+                                    enum_name, list_name):
   # Returns the c++ code that defines an enum and a corresponding array of
-  # animations
-  # anumations - list of the paths to the animation xml files
-  # prefix - prefix for the enum (ie ANIM)
+  # animation_files - list of the paths to the animation xml files
+  # anim_prefix - prefix for the enum (ie ANIM)
+  # img_prefix - prefix for image names
   # name - The name to use to describe the definition in the header file
   # enum_name - name to give the enum
   # list_name - name to give the list of animation classes
-  def_string = "////////// ANIMATIONS //////////\n"
+  def_string = "////////// ANIMATIONS //////////\n" # Header
 
-  # Create a dict that pairs animation ids to the xml filepath
-  pairs = {}
-  for animation in animations:
-    anim_name = get_resource_name(prefix, animation)
-    pairs[anim_name] = animation
+  # Create dictionary pairing image file NAMES to animation files
+  image_pairs = {}
+  for anim_file in animation_files:
+    # Since animation files have to have the same name as the image, we can use
+    # the normal naming scheme, but use the xml file with the image prefix
+    image_name = get_resource_name(img_prefix, anim_file)
+    image_pairs[image_name] = anim_file
 
+
+  # Create a dictionaries to pair animations to images and one to store
+  # animation info
+  anim_pairs = {}
+  anim_info = {}
+  # Loop through the animations by name
+  for image_name in image_pairs:
+    # Get list of animations from xml file
+    # Remove the resources/ from the filename
+    xml_file = "/".join(image_pairs[image_name].split("/")[1:])
+    xml_tree = ET.parse(xml_file)
+    xml_root = xml_tree.getroot()
+
+    # Iterate through the children
+    for child in xml_root.findall("animation"):
+      # Set default values for animation info
+      name           = "untitled"
+      res_image      = "NULL"
+      start_x        = 0
+      start_y        = 0
+      w              = 32
+      h              = 32
+      hsep           = 0
+      vsep           = 0
+      frames_per_row = 1
+      frame_count    = 1
+
+      # Get info from the xml file
+      if (child.find("name") is not None):
+        print child.find("name").text
+
+      if (child.find("xstart") is not None):
+        print child.find("xstart").text
+
+      if (child.find("ystart") is not None):
+        print child.find("ystart").text
+
+      if (child.find("width") is not None):
+        print child.find("width").text
+
+      if (child.find("height") is not None):
+        print child.find("height").text
+
+      if (child.find("xsep") is not None):
+        print child.find("xsep").text
+
+      if (child.find("ysep") is not None):
+        print child.find("ysep").text
+
+      if (child.find("framesperrow") is not None):
+        print child.find("framesperrow").text
+
+      if (child.find("framecount") is not None):
+        print child.find("framecount").text
+
+      # Store the info in the animation list
   # Create the enum
+  # Create the array linking animation IDs to animation structs
+
+  """
+  # Store the animation names into an enum
   def_string += "enum %s: unsigned int\n{\n" % enum_name
   for anim_name in pairs:
     def_string += ' %s,\n' % anim_name
@@ -138,17 +201,16 @@ def get_animation_definition_string(animations, prefix, enum_name, list_name):
   # Create an array with the correct size. Animations get loaded on-demand
   def_string += 'AnimationConfig %s[] = {\n' % list_name
   for anim_name in pairs:
-    # WORK HERE
-    def_string += '  {%d, %d, %d, %d, %d, %d, %d, %d},\n' % (start_x, start_y,
-                                                             w, h, hsep, vsep,
-                                                             frames_per_row,
-                                                             frame_count)
+    def_string += '  {%s, %d, %d, %d, %d, %d, %d, %d, %d},\n' % \
+    (res_image, start_x, start_y, w, h, hsep, vsep, frames_per_row, frame_count)
     # done
 
   # remove the last comma
   def_string = def_string[:-2]
 
   def_string += '\n};\n'
+  """
+  return ""
 
 #### Script
 
@@ -191,7 +253,8 @@ image_write = get_definition_string(images, IMAGE_PREFIX, 'Images',
                                     IMAGE_ENUM, IMAGE_PATHVAR)
 
 animation_write = get_animation_definition_string(animations, ANIM_PREFIX,
-                                                  ANIM_ENUM, ANIM_STRUCTVAR)
+                                                  IMAGE_PREFIX, ANIM_ENUM,
+                                                  ANIM_STRUCTVAR)
 
 sound_write = get_definition_string(sounds, SOUND_PREFIX, 'Sounds',
                                     SOUND_ENUM, SOUND_PATHVAR)
