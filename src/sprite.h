@@ -13,7 +13,7 @@ class Sprite: public sf::Sprite
 {
   protected:
     ResourceManager *resource_manager;
-    std::vector<Collision> collisions;
+    Collision collision;
     ResourceImage image;
     Square image_pos;
     bool is_part, image_defined, loaded;

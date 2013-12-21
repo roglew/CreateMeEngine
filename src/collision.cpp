@@ -1,12 +1,12 @@
 #include "collision.h"
 #include <vector>
 
-bool collides(const Collision& col1, const Collision& col2)
+bool collides(Collision& col1, Collision& col2)
 {
   if (col1.type == COLLISION_BOUNDING_BOX &&
       col2.type == COLLISION_BOUNDING_BOX)
   {
-    return collides(col1.boxes, col2.boxes);
+    return collides(col1.bounding_boxes, col2.bounding_boxes);
   }
 }
 

@@ -18,6 +18,7 @@ Sprite::~Sprite()
 
 bool Sprite::collides(Sprite& other_sprite)
 {
+  return ::collides(this->collision, other_sprite.collision);
   /*
   // Just bounding boxes for now
   const std::vector< sf::Rect<int> > *bboxes = &collision.bounding_box;

@@ -32,7 +32,8 @@ class CollisionException{};
 
 // Collision checks
 
-bool collides(const Collision& col1, const Collision& col2);
+bool collides(Collision& col1, Collision& col2);
+// MODIFIES: Iterates through values of col1 and col2
 // EFFECTS: Checks if any 2 generic collisions collide
 
 bool collides(const BoundingBox& box1, const BoundingBox& box2);
