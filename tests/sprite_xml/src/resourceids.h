@@ -36,7 +36,8 @@ enum ResourceAnimation: unsigned int
  ANIM_CROSS_SPIN,
  ANIM_CROSS_TATER,
 
- ANIM_COUNT};
+ ANIM_COUNT
+};
 
 AnimationStripConfig predefined_animations[] = {
   {IMG_CROSS, 0, 0, 32, 32, 0, 0, 4, 4},
