@@ -3,11 +3,13 @@
 
 bool collides(Collision& col1, Collision& col2)
 {
-  if (col1.type == COLLISION_BOUNDING_BOX &&
-      col2.type == COLLISION_BOUNDING_BOX)
-  {
-    return collides(col1.bounding_boxes, col2.bounding_boxes);
-  }
+  if (collides(col1.bounding_boxes, col2.bounding_boxes))
+    return true;
+
+  // As we implement more collisions, check each combination with the appropriate function
+  // here
+
+  return false;
 }
 
 bool collides(const BoundingBox& box1, const BoundingBox& box2)
