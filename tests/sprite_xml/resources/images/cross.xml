@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<data>
+  <animation>
+    <name>spin</name>
+    <xstart>0</xstart>
+    <ystart>0</ystart>
+    <width>32</width>
+    <height>32</height>
+    <xsep>0</xsep>
+    <ysep>0</ysep>
+    <framesperrow>4</framesperrow>
+    <framecount>4</framecount>
+  </animation>
+
+  <animation>
+    <name>tater</name>
+    <xstart>32</xstart>
+    <ystart>0</ystart>
+    <width>32</width>
+    <height>32</height>
+    <xsep>0</xsep>
+    <ysep>0</ysep>
+    <framesperrow>2</framesperrow>
+    <framecount>2</framecount>
+  </animation>
+
+  <animation>
+    <xstart>32</xstart>
+    <ystart>0</ystart>
+    <width>32</width>
+    <height>32</height>
+    <xsep>0</xsep>
+    <ysep>0</ysep>
+    <framesperrow>2</framesperrow>
+    <framecount>2</framecount>
+  </animation>
+  
+  <danimation>
+    <name>DAAAAN</name>
+    <xstart>32</xstart>
+    <ystart>0</ystart>
+    <width>32</width>
+    <height>32</height>
+    <xsep>0</xsep>
+    <ysep>0</ysep>
+    <framesperrow>2</framesperrow>
+    <framecount>2</framecount>
+  </danimation>
+</data>
