@@ -2,16 +2,13 @@
 #define __ANIMATION_H__
 
 #include "sprite.h"
+#include "ids.h"
 #include "resourcemanager.h"
 #include <vector>
 
-#ifndef __RESOURCE_IDS__
-enum ResourceImage: unsigned int;
-enum ResourceSound: unsigned int;
-#endif
-
 struct AnimationStripConfig
 {
+  ResourceImage image;
   int start_x;
   int start_y;
   int w;
@@ -19,21 +16,21 @@ struct AnimationStripConfig
   int hsep;
   int vsep;
   int frames_per_row;
-  int count;
-
-  // Default Values
-  AnimationStripConfig()
-  {
-    start_x        = 0;
-    start_y        = 0;
-    w              = 32;
-    h              = 32;
-    hsep           = 0;
-    vsep           = 0;
-    frames_per_row = 1;
-    count          = 1;
-  }
+  int frame_count;
 };
+
+void default_animation_strip_config(AnimationStripConfig *config);
+// EFFECTS: Sets the given config to the following values:
+            /*
+            start_x        = 0;
+            start_y        = 0;
+            w              = 32;
+            h              = 32;
+            hsep           = 0;
+            vsep           = 0;
+            frames_per_row = 1;
+            frame_count    = 1;
+            */
 
 class Animation
 {
@@ -55,7 +52,11 @@ class Animation
     // EFFECTS:  Inserts a frame into the given animation at the given
     //           position (First frame is 0)
 
-    void generate_from_strip(ResourceImage image, AnimationStripConfig *settings);
+    void generate_from_id(ResourceAnimation animation_id);
+    // MODIFIES: This
+    // EFFECTS:  Generates an animation from a given animation id
+
+    void generate_from_strip(AnimationStripConfig *settings);
     // MODIFIES: This
     // EFFECTS:  Generates sprites and creates an animation using the given animation
     //           strip settings. If frames_per_row <= 0 or count <= 0, then the entire
