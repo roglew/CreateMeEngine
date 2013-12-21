@@ -6,6 +6,8 @@
 #include <iostream>
 #include <stdio.h>
 
+extern AnimationStripConfig predefined_animations[];
+
 void default_animation_strip_config(AnimationStripConfig *config)
 {
   config->start_x        = 0;
@@ -47,6 +49,11 @@ void Animation::insert_frame(int animation, Sprite* sprite, int n)
     this->frames.push_back(sprite);
   else
     this->frames.insert(this->frames.begin() + n, sprite);
+}
+
+void Animation::generate_from_id(ResourceAnimation animation_id)
+{
+  generate_from_strip(&predefined_animations[animation_id]);
 }
 
 void Animation::generate_from_strip(AnimationStripConfig *settings)
