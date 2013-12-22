@@ -54,14 +54,16 @@ int main()
   printf("Obj1 id: %d\n", object1->get_id());
   printf("Obj2 id: %d\n", object2->get_id());
   ObjectManager *man = game.get_object_manager();
-  man->destroy_object(object2->get_id());
-  printf("Got the id\n");
+  //man->destroy_object(object2->get_id());
+  man->destroy_object(object1->get_id());
   unsigned int count = game.get_object_manager()->count_objects(OBJ_CROSS);
   printf("There are %d crosses\n", count);
 
   // Run the game
   while (game.is_running())
     game.update();
+
+  printf("Ending game...\n");
 
   return 0;
 }

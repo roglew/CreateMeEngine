@@ -23,7 +23,6 @@ class GameObject
     Animation* animation;
     int current_frame;
     int depth;
-    char destroyed;
 
     Vector2<int> position;
     Vector2<int> velocity;

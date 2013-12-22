@@ -28,12 +28,14 @@ void ObjectManager::destroy_object(unsigned int id)
 {
   // Delete the object and remove the entry from the list
   std::map<unsigned int, GameObject*>::iterator it = this->object_list.find(id);
+  std::map<unsigned int, GameObject*>::iterator to_remove;
   if (it != this->object_list.end())
   {
     GameObject *to_delete;
-    to_delete = object_list[id];
-    object_list.erase(it);
-    delete to_delete;
+    to_delete = it->second;
+    this->object_list.erase(it);
+    if (to_delete)
+      delete to_delete;
   }
 }
 
@@ -73,13 +75,10 @@ unsigned int ObjectManager::count_objects(ObjectType type)
   
   // Iterate through the map and count the number of objects with the given type
   std::map<unsigned int, GameObject*>::iterator it = this->object_list.begin();
-  printf("1\n");
   while (it != this->object_list.end())
   {
-    printf("2\n");
     if ( it->second->type == type )
     {
-      printf("3\n");
       found ++;
     }
     it++;
@@ -91,14 +90,12 @@ unsigned int ObjectManager::count_objects(ObjectType type)
 void ObjectManager::process_events()
 {
   std::map<unsigned int, GameObject*>::iterator it;
-  
   for (it = object_list.begin(); it != object_list.end(); it++)
   {
     // For each object in our list, execute process_events with respect
     // to our current game object
     (*it).second->process_events();
   }
-  it++;
 }
 
 void ObjectManager::draw_objects()
