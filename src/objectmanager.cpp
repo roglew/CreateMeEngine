@@ -27,10 +27,16 @@ unsigned int ObjectManager::add_object(GameObject *object)
 void ObjectManager::destroy_object(unsigned int id)
 {
   // Delete the object and remove the entry from the list
+  printf("Initializing segfault...\n");
   if (object_list.count(id))
   {
-    object_list.erase(id);
-    delete object_list[id];
+    if (object_list[id]->destroyed == false)
+    {
+      printf("segfault ho!\n");
+      object_list.erase(id);
+      printf("Or now!\n");
+      delete object_list[id];
+    }
   }
 }
 
@@ -70,12 +76,16 @@ unsigned int ObjectManager::count_objects(ObjectType type)
   
   // Iterate through the map and count the number of objects with the given type
   std::map<unsigned int, GameObject*>::iterator it = this->object_list.begin();
+  printf("1\n");
   while (it != this->object_list.end())
   {
+    printf("2\n");
     if ( it->second->type == type )
     {
+      printf("3\n");
       found ++;
     }
+    it++;
   }
 
   return found;
@@ -91,6 +101,7 @@ void ObjectManager::process_events()
     // to our current game object
     (*it).second->process_events();
   }
+  it++;
 }
 
 void ObjectManager::draw_objects()

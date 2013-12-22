@@ -13,12 +13,14 @@ GameObject::GameObject(Game* game)
   this->depth         = 0;
   this->current_frame = 0;
   this->animation     = NULL;
+  this->destroyed     = false;
 }
 
 GameObject::~GameObject()
 {
   // When the object dies, remove it from the list
   this->game->get_object_manager()->destroy_object(this->instance_id);
+  this->destroyed = true;
 }
 
 /////////////////////

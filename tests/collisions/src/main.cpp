@@ -51,6 +51,13 @@ int main()
   CrossObj *object2 = new CrossObj(&game);
   object1->set_position(0,128);
   object2->set_position(128,0);
+  printf("Obj1 id: %d\n", object1->get_id());
+  printf("Obj2 id: %d\n", object2->get_id());
+  ObjectManager *man = game.get_object_manager();
+  man->destroy_object(object2->get_id());
+  printf("Got the id\n");
+  unsigned int count = game.get_object_manager()->count_objects(OBJ_CROSS);
+  printf("There are %d crosses\n", count);
 
   // Run the game
   while (game.is_running())
