@@ -91,9 +91,13 @@ void Animation::generate_from_strip(AnimationStripConfig *settings)
         section.w = settings->w;
         section.h = settings->h;
 
-        // Set the sprite's info
+        // Update the sprite's texture
         new_sprite->set_image(settings->image, section);
         new_sprite->update_texture();
+
+        // Set the default bounding box
+        new_sprite->collision.bounding_boxes.push_back(BoundingBox());
+        new_sprite->collision.bounding_boxes[0] = {0, 0, section.w, section.h};
 
         // Add the frame
         this->append_frame(new_sprite);

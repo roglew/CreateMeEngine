@@ -44,6 +44,13 @@ void Sprite::set_image(ResourceImage image, int x, int y, int w, int h)
   this->image_defined = true;
 }
 
+void Sprite::set_position(int x, int y)
+{
+    this->setPosition(x, y);
+    this->collision.x = x;
+    this->collision.y = y;
+}
+
 void Sprite::update_texture()
 {
   // Load the texture if we have to

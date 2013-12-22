@@ -169,6 +169,6 @@ void GameObject::set_depth(int dep)
 
 void GameObject::update_sprite()
 {
-  this->get_current_frame()->setPosition(position.x, position.y);
+  this->get_current_frame()->set_position(position.x, position.y);
 }
 

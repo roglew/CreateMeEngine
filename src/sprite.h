@@ -40,6 +40,10 @@ class Sprite: public sf::Sprite
     // MODIFIES: This
     // EFFECTS: Sets the image and section to load when load() is called
 
+    void set_position(int x, int y);
+    // MODIFIES: This, this's collision
+    // EFFECTS:  Sets the position of the sf::Sprite and this sprite's collision
+    
     void update_texture();
     // MODIFIES: This
     // EFFECTS:  Updates the sfml texture to match the image. Also loads the image if
