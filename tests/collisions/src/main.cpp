@@ -28,7 +28,7 @@ class CrossObj: public GameObject
     this->set_position(0, 128);
   }
 
-  ~CrossObj()
+  virtual ~CrossObj()
   {
     delete this->get_animation();
   }

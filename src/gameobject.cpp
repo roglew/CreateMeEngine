@@ -19,8 +19,12 @@ GameObject::GameObject(Game* game)
 GameObject::~GameObject()
 {
   // When the object dies, remove it from the list
-  this->game->get_object_manager()->destroy_object(this->instance_id);
-  this->destroyed = true;
+  printf("deconstructing gameobject\n");
+  if (!this->destroyed)
+  {
+    this->game->get_object_manager()->destroy_object(this->instance_id);
+    this->destroyed = true;
+  }
 }
 
 /////////////////////

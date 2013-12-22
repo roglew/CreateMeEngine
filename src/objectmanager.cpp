@@ -27,16 +27,13 @@ unsigned int ObjectManager::add_object(GameObject *object)
 void ObjectManager::destroy_object(unsigned int id)
 {
   // Delete the object and remove the entry from the list
-  printf("Initializing segfault...\n");
-  if (object_list.count(id))
+  std::map<unsigned int, GameObject*>::iterator it = this->object_list.find(id);
+  if (it != this->object_list.end())
   {
-    if (object_list[id]->destroyed == false)
-    {
-      printf("segfault ho!\n");
-      object_list.erase(id);
-      printf("Or now!\n");
-      delete object_list[id];
-    }
+    GameObject *to_delete;
+    to_delete = object_list[id];
+    object_list.erase(it);
+    delete to_delete;
   }
 }
 

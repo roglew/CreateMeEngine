@@ -25,4 +25,4 @@ cleantests:
 
 # Build .o files from .cpp
 bin/%.o: src/%.cpp
-	g++ $^ -Wall -o $@ -c -std=c++11 $(SFML_FLAGS)
+	g++ $^ -Wall -g -o $@ -c -std=c++11 $(SFML_FLAGS)

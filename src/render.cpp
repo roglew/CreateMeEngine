@@ -43,7 +43,10 @@ Render::Render(sf::RenderTarget& target)
 Render::~Render()
 {
   if (owns_render_target)
+  {
     delete render_target;
+    render_target = NULL;
+  }
 }
 
 void Render::render()

@@ -20,7 +20,8 @@ ResourceManager::~ResourceManager()
   
   for (it = loaded_textures.begin(); it != loaded_textures.end(); it++)
   {
-    delete (*it).second;
+    delete it->second;
+    it->second = NULL;
   }
 }
 

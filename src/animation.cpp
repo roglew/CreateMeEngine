@@ -33,6 +33,7 @@ Animation::~Animation()
     Sprite *frame;
     frame = this->frames[i];
     delete frame;
+    this->frames[i] = NULL; // Null the deleted value
   }
 }
 
@@ -63,6 +64,7 @@ void Animation::generate_from_strip(AnimationStripConfig *settings)
   {
     // DOES NOTHING
     std::cerr << "Calculating frames for entire strip not yet implemented\n";
+    exit(0);
   }
   else
   {
