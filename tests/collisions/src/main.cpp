@@ -8,6 +8,7 @@
 enum ObjectType: unsigned int
 {
   OBJ_CROSS,
+  OBJ_COOKIEMONSTER,
 
   OBJ_COUNT
 };
@@ -35,8 +36,35 @@ class CrossObj: public GameObject
   
   void process_events()
   {
-    move(1, 1);
-    next_frame();
+    int mx, my;
+    mx = game->get_input()->mouse_position.x;
+    my = game->get_input()->mouse_position.y;
+    this->set_position(mx, my);
+    if (this->collides(OBJ_COOKIEMONSTER))
+    {
+      next_frame();
+    }
+  }
+};
+
+// Cookie monster blocker
+class CookieMonsterObj: public GameObject
+{
+  public:
+
+  CookieMonsterObj(Game *game) : GameObject(game)
+  {
+    type = OBJ_COOKIEMONSTER;
+
+    // Make the sprite
+    Animation *my_animation = new Animation(game->get_resource_manager());
+    my_animation->generate_from_id(ANIM_COOKIEMONSTER_STILL);
+    this->set_animation(my_animation);
+  }
+
+  virtual ~CookieMonsterObj()
+  {
+    delete this->get_animation();
   }
 };
 
@@ -47,15 +75,15 @@ int main()
   game.init();
   
   // Instantiate the objects
-  CrossObj *object1 = new CrossObj(&game);
-  CrossObj *object2 = new CrossObj(&game);
-  object1->set_position(0,128);
-  object2->set_position(128,0);
-  printf("Obj1 id: %d\n", object1->get_id());
-  printf("Obj2 id: %d\n", object2->get_id());
-  ObjectManager *man = game.get_object_manager();
+  CrossObj *cross1 = new CrossObj(&game);
+  CrossObj *cross2 = new CrossObj(&game);
+  CrossObj *cross3 = new CrossObj(&game);
+  CrossObj *cross4 = new CrossObj(&game);
+  CookieMonsterObj *cookie = new CookieMonsterObj(&game);
+  cookie->set_position(128, 128);
+  //ObjectManager *man = game.get_object_manager();
   //man->destroy_object(object2->get_id());
-  man->destroy_object(object1->get_id());
+  //man->destroy_object(object1->get_id());
   unsigned int count = game.get_object_manager()->count_objects(OBJ_CROSS);
   printf("There are %d crosses\n", count);
 

@@ -35,13 +35,15 @@ enum ResourceAnimation: unsigned int
 {
  ANIM_CROSS_SPIN,
  ANIM_CROSS_TATER,
+ ANIM_COOKIEMONSTER_STILL,
 
  ANIM_COUNT
 };
 
 AnimationStripConfig predefined_animations[] = {
   {IMG_CROSS, 0, 0, 32, 32, 0, 0, 4, 4},
-  {IMG_CROSS, 0, 0, 32, 32, 0, 0, 2, 2}
+  {IMG_CROSS, 0, 0, 32, 32, 0, 0, 2, 2},
+  {IMG_COOKIEMONSTER, 0, 0, 250, 224, 0, 0, 1, 1}
 };
 
 ////////// Sounds //////////

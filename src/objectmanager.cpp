@@ -3,7 +3,7 @@
 
 ObjectManager::ObjectManager(Game* game)
 {
-  this->current_obj_id = 0;
+  this->current_obj_id = 1; // We start at 1 so we can use 0 as a "no object" id
   this->game           = game;
 }
 
@@ -24,6 +24,11 @@ unsigned int ObjectManager::add_object(GameObject *object)
   return (current_obj_id-1);
 }
 
+GameObject* ObjectManager::get_object(unsigned int object_id)
+{
+  return this->object_list[object_id];
+}
+
 void ObjectManager::destroy_object(unsigned int id)
 {
   // Delete the object and remove the entry from the list
@@ -39,14 +44,14 @@ void ObjectManager::destroy_object(unsigned int id)
   }
 }
 
-GameObject* ObjectManager::find_object(ObjectType type, unsigned int n)
+unsigned int ObjectManager::find_object(ObjectType type, unsigned int n)
 {
   // I plan on storing each object list in its own vector to make this faster
   // Right now using this to iterate through objects is going to be pretty slow
   // OPTIMIZE HERE
 
   unsigned int togo = n; // We use this to count how many we've passed
-  GameObject *last_found;
+  unsigned int last_found;
   
   // Iterate through the map
   std::map<unsigned int, GameObject*>::iterator it = this->object_list.begin();
@@ -54,7 +59,7 @@ GameObject* ObjectManager::find_object(ObjectType type, unsigned int n)
   {
     if ( it->second->type == type )
     {
-      last_found = it->second;
+      last_found = it->first;
 
       // If we have no more to count, return the last one we found
       if (togo == 0)
@@ -62,9 +67,11 @@ GameObject* ObjectManager::find_object(ObjectType type, unsigned int n)
 
       togo --;
     }
+    it++;
   }
 
-  return NULL;
+  // Return no object
+  return 0;
 }
 
 unsigned int ObjectManager::count_objects(ObjectType type)

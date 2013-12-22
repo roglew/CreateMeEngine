@@ -77,6 +77,14 @@ class GameObject
     //////////////////
     // Event Methods
 
+    bool collides(ObjectType type, std::vector<unsigned int> &collides_with);
+    bool collides(ObjectType type);
+    // EFFECTS: Returns whether there is a collision with the object of the given type.
+    //          If a vector is given, it will be filled with all the colliding objects.
+    //          If possible, use the version without the vector since it stops checking for
+    //          collisions as soon as a single collision is detected
+
+
     virtual void process_events();
     // EFFECTS: Processes the events of the object
 

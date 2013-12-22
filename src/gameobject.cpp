@@ -111,6 +111,41 @@ Vector2<int> GameObject::get_position()
 //////////////////
 // Event Methods
 
+bool GameObject::collides(ObjectType type, std::vector<unsigned int> &collides_with)
+{
+  collides_with.clear();
+  unsigned int count = game->get_object_manager()->count_objects(type);
+  for(unsigned int i=0; i < count; i++)
+  {
+    unsigned int other;
+    GameObject *other_obj;
+    other = game->get_object_manager()->find_object(type, i);
+    other_obj = game->get_object_manager()->get_object(other);
+    if (this->get_current_frame()->collides( *(other_obj->get_current_frame()) ))
+      collides_with.push_back(other);
+  }
+
+  if (collides_with.size() > 0)
+    return true;
+  else
+    return false;
+}
+
+bool GameObject::collides(ObjectType type)
+{
+  unsigned int count = game->get_object_manager()->count_objects(type);
+  for(unsigned int i=0; i < count; i++)
+  {
+    unsigned int other;
+    GameObject *other_obj;
+    other = game->get_object_manager()->find_object(type, i);
+    other_obj = game->get_object_manager()->get_object(other);
+    if (this->get_current_frame()->collides( *(other_obj->get_current_frame()) ))
+      return true;
+  }
+  return false;
+}
+
 void GameObject::process_events()
 {
   // so it doesn't shit itself if we don't define events
