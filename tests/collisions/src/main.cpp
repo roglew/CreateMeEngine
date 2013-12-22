@@ -21,6 +21,7 @@ class CrossObj: public GameObject
   CrossObj(Game *game) : GameObject(game)
   {
     type = OBJ_CROSS;
+    set_depth(-2);
     
     // Make the spinning crosses
     Animation *my_animation = new Animation(game->get_resource_manager());
@@ -75,17 +76,9 @@ int main()
   game.init();
   
   // Instantiate the objects
-  CrossObj *cross1 = new CrossObj(&game);
-  CrossObj *cross2 = new CrossObj(&game);
-  CrossObj *cross3 = new CrossObj(&game);
-  CrossObj *cross4 = new CrossObj(&game);
+  CrossObj *cross = new CrossObj(&game);
   CookieMonsterObj *cookie = new CookieMonsterObj(&game);
   cookie->set_position(128, 128);
-  //ObjectManager *man = game.get_object_manager();
-  //man->destroy_object(object2->get_id());
-  //man->destroy_object(object1->get_id());
-  unsigned int count = game.get_object_manager()->count_objects(OBJ_CROSS);
-  printf("There are %d crosses\n", count);
 
   // Run the game
   while (game.is_running())
