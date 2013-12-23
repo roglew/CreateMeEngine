@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <data>
-  <animation>
+  <animation collide="true">
     <name>spin</name>
     <xstart>0</xstart>
     <ystart>0</ystart>
@@ -10,6 +10,12 @@
     <ysep>0</ysep>
     <framesperrow>4</framesperrow>
     <framecount>4</framecount>
+    
+    <collision>
+      <activeframes>0,2</activeframes>
+      <boundingbox x="0" y="0" w="32" h="16" />
+      <boundingbox x="0" y="0" w="16" h="32" />
+    </collision>
   </animation>
 
   <animation>
@@ -24,7 +30,7 @@
     <framecount>2</framecount>
   </animation>
 
-  <animation>
+  <animation collide="false">
     <xstart>32</xstart>
     <ystart>0</ystart>
     <width>32</width>
