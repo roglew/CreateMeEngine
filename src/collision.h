@@ -4,14 +4,17 @@
 #include <vector>
 #include <string>
 
-enum COLLISION_TYPE
+enum COLLISION_TYPE : int // This is an int to allow for predefining
 {
+  COLLISION_NONE,
   COLLISION_BOUNDING_BOX,
 
   COLLISION_COUNT
 };
 
 // Struct defenitions
+// THEY ALL ONLY HAVE INTS FOR DATA
+// This allows us to predefine collisions in an array of ints in resources.h
 
 struct BoundingBox
 {
