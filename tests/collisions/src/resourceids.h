@@ -46,6 +46,32 @@ AnimationStripConfig predefined_animations[] = {
   {IMG_COOKIEMONSTER, 0, 0, 250, 224, 0, 0, 1, 1}
 };
 
+int predefined_collision_data[] = {
+  // ANIM_CROSS_SPIN
+  BOUNDING_BOX, 0, 0, 32, 16,
+  BOUNDING_BOX, 0, 0, 16, 32,
+  BOUNDING_BOX, 0, 0, 14, 16,
+  BOUNDING_BOX, 0, 0, 16, 40,
+  // ANIM_CROSS_TATER
+  BOUNDING_BOX, 0, 0, 14, 12
+};
+
+int predefined_collision_data_loc[] = {
+  // ANIM_CROSS_SPIN
+  {0, 10},
+  {10, 10},
+  {0, 10},
+  {10, 10},
+  // ANIM_CROSS_TATER
+  {0, 0},
+  {20, 5}
+};
+
+int predefined_collision_data_frame[] = {
+  0,
+  4
+};
+
 ////////// Sounds //////////
 enum ResourceSound: unsigned int
 {

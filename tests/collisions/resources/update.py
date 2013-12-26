@@ -198,39 +198,43 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
           frame_count = int(child.find("framecount").text)
 
         # Only get collision data if child.collide="true"
+        collision_data = []
+        # This is a list that will contain a list of collision components and
+        # which frames each iece is active on
         if ("collide" in child.attrib and child.attrib["collide"] == "true"):
-          # Get the root of our collisions list
-          colroot = child.find("collision")
+          collides = True
+          # Create our list of collision dictionaries
+          collroots = child.findall("collision")
+          for collroot in collroots:
+            # Find out which frames this group is active on
 
-          # Find out what frames this collision will be active on
-          active_frames = colroot.find("activeframes").text.split(",")
-          # Convert the number string in active_frames to ints
-          for i in range(len(active_frames)):
-            active_frames[i] = int(active_frames[i])
+            # Split by commas and strip whitespace around the commas
+            active_frames = collroot.find("activeframes").text.split(",")
+            for i in active_frames:
+              i.strip()
 
-          # Go through for each frame and append collision data for each frame
-          for i in range(frame_count):
-            add_data = {}
-            if i in active_frames:
-              # Bounding boxes
-              bounding_boxes = colroot.findall("boundingbox")
-              for bounding_box in bounding_boxes:
-                bb_x = int( bounding_box.attrib["x"] )
-                bb_y = int( bounding_box.attrib["y"] )
-                bb_w = int( bounding_box.attrib["w"] )
-                bb_h = int( bounding_box.attrib["h"] )
-                add_data["type"] = "bounding box"
-                add_data["x"]    = bb_x
-                add_data["y"]    = bb_y
-                add_data["w"]    = bb_w
-                add_data["h"]    = bb_h
-                print("%s has a bounding box {x=%d, y=%d, w=%d, h=%d} on frame %d") % \
-                    (name, bb_x, bb_y, bb_w, bb_h, i)
-            else:
-              add_data["type"] = "none"
+            # Convert the frames to ints
+            for i in range(len(active_frames)):
+              active_frames[i] = int(active_frames[i])
 
-            # Add our new collision to our list of checks
-            collision_data.append(add_data)
+            # Find bounding boxes
+            bounding_boxes = collroot.findall("boundingbox")
+            for bounding_box in bounding_boxes:
+              add_data = {}
+              bb_x = int( bounding_box.attrib["x"] )
+              bb_y = int( bounding_box.attrib["y"] )
+              bb_w = int( bounding_box.attrib["w"] )
+              bb_h = int( bounding_box.attrib["h"] )
+              add_data["type"]          = "boundingbox"
+              add_data["active_frames"] = active_frames
+              add_data["x"]             = bb_x
+              add_data["y"]             = bb_y
+              add_data["w"]             = bb_w
+              add_data["h"]             = bb_h
+              collision_data.append(add_data) # add the box to our list
+        else:
+          collides = False
+
 
         # Store the info in the animation list
         new_anim = {}
@@ -244,20 +248,22 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
         new_anim["vsep"]           = vsep
         new_anim["frames_per_row"] = frames_per_row
         new_anim["frame_count"]    = frame_count
+        new_anim["collides"]       = collides
         new_anim["collision_data"] = collision_data
         anim_list.append(new_anim)
 
   # Create the enum
   def_string += "enum %s: unsigned int\n{\n" % enum_name
   for animation in anim_list:
-    print "Naming %s" % animation["name"]
-    def_string += ' %s_%s,\n' % (anim_name_bases[animation["res_image"]],
-                                 animation["name"].upper())
+    animation["enum_name"] = '%s_%s' % (anim_name_bases[animation["res_image"]],
+                                        animation["name"].upper())
+    def_string += ' %s,\n' % animation["enum_name"]
   def_string += '\n %s_COUNT' % anim_prefix
   def_string += '\n};\n\n'
   # Create the array linking animation IDs to animation structs
 
-  # Create an array with the correct size. Animations get loaded on-demand
+  # Create the data array. This is a constant stream of data of all the frames
+  # and all the collision pieces
   def_string += 'AnimationStripConfig %s[] = {\n' % list_name
   for animation in anim_list:
     def_string += '  {%s, %d, %d, %d, %d, %d, %d, %d, %d},\n' % \
@@ -265,20 +271,77 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
           animation["w"], animation["h"], animation["hsep"], animation["vsep"],
           animation["frames_per_row"], animation["frame_count"], )
 
-  # remove the last comma
-  def_string = def_string[:-2]
+  def_string = def_string[:-2] # Remove the last comma
+  def_string += '\n};\n\n' # Close the definition
 
-  def_string += '\n};\n\n'
+  # Print the raw data array
+  def_string += 'int predefined_collision_data[] = {\n'
+  pos = 0
+  close = False
+  for animation in anim_list:
+    if animation["collides"]:
+      def_string += '  // %s\n' % animation["enum_name"]
+      for collision in animation["collision_data"]:
+        if collision["type"] is "boundingbox":
+          close = True
+          # We store the data location in the collision dict
+          collision["data_loc"] = [pos, 5]
 
-  # Define the collisions for each frame of each animation
-  # Array levels:
-  # Array indexed by animation ID: [arr of col str, arr of coll str]
-  # Array of collision struct data of length frame_count: [data, data, data]
-  # Collision struct data: [ID, specific data]
-    # Bounding box: [ID, x, y, w, h]
-  # This gets translated when we generate the animation
-  # This will be a clusterfuck
+          # Add the data to the file
+          def_string += "  %s, %d, %d, %d, %d,\n" % \
+              ("BOUNDING_BOX", collision["x"], collision["y"],
+               collision["w"], collision["h"])
+
+          # Update the current position in the array
+          pos += 5
   
+  if (close):
+    def_string = def_string[:-2] # Remove the last comma and space
+  def_string += '\n};\n\n' # Close the definition
+
+  # Add info about where the collision info is in the array for each frame of
+  # each animation
+  
+  def_string += 'int predefined_collision_data_loc[] = {\n'
+
+  # This is an array of frames that tell where in the data array each frame's
+  # collision data is
+  for animation in anim_list:
+    if animation["collides"]:
+      def_string += '  // %s\n' % animation["enum_name"]
+      for frame in range(animation["frame_count"]):
+        pos = -1
+        length = 0
+
+        for collision in animation["collision_data"]:
+          if frame in collision["active_frames"]:
+            if pos == -1:
+              pos = collision["data_loc"][0]
+              length = 0
+            length += collision["data_loc"][1]
+
+        if pos is -1:
+          pos = 0
+          length = 0
+        def_string += "  {%d, %d},\n" % (pos, length)
+
+  if (close):
+    def_string = def_string[:-2] # Remove the last comma and space
+  def_string += '\n};\n\n' # Close the definition
+
+  # This tells which frame each animation starts at
+  cur_frame = 0
+  def_string += 'int predefined_collision_data_frame[] = {\n'
+
+  for animation in anim_list:
+    if len(animation["collision_data"]) > 0:
+      def_string += '  %d,\n' % cur_frame
+      cur_frame += animation["frame_count"]
+
+  if (close):
+    def_string = def_string[:-2] # Remove the last comma and space
+  def_string += '\n};\n\n' # Close the definition
+
   return def_string
 
 #### Script
