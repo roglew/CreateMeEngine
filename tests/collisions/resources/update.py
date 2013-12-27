@@ -289,7 +289,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
 
           # Add the data to the file
           def_string += "  %s, %d, %d, %d, %d,\n" % \
-              ("BOUNDING_BOX", collision["x"], collision["y"],
+              ("COLLISION_BOUNDING_BOX", collision["x"], collision["y"],
                collision["w"], collision["h"])
 
           # Update the current position in the array
@@ -302,7 +302,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   # Add info about where the collision info is in the array for each frame of
   # each animation
   
-  def_string += 'int predefined_collision_data_loc[] = {\n'
+  def_string += 'int predefined_collision_data_loc[][2] = {\n'
 
   # This is an array of frames that tell where in the data array each frame's
   # collision data is
@@ -378,6 +378,17 @@ include_file.write(
 #include <engine.h>
 
 #define __RESOURCE_IDS__
+
+#ifndef __COLL_ENUM__
+#define __COLL_ENUM__
+enum COLLISION_TYPE : int // This is an int to allow for predefining
+{
+  COLLISION_NONE,
+  COLLISION_BOUNDING_BOX,
+
+  COLLISION_COUNT
+};
+#endif
 
 """
 )

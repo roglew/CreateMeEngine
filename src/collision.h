@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#ifndef __COLL_ENUM__
+#define __COLL_ENUM__
 enum COLLISION_TYPE : int // This is an int to allow for predefining
 {
   COLLISION_NONE,
@@ -11,6 +13,7 @@ enum COLLISION_TYPE : int // This is an int to allow for predefining
 
   COLLISION_COUNT
 };
+#endif
 
 // Struct defenitions
 // THEY ALL ONLY HAVE INTS FOR DATA

@@ -12,6 +12,17 @@ images/path/to/file.jpg -> IMG_PATH_TO_FILE
 
 #define __RESOURCE_IDS__
 
+#ifndef __COLL_ENUM__
+#define __COLL_ENUM__
+enum COLLISION_TYPE : int // This is an int to allow for predefining
+{
+  COLLISION_NONE,
+  COLLISION_BOUNDING_BOX,
+
+  COLLISION_COUNT
+};
+#endif
+
 ////////// Images //////////
 enum ResourceImage: unsigned int
 {
@@ -48,15 +59,15 @@ AnimationStripConfig predefined_animations[] = {
 
 int predefined_collision_data[] = {
   // ANIM_CROSS_SPIN
-  BOUNDING_BOX, 0, 0, 32, 16,
-  BOUNDING_BOX, 0, 0, 16, 32,
-  BOUNDING_BOX, 0, 0, 14, 16,
-  BOUNDING_BOX, 0, 0, 16, 40,
+  COLLISION_BOUNDING_BOX, 0, 0, 32, 16,
+  COLLISION_BOUNDING_BOX, 0, 0, 16, 32,
+  COLLISION_BOUNDING_BOX, 0, 0, 14, 16,
+  COLLISION_BOUNDING_BOX, 0, 0, 16, 40,
   // ANIM_CROSS_TATER
-  BOUNDING_BOX, 0, 0, 14, 12
+  COLLISION_BOUNDING_BOX, 0, 0, 14, 12
 };
 
-int predefined_collision_data_loc[] = {
+int predefined_collision_data_loc[][2] = {
   // ANIM_CROSS_SPIN
   {0, 10},
   {10, 10},
