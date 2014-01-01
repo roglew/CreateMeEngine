@@ -71,23 +71,21 @@ AnimationStripConfig PREDEFINED_ANIMATIONS[] = {
 
 const unsigned int PREDEFINED_COLLISION_DATA[] = {
   // ANIM_CROSS_SPIN
-  COLLISION_BOUNDING_BOX, 0, 0, 32, 16,
-  COLLISION_BOUNDING_BOX, 0, 0, 16, 32,
-  COLLISION_BOUNDING_BOX, 0, 0, 14, 16,
-  COLLISION_BOUNDING_BOX, 0, 0, 16, 40,
+  COLLISION_BOUNDING_BOX, 0, 0, 1, 1,
+  COLLISION_BOUNDING_BOX, 31, 31, 1, 1,
   // ANIM_CROSS_TATER
   COLLISION_BOUNDING_BOX, 0, 0, 14, 12
 };
 
 const int PREDEFINED_COLLISION_DATA_LOC[][2] = {
   // ANIM_CROSS_SPIN
-  {0, 10},
-  {10, 10},
-  {0, 10},
-  {10, 10},
+  {0, 5},
+  {0, 5},
+  {5, 5},
+  {5, 5},
   // ANIM_CROSS_TATER
   {0, 0},
-  {20, 5}
+  {10, 5}
 };
 
 // Stores the index+1 of where in the data_loc array each frame is. It
