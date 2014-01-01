@@ -24,7 +24,8 @@ DON'T MANUALLY CHANGE THE FILE! This file will be overwritten every build
 
 #ifndef __COLL_ENUM__
 #define __COLL_ENUM__
-enum CollisionType : int // This is an int to allow for predefining
+// This is an int to allow us to store it in the collision data array
+enum CollisionType : int
 {
   COLLISION_NONE,
   COLLISION_BOUNDING_BOX,
@@ -100,7 +101,7 @@ const unsigned int PREDEFINED_COLLISION_DATA_FRAME[] = {
   5
 };
 
-char ANIMATION_HAS_COLLISION[] = {
+const char ANIMATION_HAS_COLLISION[] = {
   // ANIM_CROSS_SPIN
   true,
 

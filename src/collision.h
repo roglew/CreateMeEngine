@@ -1,19 +1,9 @@
 #ifndef __COLLISION_H__
 #define __COLLISION_H__
 
+#include "ids.h"
 #include <vector>
 #include <string>
-
-#ifndef __COLL_ENUM__
-#define __COLL_ENUM__
-enum CollisionType : int // This is an int to allow for predefining
-{
-  COLLISION_NONE,
-  COLLISION_BOUNDING_BOX,
-
-  COLLISION_COUNT
-};
-#endif
 
 // Struct defenitions
 // THEY ALL ONLY HAVE INTS FOR DATA
@@ -24,6 +14,15 @@ struct BoundingBox
   // A basic box with a position and a size
   int x, y;
   int w, h;
+
+  // Constructor initialization
+  BoundingBox(int xx, int yy, int ww, int hh)
+  {
+    x = xx;
+    y = yy;
+    w = ww;
+    h = hh;
+  }
 };
 // A box that contains an int x, y, w, h that can be used to detect collisions
 

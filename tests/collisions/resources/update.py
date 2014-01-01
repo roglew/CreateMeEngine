@@ -349,7 +349,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   def_string += '\n};\n\n' # Close the definition
 
   # Create the array saying whether we have collision data for the animation
-  def_string += 'char ANIMATION_HAS_COLLISION[] = {\n'
+  def_string += 'const char ANIMATION_HAS_COLLISION[] = {\n'
 
   ##### HAS_COLLISION #####
   for animation in anim_list:
@@ -413,7 +413,8 @@ DON'T MANUALLY CHANGE THE FILE! This file will be overwritten every build
 
 #ifndef __COLL_ENUM__
 #define __COLL_ENUM__
-enum CollisionType : int // This is an int to allow for predefining
+// This is an int to allow us to store it in the collision data array
+enum CollisionType : int
 {
   COLLISION_NONE,
   COLLISION_BOUNDING_BOX,

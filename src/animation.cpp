@@ -6,7 +6,19 @@
 #include <iostream>
 #include <stdio.h>
 
-extern AnimationStripConfig predefined_animations[];
+#ifndef __COLL_ENUM__
+#define __COLL_ENUM__
+// This is an int to allow us to store it in the collision data array
+enum CollisionType : int
+{
+  COLLISION_NONE,
+  COLLISION_BOUNDING_BOX,
+
+  COLLISION_COUNT
+};
+#endif
+
+extern AnimationStripConfig PREDEFINED_ANIMATIONS[];
 
 void default_animation_strip_config(AnimationStripConfig *config)
 {
@@ -54,7 +66,7 @@ void Animation::insert_frame(int animation, Sprite* sprite, int n)
 
 void Animation::generate_from_id(ResourceAnimation animation_id)
 {
-  generate_from_strip(&predefined_animations[animation_id]);
+  generate_from_strip(&PREDEFINED_ANIMATIONS[animation_id]);
 }
 
 void Animation::generate_from_strip(AnimationStripConfig *settings)
@@ -103,7 +115,7 @@ void Animation::generate_from_strip(AnimationStripConfig *settings)
 
           // Remember, the frame_data_loc stores the index+1 and a 0 means we generate
           // the bounding box ourselves
-          if (stored_data_loc > 0)
+          if (stored_frame_data_loc > 0)
           {
             //// Add the data for each frame
             unsigned int frame_data_loc = stored_frame_data_loc-1; // The REAL start index
@@ -131,7 +143,7 @@ void Animation::generate_from_strip(AnimationStripConfig *settings)
 
                 switch (type)
                 {
-                  case BOUNDING_BOX:
+                  case COLLISION_BOUNDING_BOX:
                     int x, y, w, h;
                     // Store the data and increment the position
                     x = PREDEFINED_COLLISION_DATA[data_pos++];
