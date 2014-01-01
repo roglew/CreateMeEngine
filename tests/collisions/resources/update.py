@@ -11,13 +11,13 @@ IMAGE_PREFIX = 'IMG'
 IMAGE_SUBDIR = 'images'
 IMAGE_EXTS = ['png', 'bmp', 'jpg', 'tiff']
 IMAGE_ENUM = 'ResourceImage'
-IMAGE_PATHVAR = 'image_paths'
+IMAGE_PATHVAR = 'IMAGE_PATHS'
 
 SOUND_PREFIX = 'SND'
 SOUND_SUBDIR = 'sounds'
 SOUND_EXTS = ['wav', 'mp3']
 SOUND_ENUM = 'ResourceSound'
-SOUND_PATHVAR = 'sound_paths'
+SOUND_PATHVAR = 'SOUND_PATHS'
 
 ANIM_PREFIX = 'ANIM'
 ANIM_ENUM = 'ResourceAnimation'
@@ -102,7 +102,7 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
   # Map each enum to a string
   def_string += 'std::string %s[] = { \n' % list_name
   for res_name in pairs:
-    def_string += ' "%s",\n' % pairs[res_name]
+    def_string += '  "%s",\n' % pairs[res_name]
   # remove the last comma
   def_string = def_string[:-2]
 

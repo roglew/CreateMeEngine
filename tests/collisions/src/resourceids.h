@@ -46,11 +46,11 @@ enum ResourceImage: unsigned int
  IMG_COUNT
 };
 
-std::string image_paths[] = { 
- "resources/images/cross.png",
- "resources/images/subdir1/subdir2/subdirimage.png",
- "resources/images/testimage.png",
- "resources/images/cookiemonster.png"
+std::string IMAGE_PATHS[] = { 
+  "resources/images/cross.png",
+  "resources/images/subdir1/subdir2/subdirimage.png",
+  "resources/images/testimage.png",
+  "resources/images/cookiemonster.png"
 };
 
 ////////// ANIMATIONS //////////
@@ -120,7 +120,7 @@ enum ResourceSound: unsigned int
  SND_COUNT
 };
 
-std::string sound_paths[] = {
+std::string SOUND_PATHS[] = {
 };
 
 
