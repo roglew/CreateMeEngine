@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <data>
-  <animation collide="true">
+  <animation collides="true">
     <name>spin</name>
     <xstart>0</xstart>
     <ystart>0</ystart>
@@ -24,7 +24,7 @@
     </collision>
   </animation>
 
-  <animation collide="true">
+  <animation collides="true">
     <name>tater</name>
     <xstart>32</xstart>
     <ystart>0</ystart>

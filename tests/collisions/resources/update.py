@@ -201,7 +201,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
         collision_data = []
         # This is a list that will contain a list of collision components and
         # which frames each iece is active on
-        if ("collide" in child.attrib and child.attrib["collide"] == "true"):
+        if ("collides" in child.attrib and child.attrib["collides"] == "true"):
           collides = True
           # Create our list of collision dictionaries
           collroots = child.findall("collision")

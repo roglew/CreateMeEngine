@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <data>
-  <animation>
+  <animation collides="true">
     <name>still</name>
     <xstart>0</xstart>
     <ystart>0</ystart>
