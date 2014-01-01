@@ -13,12 +13,13 @@ class Sprite: public sf::Sprite
 {
   protected:
     ResourceManager *resource_manager;
-    std::vector<Collision> collisions;
     ResourceImage image;
     Square image_pos;
     bool is_part, image_defined, loaded;
   
   public:
+    Collision collision;
+
     Sprite(ResourceManager *resource_manager);
     // set_collision(const &Collision);
     // MODIFIES: This
@@ -39,6 +40,16 @@ class Sprite: public sf::Sprite
     // MODIFIES: This
     // EFFECTS: Sets the image and section to load when load() is called
 
+    void set_position(int x, int y);
+    // MODIFIES: This, this's collision
+    // EFFECTS:  Sets the position of the sf::Sprite and this sprite's collision
+
+    int get_sprite_width();
+    // EFFECTS: Returns the width of the image
+
+    int get_sprite_height();
+    // EFFECTS: Returns the height of the image
+    
     void update_texture();
     // MODIFIES: This
     // EFFECTS:  Updates the sfml texture to match the image. Also loads the image if
@@ -46,7 +57,6 @@ class Sprite: public sf::Sprite
     
     void load();
     // REQUIRES: Image must have been set
-
 };
 
 

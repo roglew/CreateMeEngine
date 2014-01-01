@@ -18,35 +18,7 @@ Sprite::~Sprite()
 
 bool Sprite::collides(Sprite& other_sprite)
 {
-  /*
-  // Just bounding boxes for now
-  const std::vector< sf::Rect<int> > *bboxes = &collision.bounding_box;
-
-  // Store iterator data
-  std::vector< sf::Rect<int> >::iterator it1;
-  std::vector< sf::Rect<int> >::iterator itbegin;
-  std::vector< sf::Rect<int> >::iterator itend;
-  itbegin = collision.bounding_box.begin();
-  itend = collision.bounding_box.end();
-
-  // Loop through our bounding boxes
-  for (it1 = itbegin; it1 != itend; it1++)
-  {
-    // Other sprite's bounding box data
-    std::vector< sf::Rect<int> >::iterator it2;
-    std::vector< sf::Rect<int> >::iterator itbegin2;
-    std::vector< sf::Rect<int> >::iterator itend2;
-    itbegin2 = other_sprite.collision.bounding_box.begin();
-    itend2 = other_sprite.collision.bounding_box.end();
-
-    // Iterate through the other sprite's bounding boxes
-    for (it2 = itbegin2; it2 != itend2; it2++)
-    {
-
-    }
-  }
-  */
-  return false;
+  return ::collides(this->collision, other_sprite.collision);
 }
 
 void Sprite::set_image(ResourceImage image)
@@ -70,6 +42,23 @@ void Sprite::set_image(ResourceImage image, int x, int y, int w, int h)
   this->image_pos.h   = h;
   this->is_part       = true;
   this->image_defined = true;
+}
+
+void Sprite::set_position(int x, int y)
+{
+    this->setPosition(x, y);
+    this->collision.x = x;
+    this->collision.y = y;
+}
+
+int Sprite::get_sprite_width()
+{
+  return this->image_pos.w;
+}
+
+int Sprite::get_sprite_height()
+{
+  return this->image_pos.h;
 }
 
 void Sprite::update_texture()

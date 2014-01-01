@@ -6,6 +6,7 @@
 #include "vector.hpp"
 #include "sprite.h"
 #include "animation.h"
+#include "ids.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -17,6 +18,7 @@ class GameObject
   protected:
     Game *game;
     unsigned int instance_id;
+    ObjectType type;
 
     Animation* animation;
     int current_frame;
@@ -75,6 +77,14 @@ class GameObject
     //////////////////
     // Event Methods
 
+    bool collides(ObjectType type, std::vector<unsigned int> &collides_with);
+    bool collides(ObjectType type);
+    // EFFECTS: Returns whether there is a collision with the object of the given type.
+    //          If a vector is given, it will be filled with all the colliding objects.
+    //          If possible, use the version without the vector since it stops checking for
+    //          collisions as soon as a single collision is detected
+
+
     virtual void process_events();
     // EFFECTS: Processes the events of the object
 
@@ -120,6 +130,7 @@ class GameObject
     // MODIFIES: Sprite pointed to by sprite
     // EFFECTS:  Adjusts the sprite to match the object
 
+    friend class ObjectManager;
 };
 
 #endif
