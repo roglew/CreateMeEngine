@@ -6,7 +6,7 @@
 
 #ifndef __COLL_ENUM__
 #define __COLL_ENUM__
-enum COLLISION_TYPE : int // This is an int to allow for predefining
+enum CollisionType : int // This is an int to allow for predefining
 {
   COLLISION_NONE,
   COLLISION_BOUNDING_BOX,
