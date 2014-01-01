@@ -339,10 +339,13 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
 
   cur_frame = 0
   for animation in anim_list:
-    if len(animation["collision_data"]) > 0:
+    if (animation['collides']):
       def_string += '  // %s\n' % animation['enum_name']
-      def_string += '  %d,\n\n' % ( cur_frame+1 )
-      cur_frame += animation['frame_count']
+      if len(animation["collision_data"]) > 0:
+        def_string += '  %d,\n\n' % ( cur_frame+1 )
+        cur_frame += animation['frame_count']
+      else:
+        def_string += '  0,\n\n'
 
   if (close):
     def_string = def_string[:-3] # Remove the last comma and space
