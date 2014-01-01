@@ -20,21 +20,6 @@
       <activeframes>2, 3</activeframes>
       <boundingbox x="31" y="31" w="1" h="1" />
     </collision>
-    <!--
-    <collision>
-      <activeframes>0, 2</activeframes>
-      <boundingbox x="0" y="0" w="32" h="16" />
-      <boundingbox x="0" y="0" w="16" h="32" />
-    </collision>
-    -->
-    
-    <!--
-    <collision>
-      <activeframes>1, 3</activeframes>
-      <boundingbox x="0" y="0" w="14" h="16" />
-      <boundingbox x="0" y="0" w="16" h="40" />
-    </collision>
-    -->
   </animation>
 
   <animation collides="true">

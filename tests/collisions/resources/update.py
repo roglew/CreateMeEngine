@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os
+import os, sys
 import xml.etree.ElementTree as ET
 
 ### SETTINGS ###
@@ -50,7 +50,6 @@ def walk_directory(dir_name, exts=[]):
         # Only append if it's in the set
         if file_ext in exts:
           file_list.append('resources/%s/%s' % (cur_dir, file))
-          print '-> %s' % file
   else:
     # No extensions are given
     for root, sub_folders, files in os.walk(walk_dir):
@@ -113,7 +112,7 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
   return def_string
 
 def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
-                                    enum_name, list_name):
+                                    anim_enum_name, list_name):
   # Returns the c++ code that defines an enum with a corresponding array of
   # animations and an array of collision structs for each animation
   # animation_files - list of the paths to the animation xml files
@@ -148,7 +147,6 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
     # resources/images/etc part in it, which we want. This script can't be called
     # from the directory that the script is in
     xml_file = image_pairs[image_name]
-    print "Parsing %s" % xml_file
     xml_tree = ET.parse(xml_file)
     xml_root = xml_tree.getroot()
 
@@ -171,7 +169,6 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
       # Only save it if it has a name
       if (child.find("name") is not None):
         name = child.find("name").text
-        print "Animation: %s" % name
 
         if (child.find("xstart") is not None):
           xstart = int(child.find("xstart").text)
@@ -209,13 +206,16 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
             # Find out which frames this group is active on
 
             # Split by commas and strip whitespace around the commas
-            active_frames = collroot.find("activeframes").text.split(",")
-            for i in active_frames:
-              i.strip()
+            if collroot.find("activeframes") is not None:
+              active_frames = collroot.find("activeframes").text.split(",")
+              for i in active_frames:
+                i.strip()
 
-            # Convert the frames to ints
-            for i in range(len(active_frames)):
-              active_frames[i] = int(active_frames[i])
+              # Convert the frames to ints
+              for i in range(len(active_frames)):
+                active_frames[i] = int(active_frames[i])
+            else:
+              active_frames = range(0, frame_count)
 
             # Find bounding boxes
             bounding_boxes = collroot.findall("boundingbox")
@@ -235,9 +235,11 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
         else:
           collides = False
 
-
+        # Get the enum name
+        enum_name = '%s_%s' % (anim_name_bases[res_image], name.upper())
+          
         # Store the info in the animation list
-        new_anim = {}
+        new_anim                   = {}
         new_anim["name"]           = name
         new_anim["res_image"]      = res_image
         new_anim["start_x"]        = start_x
@@ -250,13 +252,26 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
         new_anim["frame_count"]    = frame_count
         new_anim["collides"]       = collides
         new_anim["collision_data"] = collision_data
+        new_anim["enum_name"]      = enum_name
         anim_list.append(new_anim)
 
-  ##### ENUM #####
-  def_string += "enum %s: unsigned int\n{\n" % enum_name
+  ## Check for errors
   for animation in anim_list:
-    animation["enum_name"] = '%s_%s' % (anim_name_bases[animation["res_image"]],
-                                        animation["name"].upper())
+    # Iterate through the collisions in the animation
+    for collision in animation['collision_data']:
+      for frame in collision['active_frames']:
+        for other_collision in animation['collision_data']:
+          # Don't compare collisions to themselves
+          if collision is not other_collision:
+            if frame in other_collision['active_frames']:
+              print collision
+              print other_collision
+              sys.exit('Duplicate frames found in %s (frame %d)\n' %\
+                         (animation['enum_name'], frame))
+
+  ##### ENUM #####
+  def_string += "enum %s: unsigned int\n{\n" % anim_enum_name
+  for animation in anim_list:
     def_string += ' %s,\n' % animation["enum_name"]
   def_string += '\n %s_COUNT' % anim_prefix
   def_string += '\n};\n\n'
@@ -366,8 +381,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
     else:
       def_string += '  false,\n\n'
   
-  if (close):
-    def_string = def_string[:-3] # Remove the last comma and space
+  def_string = def_string[:-3] # Remove the last comma and space
   def_string += '\n};\n\n' # Close the definition
   
 
