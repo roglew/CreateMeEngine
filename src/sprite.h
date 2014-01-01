@@ -43,6 +43,12 @@ class Sprite: public sf::Sprite
     void set_position(int x, int y);
     // MODIFIES: This, this's collision
     // EFFECTS:  Sets the position of the sf::Sprite and this sprite's collision
+
+    int get_sprite_width();
+    // EFFECTS: Returns the width of the image
+
+    int get_sprite_height();
+    // EFFECTS: Returns the height of the image
     
     void update_texture();
     // MODIFIES: This

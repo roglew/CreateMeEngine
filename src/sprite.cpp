@@ -51,6 +51,16 @@ void Sprite::set_position(int x, int y)
     this->collision.y = y;
 }
 
+int Sprite::get_sprite_width()
+{
+  return this->image_pos.w;
+}
+
+int Sprite::get_sprite_height()
+{
+  return this->image_pos.h;
+}
+
 void Sprite::update_texture()
 {
   // Load the texture if we have to

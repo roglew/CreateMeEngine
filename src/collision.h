@@ -16,6 +16,7 @@ struct BoundingBox
   int w, h;
 
   // Constructor initialization
+  /*
   BoundingBox(int xx, int yy, int ww, int hh)
   {
     x = xx;
@@ -23,6 +24,7 @@ struct BoundingBox
     w = ww;
     h = hh;
   }
+  */
 };
 // A box that contains an int x, y, w, h that can be used to detect collisions
 
