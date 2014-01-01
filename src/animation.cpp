@@ -66,6 +66,7 @@ void Animation::insert_frame(int animation, Sprite* sprite, int n)
 
 void Animation::generate_from_id(ResourceAnimation animation_id)
 {
+  printf("Generating animation id %d\n", animation_id);
   // Get the image created
   generate_from_strip(&PREDEFINED_ANIMATIONS[animation_id]);
 
@@ -74,6 +75,7 @@ void Animation::generate_from_id(ResourceAnimation animation_id)
   // Check if it has a collision
   if (ANIMATION_HAS_COLLISION[animation_id])
   {
+    printf("Reading collision data for animation %d\n", animation_id);
     // Get where in the data loc array we start
     int stored_frame_data_loc = PREDEFINED_COLLISION_DATA_FRAME[animation_id];
 
@@ -81,11 +83,12 @@ void Animation::generate_from_id(ResourceAnimation animation_id)
     // the bounding box ourselves
     if (stored_frame_data_loc > 0)
     {
+      printf("Data must be read\n");
       //// Add the data for each frame
       unsigned int frame_data_loc = stored_frame_data_loc-1; // The REAL start index
       for (unsigned int cur_frame = 0; cur_frame < frames.size(); cur_frame++)
       {
-        printf("at cur_frame %d\n", cur_frame);
+        printf("At frame %d\n", cur_frame);
         // Get where in the data array this frame is
         // We start getting the data_loc from frame_data_loc and increment by 1
         // for each frame. Data loc is in the form {pos, len}
@@ -96,11 +99,11 @@ void Animation::generate_from_id(ResourceAnimation animation_id)
         int data_pos = pos;
 
         // Iterate until we've covered more positions than our length
-        printf("Starting pos: %d -- len: %d\n", data_pos, len);
+        printf("Starting data pos: %d -- len: %d\n", data_pos, len);
         while (data_pos - pos < len)
         {
           // Loop MUST start with data_pos at the start on a collision ID
-          printf("at %d/%d\n", data_pos-pos, len);
+          printf("At collision data %d/%d\n", data_pos-pos, len);
 
           // Get the type ID and increment the data_pos location
           CollisionType type = static_cast<CollisionType>(
@@ -131,16 +134,23 @@ void Animation::generate_from_id(ResourceAnimation animation_id)
     }
     else
     {
+      printf("Generating collision for animation %d\n", animation_id);
+      printf("Has %d frames\n", this->frames.size());
+      printf("Has %d frames\n", frames.size());
       // Make a bounding box that covers the entire image
       for (unsigned int cur_frame = 0; cur_frame < frames.size(); cur_frame++)
       {
+        printf("Adding col...\n");
         this->frames[cur_frame]->collision.bounding_boxes.push_back( BoundingBox({
+              0, 0,
               this->frames[cur_frame]->get_sprite_width(),
               this->frames[cur_frame]->get_sprite_height()
                 }));
       }
     }
   }
+  else
+    printf("Animation %d does not collide\n", animation_id);
 }
 
 void Animation::generate_from_strip(AnimationStripConfig *settings)

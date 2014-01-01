@@ -112,7 +112,7 @@ const char ANIMATION_HAS_COLLISION[] = {
   true,
 
   // ANIM_COOKIEMONSTER_STILL
-  false
+  true
 };
 
 ////////// Sounds //////////

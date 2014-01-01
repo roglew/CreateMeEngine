@@ -361,7 +361,7 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   ##### HAS_COLLISION #####
   for animation in anim_list:
     def_string += '  // %s\n' % animation['enum_name']
-    if len(animation['collision_data']) > 0:
+    if animation['collides']:
       def_string += '  true,\n\n'
     else:
       def_string += '  false,\n\n'
