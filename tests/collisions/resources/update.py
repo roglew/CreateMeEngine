@@ -279,7 +279,9 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   pos = 0
   close = False
   for animation in anim_list:
-    if animation["collides"]:
+    # We check the length of collisiond data since we can have colliding sprites
+    # with no data (the ones we use the full image for)
+    if len(animation['collision_data']) > 0:
       def_string += '  // %s\n' % animation["enum_name"]
       for collision in animation["collision_data"]:
         if collision["type"] is "boundingbox":
@@ -307,7 +309,9 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   # This is an array of frames that tell where in the data array each frame's
   # collision data is
   for animation in anim_list:
-    if animation["collides"]:
+    # We check the length of collisiond data since we can have colliding sprites
+    # with no data (the ones we use the full image for)
+    if len(animation['collision_data']) > 0:
       def_string += '  // %s\n' % animation["enum_name"]
       for frame in range(animation["frame_count"]):
         pos = -1

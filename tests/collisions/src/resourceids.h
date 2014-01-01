@@ -98,7 +98,10 @@ const unsigned int PREDEFINED_COLLISION_DATA_FRAME[] = {
   1,
 
   // ANIM_CROSS_TATER
-  5
+  5,
+
+  // ANIM_COOKIEMONSTER_STILL
+  0
 };
 
 const char ANIMATION_HAS_COLLISION[] = {
