@@ -16,22 +16,32 @@ void Render::clear_queue()
   draw_queue.clear();
 }
 
-// Public functions
-Render::Render()
+void Render::construct(int width, int height, std::string title)
 {
-  sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(640, 480, 32), "");
+  // Set our render target to a window
+  sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width, height, 32),
+                                                  title.c_str());
   window->setFramerateLimit(60);
   owns_render_target = true;
+
+  // Add a view to the render window
+  view = new sf::View(sf::FloatRect(0, 0, width, height));
+  window->setView(*view);
+  
   render_target = window;
+  
+}
+
+// Public functions
+
+Render::Render()
+{
+  construct(640, 480, "");
 }
 
 Render::Render(int width, int height, std::string title)
 {
-  sf::RenderWindow* window = new sf::RenderWindow(
-                             sf::VideoMode(width, height, 32), title.c_str());
-  window->setFramerateLimit(60);
-  owns_render_target = true;
-  render_target = window;
+  construct(width, height, title);
 }
 
 Render::Render(sf::RenderTarget& target)
