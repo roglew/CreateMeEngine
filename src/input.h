@@ -39,7 +39,7 @@ class Input
     WindowStatus window;
     // ITEM:  Mouse position
     // DESC:  The world position of the mouse.
-    // USAGE: input.mouse_position[0 or 1] - 0->x 1->y
+    // USAGE: input.mouse_position.[x or y]
 
     // ITEM:  Key status
     // DESC:  A bool containing whether a keyboard key was pressed this frame, released
