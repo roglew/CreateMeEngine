@@ -42,8 +42,8 @@ void Input::update_mouse_position()
 Input::Input(sf::RenderWindow& ref_window)
 {
   // Make the vectors the right size
-  key.reserve(sf::Keyboard::KeyCount);
-  mouse.reserve(sf::Mouse::ButtonCount);
+  key.resize(sf::Keyboard::KeyCount);
+  mouse.resize(sf::Mouse::ButtonCount);
 
   // Save the reference window
   reference_window = &ref_window;
@@ -92,10 +92,11 @@ void Input::update()
   //// Reset the 1-frame events
 
   // Keyboard
-  for (unsigned int i=0; i < key.size(); i++)
+  std::vector<ButtonStatus>::iterator it;
+  for (it = key.begin(); it != key.end(); it++)
   {
-    key[i].pressed  = false;
-    key[i].released = false;
+    (*it).pressed  = false;
+    (*it).released = false;
   }
 
   // Mouse
@@ -178,6 +179,7 @@ void Input::update()
         mouse_button = event.mouseButton.button;
         mouse[mouse_button].released = true;
         mouse[mouse_button].down = false;
+        mouse[mouse_button].pressed = false;
         if (outstream)
           *outstream << mouse_button_names[mouse_button] << " released\n";
       break;
