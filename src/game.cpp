@@ -35,7 +35,7 @@ void Game::init()
 {
   game_is_running = true;
   render     = new Render;
-  input      = new Input(*(this->render->get_created_window()));
+  input      = new Input(*(this->render->get_render_window()));
   resources  = new ResourceManager;
   objects    = new ObjectManager(this);
 }
@@ -67,7 +67,7 @@ void Game::update()
   // If we died, kill the window
   if (!this->game_is_running)
   {
-    this->render->get_created_window()->close();
+    this->render->get_render_window()->close();
   }
   
   // Last thing we do is draw

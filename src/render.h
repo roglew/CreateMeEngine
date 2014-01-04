@@ -28,9 +28,8 @@ class Render
 {
   private:
     std::vector<DrawEvent> draw_queue;
-    sf::RenderTarget *render_target;
+    sf::RenderWindow *render_window;
     sf::View *view;
-    bool owns_render_target;
 
     void queue_draw_event(DrawEvent to_queue);
     // Adds a draw event to the queue
@@ -50,9 +49,6 @@ class Render
     Render(double width, double height, std::string title);
     // Initializes render target as a sf::RenderWindow with the given width,
     // height, and title
-
-    Render(sf::RenderTarget& target);
-    // Render to a different render target
 
     ~Render();
     // Destructor
@@ -79,12 +75,8 @@ class Render
     // EFFECTS:  Updates the sprite on the object and draws the
     //           object at the given depth
 
-    sf::RenderTarget* get_render_target();
+    sf::RenderWindow* get_render_window();
     // EFFECTS: Returns a pointer to the Render's target
-
-    sf::RenderWindow* get_created_window();
-    // EFFECTS: If the Render created a window, it returns a
-    //          pointer to it. Otherwise, it returns NULL.
 
 };
 
