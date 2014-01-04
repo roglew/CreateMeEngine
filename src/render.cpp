@@ -27,10 +27,6 @@ void Render::construct(double width, double height, std::string title)
   view = new sf::View();
   view->reset(sf::FloatRect(0, 0, width, height));
   window->setView(*view);
-  printf("init view is at (%f, %f) with a size of (%f, %f)\n",
-         view->getCenter().x, view->getCenter().y,
-         view->getSize().x, view->getSize().y);
-  
   render_window = window;
 }
 
@@ -54,14 +50,13 @@ Render::~Render()
 
 void Render::render()
 {
-  // Resize the view
-  fit_view_to_window();
   
   // Sort the queue from highest depth to lowest
   sort(draw_queue.rbegin(), draw_queue.rend());
 
-  // Set the view
+  // Set the view and fit it to the window
   render_window->setView(*view);
+  fit_view_to_window();
 
   // Iterate through the queue and draw all the objects
   for (unsigned int i=0; i<draw_queue.size(); i++)
