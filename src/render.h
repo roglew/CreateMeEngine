@@ -29,6 +29,7 @@ class Render
   private:
     std::vector<DrawEvent> draw_queue;
     sf::RenderTarget *render_target;
+    sf::View *view;
     bool owns_render_target;
 
     void queue_draw_event(DrawEvent to_queue);
@@ -38,12 +39,15 @@ class Render
     // MODIFIES: this
     // EFFECTS:  Clears the draw queue
 
+    void construct(double width, double height, std::string title);
+    // Basic constructor function
+
   public:
     Render();
     // Normal constructor. Creates a 640x480 window with no title as default
     // render target
 
-    Render(int width, int height, std::string title);
+    Render(double width, double height, std::string title);
     // Initializes render target as a sf::RenderWindow with the given width,
     // height, and title
 
@@ -57,6 +61,8 @@ class Render
     // MODIFIES: RenderWindow
     // EFFECTS:  Draws everything in the draw queue to the window
 
+    sf::View* get_view();
+    // EFFECTS: Returns a pointer to the sf::View associated with the render
 
     void clear(sf::Color clear_to = sf::Color::Black, int depth = 99999999);
     // MODIFIES: this

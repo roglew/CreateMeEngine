@@ -16,7 +16,7 @@ void Render::clear_queue()
   draw_queue.clear();
 }
 
-void Render::construct(int width, int height, std::string title)
+void Render::construct(double width, double height, std::string title)
 {
   // Set our render target to a window
   sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width, height, 32),
@@ -25,11 +25,14 @@ void Render::construct(int width, int height, std::string title)
   owns_render_target = true;
 
   // Add a view to the render window
-  view = new sf::View(sf::FloatRect(0, 0, width, height));
+  view = new sf::View();
+  view->reset(sf::FloatRect(0, 0, width, height));
   window->setView(*view);
+  printf("init view is at (%f, %f) with a size of (%f, %f)\n",
+         view->getCenter().x, view->getCenter().y,
+         view->getSize().x, view->getSize().y);
   
   render_target = window;
-  
 }
 
 // Public functions
@@ -39,7 +42,7 @@ Render::Render()
   construct(640, 480, "");
 }
 
-Render::Render(int width, int height, std::string title)
+Render::Render(double width, double height, std::string title)
 {
   construct(width, height, title);
 }
@@ -86,6 +89,11 @@ void Render::render()
     static_cast<sf::RenderWindow*>(render_target)->display();
 
   clear_queue();
+}
+
+sf::View* Render::get_view()
+{
+  return view;
 }
 
 

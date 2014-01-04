@@ -71,8 +71,18 @@ class CookieMonsterObj: public GameObject
 
 void update_view(Game* game)
 {
-  if (game->get_input()->key[sf::Keyboard::Left].down)
-    printf("KEY\n");
+  if (game->get_input()->key[sf::Keyboard::Space].pressed)
+  {
+    printf("Moving\n");
+    sf::View *view = game->get_render()->get_view();
+    int x, y;
+    x = game->get_input()->mouse_position.x;
+    y = game->get_input()->mouse_position.y;
+    view->setCenter(x, y);
+    printf("View is at (%f, %f) with a size of (%f, %f)\n",
+           view->getCenter().x, view->getCenter().y,
+           view->getSize().x, view->getSize().y);
+  }
 }
 
 int main()
