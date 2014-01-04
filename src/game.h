@@ -9,11 +9,21 @@
 
 struct GameSettings
 {
-  char         end_on_escape       = true;
-  char         end_on_window_close = true;
-  unsigned int fps                 = 60;
-  char         limit_fps           = true;
+  char         end_on_escape;
+  char         end_on_window_close;
+  unsigned int fps;
+  char         limit_fps;
+
+  GameSettings()
+  {
+    end_on_escape       = true;
+    end_on_window_close = true;
+    fps                 = 60;
+    limit_fps           = true;
+  }
 };
+
+void print_game_settings(GameSettings *settings);
 
 class Game
 {

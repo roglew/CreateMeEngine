@@ -28,8 +28,8 @@ class Render
 {
   private:
     std::vector<DrawEvent> draw_queue;
-    sf::RenderTarget *render_target;
-    bool owns_render_target;
+    sf::RenderWindow *render_window;
+    sf::View *view;
 
     void queue_draw_event(DrawEvent to_queue);
     // Adds a draw event to the queue
@@ -38,17 +38,17 @@ class Render
     // MODIFIES: this
     // EFFECTS:  Clears the draw queue
 
+    void construct(double width, double height, std::string title);
+    // Basic constructor function
+
   public:
     Render();
     // Normal constructor. Creates a 640x480 window with no title as default
     // render target
 
-    Render(int width, int height, std::string title);
+    Render(double width, double height, std::string title);
     // Initializes render target as a sf::RenderWindow with the given width,
     // height, and title
-
-    Render(sf::RenderTarget& target);
-    // Render to a different render target
 
     ~Render();
     // Destructor
@@ -57,6 +57,12 @@ class Render
     // MODIFIES: RenderWindow
     // EFFECTS:  Draws everything in the draw queue to the window
 
+    sf::View* get_view();
+    // EFFECTS: Returns a pointer to the sf::View associated with the render
+
+    void fit_view_to_window();
+    // MODIFIES: Active view
+    // EFFECTS:  Resizes the view to fit the size of the window
 
     void clear(sf::Color clear_to = sf::Color::Black, int depth = 99999999);
     // MODIFIES: this
@@ -73,12 +79,8 @@ class Render
     // EFFECTS:  Updates the sprite on the object and draws the
     //           object at the given depth
 
-    sf::RenderTarget* get_render_target();
+    sf::RenderWindow* get_render_window();
     // EFFECTS: Returns a pointer to the Render's target
-
-    sf::RenderWindow* get_created_window();
-    // EFFECTS: If the Render created a window, it returns a
-    //          pointer to it. Otherwise, it returns NULL.
 
 };
 

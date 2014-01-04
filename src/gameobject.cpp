@@ -8,14 +8,15 @@
 // Constructors/destructors
 GameObject::GameObject(Game* game)
 {
-  this->game  = game;
-  instance_id = game->get_object_manager()->add_object(this);
+  this->game          = game;
+  instance_id         = game->get_object_manager()->add_object(this);
+  this->depth         = 0;
+  this->current_frame = 0;
+  this->animation     = NULL;
 }
 
 GameObject::~GameObject()
 {
-  // When the object dies, remove it from the list
-  this->game->get_object_manager()->destroy_object(this->instance_id);
 }
 
 /////////////////////
@@ -31,84 +32,119 @@ unsigned int GameObject::get_id()
 
 void GameObject::set_position(const Vector2<int>& set_to)
 {
-  position = set_to;
+  this->position = set_to;
 }
 
 void GameObject::set_position(int x, int y)
 {
-  position.x = x;
-  position.y = y;
+  this->position.x = x;
+  this->position.y = y;
 }
 
 
 void GameObject::move(const Vector2<int>& move_vector)
 {
-  position += move_vector;
+  this->position += move_vector;
 }
 
 void GameObject::move(int x, int y)
 {
-  position.x += x;
-  position.y += y;
+  this->position.x += x;
+  this->position.y += y;
 }
 
 
 void GameObject::set_velocity(const Vector2<int>& velocity_vector)
 {
-  velocity = velocity_vector;
+  this->velocity = velocity_vector;
 }
 
 void GameObject::set_velocity(int x, int y)
 {
-  velocity.x = x;
-  velocity.y = y;
+  this->velocity.x = x;
+  this->velocity.y = y;
 }
 
 
 void GameObject::add_velocity(const Vector2<int>& velocity_vector)
 {
-  velocity += velocity_vector;
+  this->velocity += velocity_vector;
 }
 
 void GameObject::add_velocity(int x, int y)
 {
-  velocity.x += x;
-  velocity.y += y;
+  this->velocity.x += x;
+  this->velocity.y += y;
 }
 
 
 void GameObject::set_acceleration(const Vector2<int>& acceleration_vector)
 {
-  acceleration = acceleration_vector;
+  this->acceleration = acceleration_vector;
 }
 
 void GameObject::set_acceleration(int x, int y)
 {
-  acceleration.x = x;
-  acceleration.y = y;
+  this->acceleration.x = x;
+  this->acceleration.y = y;
 }
 
 
 void GameObject::add_acceleration(const Vector2<int>& acceleration_vector)
 {
-  acceleration += acceleration_vector;
+  this->acceleration += acceleration_vector;
 }
 
 void GameObject::add_acceleration(int x, int y)
 {
-  acceleration.x += x;
-  acceleration.y += y;
+  this->acceleration.x += x;
+  this->acceleration.y += y;
 }
 
 
 Vector2<int> GameObject::get_position()
 {
-  return position;
+  return this->position;
 }
 
 
 //////////////////
 // Event Methods
+
+bool GameObject::collides(ObjectType type, std::vector<unsigned int> &collides_with)
+{
+  collides_with.clear();
+  unsigned int count = game->get_object_manager()->count_objects(type);
+  for(unsigned int i=0; i < count; i++)
+  {
+    unsigned int other;
+    GameObject *other_obj;
+    other = game->get_object_manager()->find_object(type, i);
+    other_obj = game->get_object_manager()->get_object(other);
+    if (this->get_current_frame()->collides( *(other_obj->get_current_frame()) ))
+      collides_with.push_back(other);
+  }
+
+  if (collides_with.size() > 0)
+    return true;
+  else
+    return false;
+}
+
+bool GameObject::collides(ObjectType type)
+{
+  unsigned int count = game->get_object_manager()->count_objects(type);
+  for(unsigned int i=0; i < count; i++)
+  {
+    unsigned int other;
+    GameObject *other_obj;
+    other = game->get_object_manager()->find_object(type, i);
+    other_obj = game->get_object_manager()->get_object(other);
+    if (this->get_current_frame()->collides( *(other_obj->get_current_frame()) ))
+      return true;
+  }
+  return false;
+}
 
 void GameObject::process_events()
 {
@@ -118,93 +154,56 @@ void GameObject::process_events()
 /////////////////////////////
 // Sprite/Animation Methods
 
-void GameObject::append_frame(int animation, Sprite* sprite)
-{
-  animations[animation].push_back(sprite);
-}
-
-
-void GameObject::add_frame(int animation, Sprite* sprite, int n)
-{
-  
-}
-
-
-int GameObject::add_animation()
-{
-  //OPTIMIZE
-  // create and delete the animation vectors
-  std::vector<Sprite*> temp;
-  animations.push_back(temp);
-
-  int size;
-  size = animations.size();
-
-  // Set a default frame/animation if this is the first animation
-  if (size == 1)
-  {
-    current_animation = 0;
-    current_frame = 0;
-  }
-
-  return (size-1);
-}
-
-
 void GameObject::next_frame()
 {
   // Go to the next frame
-  current_frame++;
+  this->current_frame++;
 
   // Loop back to the first frame if we've reached the end of the animation
-  if (current_frame >= animations[current_animation].size())
-    current_frame = 0;
+  if (this->current_frame >= this->animation->size())
+    this->current_frame = 0;
 }
 
 
 void GameObject::set_frame(int n)
 {
-  current_frame = n;
-
-  int anim_length;
-  anim_length = animations[current_animation].size();
-
-  while (current_frame < 0)
-    current_frame += anim_length;
-  while (current_frame >= anim_length)
-    current_frame -= anim_length;
+  this->current_frame = n;
 }
 
 
-void GameObject::set_animation(int animation)
+void GameObject::set_animation(Animation* animation)
 {
-  current_animation = animation;
-  while (current_animation < 0)
-    current_animation++;
-  while (current_animation >= animations.size())
-    current_animation--;
+  this->animation = animation;
 }
 
 
 Sprite* GameObject::get_current_frame()
 {
-  return (animations[current_animation][current_frame]);
+  return this->animation->get_frame(this->current_frame);
 }
 
+Animation* GameObject::get_animation()
+{
+  return this->animation;
+}
 
 Sprite* GameObject::get_frame(int n)
 {
-  
+  return this->animation->get_frame(n);
 }
 
-
-Sprite* GameObject::get_frame(int animation, int n)
+int GameObject::get_depth()
 {
-  
+  return this->depth;
+}
+
+void GameObject::set_depth(int dep)
+{
+  this->depth = dep;
 }
 
 void GameObject::update_sprite()
 {
-  get_current_frame()->setPosition(position.x, position.y);
+  this->get_current_frame()->set_position(position.x, position.y);
 }
 

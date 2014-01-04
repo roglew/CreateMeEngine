@@ -1,3 +1,4 @@
+#include "animation.h"
 #include "collision.h"
 #include "gameobject.h"
 #include "input.h"

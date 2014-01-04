@@ -4,8 +4,8 @@
 #include <iostream>
 #include "resourcemanager.h"
 
-extern std::string image_paths[];
-extern std::string sound_paths[];
+extern std::string IMAGE_PATHS[];
+extern std::string SOUND_PATHS[];
 
 ResourceManager::ResourceManager()
 {
@@ -20,7 +20,8 @@ ResourceManager::~ResourceManager()
   
   for (it = loaded_textures.begin(); it != loaded_textures.end(); it++)
   {
-    delete (*it).second;
+    delete it->second;
+    it->second = NULL;
   }
 }
 
@@ -37,7 +38,7 @@ void ResourceManager::load_texture(std::string filename)
 
 void ResourceManager::load_texture(ResourceImage rimage)
 {
-  load_texture(image_paths[rimage]);
+  load_texture(IMAGE_PATHS[rimage]);
 }
 
 bool ResourceManager::texture_loaded(std::string filename)
@@ -50,15 +51,16 @@ bool ResourceManager::texture_loaded(std::string filename)
 
 bool ResourceManager::texture_loaded(ResourceImage rimage)
 {
-  return texture_loaded(image_paths[rimage]);
+  return texture_loaded(IMAGE_PATHS[rimage]);
 }
 
 sf::Texture* ResourceManager::get_texture(std::string filename)
 {
+  load_texture(filename);
   return loaded_textures[filename];
 }
 
 sf::Texture* ResourceManager::get_texture(ResourceImage rimage)
 {
-  return get_texture(image_paths[rimage]);
+  return get_texture(IMAGE_PATHS[rimage]);
 }

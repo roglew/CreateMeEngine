@@ -5,6 +5,8 @@
 #include "game.h"
 #include "vector.hpp"
 #include "sprite.h"
+#include "animation.h"
+#include "ids.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -16,9 +18,10 @@ class GameObject
   protected:
     Game *game;
     unsigned int instance_id;
+    ObjectType type;
 
-    std::vector< std::vector<Sprite*> > animations;
-    int current_animation, current_frame;
+    Animation* animation;
+    int current_frame;
     int depth;
 
     Vector2<int> position;
@@ -29,7 +32,7 @@ class GameObject
     /////////////////////////////////
     // Constructors and destructors
     GameObject(Game* game);
-    ~GameObject();
+    virtual ~GameObject();
 
     /////////////////////
     // Instance methods
@@ -74,6 +77,14 @@ class GameObject
     //////////////////
     // Event Methods
 
+    bool collides(ObjectType type, std::vector<unsigned int> &collides_with);
+    bool collides(ObjectType type);
+    // EFFECTS: Returns whether there is a collision with the object of the given type.
+    //          If a vector is given, it will be filled with all the colliding objects.
+    //          If possible, use the version without the vector since it stops checking for
+    //          collisions as soon as a single collision is detected
+
+
     virtual void process_events();
     // EFFECTS: Processes the events of the object
 
@@ -82,24 +93,6 @@ class GameObject
 
     /////////////////////////////
     // Sprite/Animation Methods
-
-    void append_frame(int animation, Sprite* sprite);
-    // REQUIRES: That the animation exists
-    // MODIFIES: This
-    // EFFECTS:  Adds a frame to the end of the given animation
-
-    void add_frame(int animation, Sprite* sprite, int n);
-    // REQUIRES: That the animation exists
-    // MODIFIES: This
-    // EFFECTS:  Inserts a frame into the given animation at the given
-    //           position
-    
-    int add_animation();
-    // MODIFIES: This
-    // EFFECTS:  Creates an animation and returns the number that is used
-    //           to reference. It starts at 0 and increments by 1 for every
-    //           additional animation. If you add animations in order,
-    //           you can use enums to reference animations
 
     void next_frame();
     // MODIFIES: This
@@ -111,7 +104,7 @@ class GameObject
     // MODIFIES: This
     // EFFECTS:  Sets the sprite to the nth frame of the current animation
 
-    void set_animation(int animation);
+    void set_animation(Animation* animation);
     // MODIFIES: This
     // EFFECTS:  Sets the current animation and changes to the first frame
 
@@ -119,17 +112,25 @@ class GameObject
     // EFFECTS: Returns a pointer to a Sprite that represents the current
     //          frame of the current animation
 
+    Animation* get_animation();
+    // EFFECTS: Returns a pointer to the current animation
+    
     Sprite* get_frame(int n);
     // EFFECTS: Returns a pointer to the Sprite that represents the
     //          nth frame of the current animation
 
-    Sprite* get_frame(int animation, int n);
-    // EFFECTS: Returns the nth frame of the given animation
+    int get_depth();
+    // EFFECTS: Returns the depth of the object
+
+    void set_depth(int depth);
+    // MODIFIES: This
+    // EFFECTS: Sets the depth of the object
 
     void update_sprite();
     // MODIFIES: Sprite pointed to by sprite
     // EFFECTS:  Adjusts the sprite to match the object
 
+    friend class ObjectManager;
 };
 
 #endif
