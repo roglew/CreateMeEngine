@@ -60,6 +60,10 @@ class Render
     sf::View* get_view();
     // EFFECTS: Returns a pointer to the sf::View associated with the render
 
+    void fit_view_to_window();
+    // MODIFIES: Active view
+    // EFFECTS:  Resizes the view to fit the size of the window
+
     void clear(sf::Color clear_to = sf::Color::Black, int depth = 99999999);
     // MODIFIES: this
     // EFFECTS:  clears the screen at the given depth

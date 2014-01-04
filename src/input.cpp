@@ -114,6 +114,9 @@ void Input::update()
 
   //// Get the new events
 
+  // Always update the mouse position
+  update_mouse_position();
+
   while (reference_window->pollEvent(event))
   {
     int mouse_button;
@@ -128,7 +131,6 @@ void Input::update()
 
       case sf::Event::Resized:
         window.resized = true;
-        update_mouse_position();
         if (outstream) *outstream << "Window resized\n";
       break;
 
@@ -185,7 +187,6 @@ void Input::update()
       break;
 
       case sf::Event::MouseMoved:
-        update_mouse_position();
       break;
 
       case sf::Event::MouseEntered:

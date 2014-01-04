@@ -54,6 +54,9 @@ Render::~Render()
 
 void Render::render()
 {
+  // Resize the view
+  fit_view_to_window();
+  
   // Sort the queue from highest depth to lowest
   sort(draw_queue.rbegin(), draw_queue.rend());
 
@@ -88,6 +91,11 @@ sf::View* Render::get_view()
   return view;
 }
 
+void Render::fit_view_to_window()
+{
+  sf::Vector2u wsize = render_window->getSize();
+  view->setSize(sf::Vector2f(wsize.x, wsize.y));
+}
 
 void Render::clear(sf::Color color, int depth)
 {
