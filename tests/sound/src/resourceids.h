@@ -128,13 +128,15 @@ std::string SOUND_PATHS[] = {
 ////////// Music //////////
 enum ResourceMusic: unsigned int
 {
+ MUS_POKEWAV,
  MUS_POKETRAP,
 
  MUS_COUNT
 };
 
 std::string MUSIC_PATHS[] = { 
-  "resources/music/PokeTrap.mp3"
+  "resources/music/PokeWav.wav",
+  "resources/music/PokeTrap.ogg"
 };
 
 

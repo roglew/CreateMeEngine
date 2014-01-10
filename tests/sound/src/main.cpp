@@ -61,6 +61,9 @@ class CookieMonsterObj: public GameObject
     Animation *my_animation = new Animation(game->get_resource_manager());
     my_animation->generate_from_id(ANIM_COOKIEMONSTER_STILL);
     this->set_animation(my_animation);
+
+    // Load my sound
+    game->get_resource_manager()->load_sound(SND_CHIRP);
   }
 
   virtual ~CookieMonsterObj()
@@ -79,6 +82,7 @@ void update_view(Game* game)
     y = game->get_input()->mouse_position.y;
     view->setCenter(x, y);
     printf("Chirping\n");
+  printf("There are %d active audios\n", game->get_resource_manager()->count_active_audio());
     game->get_resource_manager()->play_sound(SND_CHIRP);
   }
 }
@@ -93,6 +97,11 @@ int main()
   CrossObj *cross = new CrossObj(&game);
   CookieMonsterObj *cookie = new CookieMonsterObj(&game);
   cookie->set_position(128, 128);
+
+  // Max out the sounds
+  game.get_resource_manager()->play_music(MUS_POKEWAV);
+
+  printf("There are %d active audios\n", game.get_resource_manager()->count_active_audio());
 
   // Run the game
   while (game.is_running())

@@ -72,6 +72,11 @@ class ResourceManager
     // REQUIRES: < 256 sounds are currently playing
     // EFFECTS:  Plays a sound (loads it if not already loaded)
 
+    void play_music(std::string filename);
+    void play_music(ResourceMusic rmusic);
+    // REQUIRES: < 256 sounds are currently playing
+    // EFFECTS:  Plays a music
+
     void clean_audio();
     // MODIFIES: this
     // EFFECTS:  Prunes the list of active sounds and music for any audio that is stopped

@@ -1,7 +1,7 @@
 #####
 # Config
 
-SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+SFML_FLAGS = -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 # Find cpp files and their corresponding.o
 CPP_FILES = $(wildcard src/*.cpp)

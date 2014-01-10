@@ -3,11 +3,13 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <stdio.h>
 #include <algorithm>
 #include "resourcemanager.h"
 
 extern std::string IMAGE_PATHS[];
 extern std::string SOUND_PATHS[];
+extern std::string MUSIC_PATHS[];
 
 static bool sound_is_stopped(sf::Sound *sound)
 {
@@ -70,7 +72,7 @@ void ResourceManager::load_sound(std::string filename)
 
 void ResourceManager::load_sound(ResourceSound rsound)
 {
-  load_texture(SOUND_PATHS[rsound]);
+  load_sound(SOUND_PATHS[rsound]);
 }
 
 // Texture freeing
@@ -175,6 +177,7 @@ void ResourceManager::play_sound(std::string filename)
     sf::Sound *sound = new sf::Sound;
     sound->setBuffer(*buf);
     active_sounds.push_back(sound);
+    sound->play();
   }
 }
 
@@ -183,17 +186,62 @@ void ResourceManager::play_sound(ResourceSound rsound)
   play_sound(SOUND_PATHS[rsound]);
 }
 
+// Playing music
+void ResourceManager::play_music(std::string filename)
+{
+  // Clean the audio if we have to
+  if (count_active_audio() >= 256)
+    clean_audio();
+
+  // If there's room for another sound, play it
+  if (count_active_audio() < 256)
+  {
+    sf::Music *music = new sf::Music;
+    active_music.push_back(music);
+    if (!music->openFromFile(filename))
+    {
+      std::cerr << "Error opening " << filename << "\n";
+      exit(1);
+    }
+    music->play();
+  }
+}
+
+void ResourceManager::play_music(ResourceMusic rmusic)
+{
+  play_music(MUSIC_PATHS[rmusic]);
+}
+
 void ResourceManager::clean_audio()
 {
+  printf("Cleaning audio\n");
   // Erase stopped sounds
-  active_sounds.erase(
-    remove_if(active_sounds.begin(), active_sounds.end(), sound_is_stopped),
-    active_sounds.end());
+  std::vector<sf::Sound*>::iterator new_sound_end;
+  new_sound_end = remove_if(active_sounds.begin(), active_sounds.end(), sound_is_stopped);
+
+  // Delete the sounds
+  for (std::vector<sf::Sound*>::iterator it = new_sound_end; it != active_sounds.end();
+       it++)
+  {
+    delete (*it);
+  }
+
+  // Remove the sounds from the vector
+  active_sounds.erase(new_sound_end, active_sounds.end());
 
   // Erase stopped music
-  active_music.erase(
-    remove_if(active_music.begin(), active_music.end(), music_is_stopped),
-    active_music.end());
+  std::vector<sf::Music*>::iterator new_music_end;
+  new_music_end = remove_if(active_music.begin(), active_music.end(), music_is_stopped);
+
+  // Delete the sounds
+  for (std::vector<sf::Music*>::iterator it = new_music_end; it != active_music.end();
+       it++)
+  {
+    delete (*it);
+  }
+
+  // Remove the music from the vector
+  active_music.erase(new_music_end, active_music.end());
 }
 
 unsigned int ResourceManager::count_active_audio()

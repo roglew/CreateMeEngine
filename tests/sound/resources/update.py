@@ -21,7 +21,7 @@ SOUND_PATHVAR = 'SOUND_PATHS'
 
 MUSIC_PREFIX = 'MUS'
 MUSIC_SUBDIR = 'music'
-MUSIC_EXTS = ['wav', 'mp3', 'ogg']
+MUSIC_EXTS = ['wav', 'ogg']
 MUSIC_ENUM = 'ResourceMusic'
 MUSIC_PATHVAR = 'MUSIC_PATHS'
 
