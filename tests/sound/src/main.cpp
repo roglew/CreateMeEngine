@@ -78,6 +78,8 @@ void update_view(Game* game)
     x = game->get_input()->mouse_position.x;
     y = game->get_input()->mouse_position.y;
     view->setCenter(x, y);
+    printf("Chirping\n");
+    game->get_resource_manager()->play_sound(SND_CHIRP);
   }
 }
 

@@ -1,7 +1,7 @@
 #####
 # Config
 
-SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+SFML_FLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 CPP_FILES = $(wildcard src/*.cpp)  # All of the c++ files
 OBJ_FILES = $(wildcard bin/*.o)    # Existing .o files
@@ -15,7 +15,7 @@ IMAGES := $(shell find resources/images)
 # Builds
 
 # Main build
-view.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
+sound.test: src/main.cpp $(wildcard engbin/*) src/resourceids.h
 	cd ../..; make obj
 	cp ../../bin/* engbin/
 	g++ $< $(wildcard engbin/*) -g -Wall -std=c++11 -o $@ -I$(ENGINE_DIR) $(SFML_FLAGS)

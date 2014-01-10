@@ -35,3 +35,107 @@ enum CollisionType : int
 #endif
 
 
+////////// Images //////////
+enum ResourceImage: unsigned int
+{
+ IMG_CROSS,
+ IMG_SUBDIR1_SUBDIR2_SUBDIRIMAGE,
+ IMG_TESTIMAGE,
+ IMG_COOKIEMONSTER,
+
+ IMG_COUNT
+};
+
+std::string IMAGE_PATHS[] = { 
+  "resources/images/cross.png",
+  "resources/images/subdir1/subdir2/subdirimage.png",
+  "resources/images/testimage.png",
+  "resources/images/cookiemonster.png"
+};
+
+////////// ANIMATIONS //////////
+enum ResourceAnimation: unsigned int
+{
+ ANIM_CROSS_SPIN,
+ ANIM_CROSS_TATER,
+ ANIM_COOKIEMONSTER_STILL,
+
+ ANIM_COUNT
+};
+
+AnimationStripConfig PREDEFINED_ANIMATIONS[] = {
+  {IMG_CROSS, 0, 0, 32, 32, 0, 0, 4, 4},
+  {IMG_CROSS, 0, 0, 32, 32, 0, 0, 2, 2},
+  {IMG_COOKIEMONSTER, 0, 0, 250, 224, 0, 0, 1, 1}
+};
+
+const unsigned int PREDEFINED_COLLISION_DATA[] = {
+  // ANIM_CROSS_SPIN
+  COLLISION_BOUNDING_BOX, 0, 0, 1, 1,
+  COLLISION_BOUNDING_BOX, 31, 31, 1, 1,
+  // ANIM_CROSS_TATER
+  COLLISION_BOUNDING_BOX, 0, 0, 14, 12
+};
+
+const int PREDEFINED_COLLISION_DATA_LOC[][2] = {
+  // ANIM_CROSS_SPIN
+  {0, 5},
+  {0, 5},
+  {5, 5},
+  {5, 5},
+  // ANIM_CROSS_TATER
+  {0, 0},
+  {10, 5}
+};
+
+// Stores the index+1 of where in the data_loc array each frame is. It
+// stores index+1 of the array so that we can use 0 to tell the program to create
+// its own bounding box
+const unsigned int PREDEFINED_COLLISION_DATA_FRAME[] = {
+  // ANIM_CROSS_SPIN
+  1,
+
+  // ANIM_CROSS_TATER
+  5,
+
+  // ANIM_COOKIEMONSTER_STILL
+  0
+};
+
+const char ANIMATION_HAS_COLLISION[] = {
+  // ANIM_CROSS_SPIN
+  true,
+
+  // ANIM_CROSS_TATER
+  true,
+
+  // ANIM_COOKIEMONSTER_STILL
+  true
+};
+
+////////// Sounds //////////
+enum ResourceSound: unsigned int
+{
+ SND_CHIRP,
+
+ SND_COUNT
+};
+
+std::string SOUND_PATHS[] = { 
+  "resources/sounds/chirp.wav"
+};
+
+////////// Music //////////
+enum ResourceMusic: unsigned int
+{
+ MUS_POKETRAP,
+
+ MUS_COUNT
+};
+
+std::string MUSIC_PATHS[] = { 
+  "resources/music/PokeTrap.mp3"
+};
+
+
+#endif
