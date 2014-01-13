@@ -15,6 +15,8 @@ class Game;
 
 class GameObject
 {
+  friend class ObjectManager;
+
   protected:
     Game *game;
     unsigned int instance_id;
@@ -130,7 +132,6 @@ class GameObject
     // MODIFIES: Sprite pointed to by sprite
     // EFFECTS:  Adjusts the sprite to match the object
 
-    friend class ObjectManager;
 };
 
 #endif

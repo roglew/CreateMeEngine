@@ -26,7 +26,6 @@ unsigned int GameObject::get_id()
   return this->instance_id;
 }
 
-
 /////////////////////
 // Movement methods
 
