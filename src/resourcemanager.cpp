@@ -28,6 +28,13 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+  free_all();
+}
+
+// Misc
+
+void ResourceManager::free_all()
+{
   // Free loaded textures
   std::map<std::string, sf::Texture*>::iterator it;
   for (it = loaded_textures.begin(); it != loaded_textures.end(); it++)

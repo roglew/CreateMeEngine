@@ -21,6 +21,10 @@ class ResourceManager
     ResourceManager();
     ~ResourceManager();
 
+    void free_all();
+    // MODIFIES: this
+    // EFFECTS:  Frees all loaded resources
+    
     void load_texture(std::string filename);
     void load_texture(ResourceImage rimage);
     // REQUIRES: The given file exists
