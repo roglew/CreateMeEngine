@@ -108,14 +108,17 @@ def get_definition_string(resources, prefix, name, enum_name, list_name):
   def_string += '\n %s_COUNT\n' % prefix
   def_string += '};\n\n'
 
-  # Map each enum to a string
-  def_string += 'std::string %s[] = { \n' % list_name
-  for res_name in pairs:
-    def_string += '  "%s",\n' % pairs[res_name]
-  # remove the last comma
-  def_string = def_string[:-2]
+  if len(pairs) > 0:
+    # Map each enum to a string
+    def_string += 'std::string %s[] = { \n' % list_name
+    for res_name in pairs:
+      def_string += '  "%s",\n' % pairs[res_name]
+    # remove the last comma
+    def_string = def_string[:-2]
 
-  def_string += '\n};\n\n'
+    def_string += '\n};\n\n'
+  else:
+    def_string += 'std::string *%s = NULL;\n' % list_name
 
   # return the string
   return def_string
@@ -295,74 +298,82 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   ##### DATA ARRAY #####
   # Create the data array. This is a constant stream of data of all the frames
   # and all the collision pieces
-  def_string += 'AnimationStripConfig %s[] = {\n' % list_name
-  for animation in anim_list:
-    def_string += '  {%s, %d, %d, %d, %d, %d, %d, %d, %d},\n' % \
-        ( animation["res_image"], animation["start_x"], animation["start_y"],
-          animation["w"], animation["h"], animation["hsep"], animation["vsep"],
-          animation["frames_per_row"], animation["frame_count"], )
-
-  def_string = def_string[:-2] # Remove the last comma
-  def_string += '\n};\n\n' # Close the definition
+  if len(anim_list) > 0:
+    def_string += 'AnimationStripConfig %s[] = {\n' % list_name
+    for animation in anim_list:
+      def_string += '  {%s, %d, %d, %d, %d, %d, %d, %d, %d},\n' % \
+          ( animation["res_image"], animation["start_x"], animation["start_y"],
+            animation["w"], animation["h"], animation["hsep"], animation["vsep"],
+            animation["frames_per_row"], animation["frame_count"], )
+    def_string = def_string[:-2] # Remove the last comma
+    def_string += '\n};\n\n' # Close the definition
+  else:
+    def_string += 'AnimationStripConfig *%s = NULL;\n' % list_name
 
   # Print the raw data array
-  def_string += 'const unsigned int PREDEFINED_COLLISION_DATA[] = {\n'
-  pos = 0
-  close = False
-  for animation in anim_list:
-    # We check the length of collisiond data since we can have colliding sprites
-    # with no data (the ones we use the full image for)
-    if len(animation['collision_data']) > 0:
-      def_string += '  // %s\n' % animation["enum_name"]
-      for collision in animation["collision_data"]:
-        if collision["type"] is "boundingbox":
-          close = True
-          # We store the data location in the collision dict
-          collision["data_loc"] = [pos, 5]
+  if len(anim_list) > 0:
+    def_string += 'const unsigned int PREDEFINED_COLLISION_DATA[] = {\n'
+    pos = 0
+    close = False
+    for animation in anim_list:
+      # We check the length of collisiond data since we can have colliding sprites
+      # with no data (the ones we use the full image for)
+      if len(animation['collision_data']) > 0:
+        def_string += '  // %s\n' % animation["enum_name"]
+        for collision in animation["collision_data"]:
+          if collision["type"] is "boundingbox":
+            close = True
+            # We store the data location in the collision dict
+            collision["data_loc"] = [pos, 5]
 
-          # Add the data to the file
-          def_string += "  %s, %d, %d, %d, %d,\n" % \
-              ("COLLISION_BOUNDING_BOX", collision["x"], collision["y"],
-               collision["w"], collision["h"])
+            # Add the data to the file
+            def_string += "  %s, %d, %d, %d, %d,\n" % \
+                ("COLLISION_BOUNDING_BOX", collision["x"], collision["y"],
+                 collision["w"], collision["h"])
 
-          # Update the current position in the array
-          pos += 5
-  
-  if (close):
-    def_string = def_string[:-2] # Remove the last comma and space
-  def_string += '\n};\n\n' # Close the definition
+            # Update the current position in the array
+            pos += 5
+
+    if (close):
+      def_string = def_string[:-2] # Remove the last comma and space
+    def_string += '\n};\n\n' # Close the definition
+  else:
+    def_string += 'const unsigned int *PREDEFINED_COLLISION_DATA = NULL\n'
 
   ###### DATA LOC #####
   # Add info about where the collision info is in the array for each frame of
   # each animation
-  def_string += 'const int PREDEFINED_COLLISION_DATA_LOC[][2] = {\n'
+  if len(anim_list) > 0:
+    def_string += 'const int PREDEFINED_COLLISION_DATA_LOC[][2] = {\n'
 
-  # This is an array of frames that tell where in the data array each frame's
-  # collision data is
-  for animation in anim_list:
-    # We check the length of collisiond data since we can have colliding sprites
-    # with no data (the ones we use the full image for)
-    if len(animation['collision_data']) > 0:
-      def_string += '  // %s\n' % animation["enum_name"]
-      for frame in range(animation["frame_count"]):
-        pos = -1
-        length = 0
-
-        for collision in animation["collision_data"]:
-          if frame in collision["active_frames"]:
-            if pos == -1:
-              pos = collision["data_loc"][0]
-              length = 0
-            length += collision["data_loc"][1]
-
-        if pos is -1:
-          pos = 0
+    # This is an array of frames that tell where in the data array each frame's
+    # collision data is
+    for animation in anim_list:
+      # We check the length of collisiond data since we can have colliding sprites
+      # with no data (the ones we use the full image for)
+      if len(animation['collision_data']) > 0:
+        def_string += '  // %s\n' % animation["enum_name"]
+        for frame in range(animation["frame_count"]):
+          pos = -1
           length = 0
-        def_string += "  {%d, %d},\n" % (pos, length)
 
-  if (close):
-    def_string = def_string[:-2] # Remove the last comma and space
-  def_string += '\n};\n\n' # Close the definition
+          for collision in animation["collision_data"]:
+            if frame in collision["active_frames"]:
+              if pos == -1:
+                pos = collision["data_loc"][0]
+                length = 0
+              length += collision["data_loc"][1]
+
+          if pos is -1:
+            pos = 0
+            length = 0
+          def_string += "  {%d, %d},\n" % (pos, length)
+
+    if (close):
+      def_string = def_string[:-2] # Remove the last comma and space
+    def_string += '\n};\n\n' # Close the definition
+  else:
+    def_string += 'const int **PREDEFINED_COLLISION_DATA_LOC = NULL\n'
 
   ##### DATA_LOC START #####
   # This tells which frame each animation starts at
@@ -387,18 +398,21 @@ def get_animation_definition_string(animation_files, anim_prefix, img_prefix,
   def_string += '\n};\n\n' # Close the definition
 
   # Create the array saying whether we have collision data for the animation
-  def_string += 'const char ANIMATION_HAS_COLLISION[] = {\n'
+  if len(anim_list) > 0:
+    def_string += 'const char ANIMATION_HAS_COLLISION[] = {\n'
 
-  ##### HAS_COLLISION #####
-  for animation in anim_list:
-    def_string += '  // %s\n' % animation['enum_name']
-    if animation['collides']:
-      def_string += '  true,\n\n'
-    else:
-      def_string += '  false,\n\n'
-  
-  def_string = def_string[:-3] # Remove the last comma and space
-  def_string += '\n};\n\n' # Close the definition
+    ##### HAS_COLLISION #####
+    for animation in anim_list:
+      def_string += '  // %s\n' % animation['enum_name']
+      if animation['collides']:
+        def_string += '  true,\n\n'
+      else:
+        def_string += '  false,\n\n'
+
+    def_string = def_string[:-3] # Remove the last comma and space
+    def_string += '\n};\n\n' # Close the definition
+  else:
+    def_string += 'const char *ANIMATION_HAS_COLLISION = NULL;\n'
   
 
   return def_string
@@ -447,7 +461,7 @@ DON'T MANUALLY CHANGE THE FILE! This file will be overwritten every build
 
 
 #include <string>
-#include <engine.h>
+#include "engine/engine.h"
 
 #define __RESOURCE_IDS__
 

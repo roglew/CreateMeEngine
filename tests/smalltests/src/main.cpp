@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include <engine.h>
+#include "engine/engine.h"
 
 enum ObjectType: unsigned int
 {
