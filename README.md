@@ -6,12 +6,12 @@ What is it?
 
 The Create Me Engine is an effort to create a general use 2D game engine that abstracts away everything it can for you. Libraries like SDL and SFML are fairly standard, but they don't abstract away anything beyond drawing images and shapes. While I don't want to downplay the huge amount of work that it takes to get libraries like that working well, it still takes a large amount of coding before a programmer can get to the fun stuff. I.e. actually making objects interact with each other.
 
-The engine is a work in progress!!!!!
--------------------------------------
+This Project is Currently On Hiatus
+-----------------------------------
 
-Please remember that this is heavily a work in progress. I'll be making legacy-breaking changes on a very regular basis. It's buggy, inefficient, doesn't have a build system for anything besides linux, and will probably segfault if you look at it funny. However, it's almost "feature complete" meaning it will at least attempt to do everything I want it to do. The big reason that there will be a lot of game-breaking bugs is because I plan on doing what I can to shrink down as much of the verbose code as I can. At the moment it takes a chain of about three or four ->'s in order to do anything. In addition, the main way of creating objects is just using a *new*. Yeah, it hurts, doesn't it? In addition, I'm still in the middle of getting my CS degree. This means I won't understand much about making things efficient at least until the end of the Winter 2014 semester (I'm taking a class). Until then, I'm just going to iron out crashing bugs, memory leaks, and segfaults, and I'll be working on making it easier to use. So please don't try to make anything with this yet.
+I am currently taking a break from working on this project to do the workload from school and other obligations. In addition, all of the code in this project requires revising. I have learned a lot about programming since I stopped work on this project, and I have a long list of refactorings that I would need to do before continuing work on the engine. I plan on returning once I have enough experience to do this project justice.
 
-But please, look at the code and critique it. I'm always happy to take suggestions as I build this thing.
+If you still want to see the most updated version of the code, check out the development branch.
 
 Philosophy
 ----------
