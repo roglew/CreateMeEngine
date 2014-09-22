@@ -9,7 +9,7 @@ The Create Me Engine is an effort to create a general use 2D game engine that ab
 This Project is Currently On Hiatus
 -----------------------------------
 
-I am currently taking a break from working on this project to do the workload from school and other obligations. In addition, all of the code in this project requires revising. I have learned a lot about programming since I stopped work on this project, and I have a long list of refactorings that I would need to do before continuing work on the engine. I plan on returning once I have enough experience to do this project justice.
+I am currently taking a break from working on this project due to the workload from school and other obligations. In addition, all of the code in this project requires revising. I have learned a lot about programming since I stopped work on this project, and I have a long list of refactorings that I would need to do before continuing work on the engine. I plan on returning once I have enough experience to do this project justice.
 
 If you still want to see the most updated version of the code, check out the development branch.
 
